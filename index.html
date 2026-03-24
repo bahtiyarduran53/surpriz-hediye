@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SürprizLink — Dijital Hediye Gönder</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #13131a;
+  --surface2: #1a1a24;
+  --border: #22222e;
+  --text: #f0f0f8;
+  --muted: #6b6b80;
+  --accent: #7c3aed;
+  --accent2: #a855f7;
+  --funny: #ff6b35;
+  --romantic: #ff3d7f;
+  --birthday: #f59e0b;
+  --special: #06b6d4;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ── NAV ── */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 48px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: rgba(10,10,15,0.9);
+  backdrop-filter: blur(12px);
+  z-index: 100;
+}
+
+.logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.5px;
+}
+
+.logo span { color: var(--accent); }
+
+.nav-cta {
+  padding: 10px 24px;
+  background: var(--accent);
+  border-radius: 20px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.nav-cta:hover {
+  background: var(--accent2);
+  transform: translateY(-1px);
+}
+
+/* ── HERO ── */
+.hero {
+  text-align: center;
+  padding: 80px 24px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%);
+  top: -200px; left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(124,58,237,0.1);
+  border: 1px solid rgba(124,58,237,0.3);
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--accent2);
+  margin-bottom: 24px;
+}
+
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 56px;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(90deg, var(--accent), var(--romantic));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 18px;
+  max-width: 480px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  padding: 16px 32px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border: none;
+  border-radius: 14px;
+  color: white;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(124,58,237,0.4);
+}
+
+.btn-secondary {
+  padding: 16px 32px;
+  background: transparent;
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover { border-color: var(--muted); }
+
+/* ── ÖZEL GÜN BANNER ── */
+.special-banner {
+  margin: 0 48px 48px;
+  padding: 20px 28px;
+  background: linear-gradient(135deg, rgba(6,182,212,0.1), rgba(124,58,237,0.1));
+  border: 1px solid rgba(6,182,212,0.3);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.banner-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.banner-emoji { font-size: 40px; }
+
+.banner-text h3 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--special);
+  margin-bottom: 4px;
+}
+
+.banner-text p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.banner-btn {
+  padding: 10px 24px;
+  background: var(--special);
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.banner-btn:hover { opacity: 0.9; }
+
+/* ── KATEGORİLER ── */
+.section {
+  padding: 0 48px 64px;
+}
+
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.section-sub {
+  color: var(--muted);
+  font-size: 15px;
+  margin-bottom: 32px;
+}
+
+.kategori-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.kategori-kart {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.kategori-kart:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.kategori-kart.ozel-gun {
+  border-color: rgba(6,182,212,0.4);
+  background: linear-gradient(135deg, var(--surface), rgba(6,182,212,0.05));
+}
+
+.kategori-kart.ozel-gun:hover {
+  border-color: var(--special);
+}
+
+.ozel-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 3px 8px;
+  background: var(--special);
+  border-radius: 8px;
+  font-size: 10px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+.kategori-emoji { font-size: 36px; }
+
+.kategori-isim {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.kategori-sayi {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ── NASIL ÇALIŞIR ── */
+.nasil-section {
+  padding: 64px 48px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 64px;
+}
+
+.adimlar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 32px;
+  margin-top: 40px;
+}
+
+.adim {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.adim-num {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.adim h3 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.adim p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── FİYAT ── */
+.fiyat-section {
+  padding: 0 48px 80px;
+  text-align: center;
+}
+
+.fiyat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  max-width: 700px;
+  margin: 40px auto 0;
+}
+
+.fiyat-kart {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  transition: all 0.2s;
+}
+
+.fiyat-kart.populer {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, var(--surface), rgba(124,58,237,0.08));
+  position: relative;
+}
+
+.populer-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 16px;
+  background: var(--accent);
+  border-radius: 20px;
+  font-size: 12px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  color: white;
+  white-space: nowrap;
+}
+
+.fiyat { 
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 48px;
+  margin: 12px 0 4px;
+}
+
+.fiyat span {
+  font-size: 20px;
+  color: var(--muted);
+}
+
+.fiyat-aciklama {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.fiyat-ozellik {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.fiyat-ozellik::before {
+  content: '✓';
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.fiyat-btn {
+  width: 100%;
+  margin-top: 24px;
+  padding: 14px;
+  border-radius: 12px;
+  border: 2px solid var(--accent);
+  background: transparent;
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.fiyat-kart.populer .fiyat-btn {
+  background: var(--accent);
+}
+
+.fiyat-btn:hover {
+  background: var(--accent);
+  color: white;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 32px 48px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ── MOBİL ── */
+@media (max-width: 768px) {
+  nav { padding: 16px 20px; }
+  .hero { padding: 60px 20px 48px; }
+  .hero h1 { font-size: 36px; }
+  .special-banner { margin: 0 20px 32px; flex-direction: column; }
+  .section { padding: 0 20px 48px; }
+  .nasil-section { padding: 48px 20px; }
+  .fiyat-section { padding: 0 20px 60px; }
+  footer { padding: 24px 20px; flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Sürpriz<span>Link</span></div>
+  <button class="nav-cta" onclick="window.location.href='olustur.html'">🎁 Hediye Oluştur</button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">✨ Türkiye'nin ilk dijital sürpriz hediye sitesi</div>
+  <h1>Sürprizi <em>hissettir,</em><br>linki at, bekle.</h1>
+  <p>Kişiselleştirilmiş dijital hediyeler. Anında teslim, sıfır kargo, %100 sürpriz.</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="window.location.href='olustur.html'">🎁 Hemen Oluştur</button>
+    <button class="btn-secondary" onclick="document.getElementById('nasil').scrollIntoView({behavior:'smooth'})">Nasıl Çalışır?</button>
+  </div>
+</div>
+
+<!-- ÖZEL GÜN BANNER -->
+<div class="special-banner" id="special-banner">
+  <div class="banner-left">
+    <div class="banner-emoji">🌸</div>
+    <div class="banner-text">
+      <h3>8 Mart Kadınlar Günü Yaklaşıyor!</h3>
+      <p>Hayatındaki özel kadınlara dijital sürpriz gönder</p>
+    </div>
+  </div>
+  <button class="banner-btn" onclick="window.location.href='olustur.html?kategori=8-mart'">Hemen Gönder →</button>
+</div>
+
+<!-- KATEGORİLER -->
+<div class="section">
+  <h2 class="section-title">Kategoriler</h2>
+  <p class="section-sub">Hangi sürprizi göndermek istiyorsun?</p>
+  <div class="kategori-grid" id="kategori-grid">
+
+    <!-- Özel Gün -->
+    <div class="kategori-kart ozel-gun" onclick="window.location.href='olustur.html?kategori=8-mart'">
+      <div class="ozel-badge">ÖZEL GÜN</div>
+      <div class="kategori-emoji">🌸</div>
+      <div class="kategori-isim">8 Mart</div>
+      <div class="kategori-sayi">Kadınlar Günü</div>
+    </div>
+
+    <!-- Kalıcı Kategoriler -->
+    <div class="kategori-kart" onclick="window.location.href='olustur.html?kategori=komik'">
+      <div class="kategori-emoji">😂</div>
+      <div class="kategori-isim">Komik & Şaka</div>
+      <div class="kategori-sayi">En çok tercih edilen</div>
+    </div>
+
+    <div class="kategori-kart" onclick="window.location.href='olustur.html?kategori=romantik'">
+      <div class="kategori-emoji">💕</div>
+      <div class="kategori-isim">Romantik</div>
+      <div class="kategori-sayi">Sevgililer için</div>
+    </div>
+
+    <div class="kategori-kart" onclick="window.location.href='olustur.html?kategori=dogum-gunu'">
+      <div class="kategori-emoji">🎂</div>
+      <div class="kategori-isim">Doğum Günü</div>
+      <div class="kategori-sayi">Unutulmaz kutlama</div>
+    </div>
+
+    <div class="kategori-kart" onclick="window.location.href='olustur.html?kategori=mezuniyet'">
+      <div class="kategori-emoji">🎓</div>
+      <div class="kategori-isim">Mezuniyet</div>
+      <div class="kategori-sayi">Başarıyı kutla</div>
+    </div>
+
+    <div class="kategori-kart" onclick="window.location.href='olustur.html?kategori=evlilik'">
+      <div class="kategori-emoji">💍</div>
+      <div class="kategori-isim">Evlilik & Nişan</div>
+      <div class="kategori-sayi">Mutlu çiftler için</div>
+    </div>
+
+    <div class="kategori-kart" onclick="window.location.href='olustur.html?kategori=arkadaslik'">
+      <div class="kategori-emoji">🤝</div>
+      <div class="kategori-isim">Arkadaşlık</div>
+      <div class="kategori-sayi">Dostlara sürpriz</div>
+    </div>
+
+    <div class="kategori-kart" onclick="window.location.href='olustur.html?kategori=genel'">
+      <div class="kategori-emoji">🎁</div>
+      <div class="kategori-isim">Genel</div>
+      <div class="kategori-sayi">Her occasion için</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- NASIL ÇALIŞIR -->
+<div class="nasil-section" id="nasil">
+  <div style="max-width:800px; margin:0 auto">
+    <h2 class="section-title">Nasıl Çalışır?</h2>
+    <p class="section-sub">3 adımda sürprizini hazırla</p>
+    <div class="adimlar">
+      <div class="adim">
+        <div class="adim-num">1</div>
+        <h3>Oluştur</h3>
+        <p>Kategori ve ambalaj seç, fotoğraf ekle, kişisel mesajını yaz.</p>
+      </div>
+      <div class="adim">
+        <div class="adim-num">2</div>
+        <h3>Öde & Al</h3>
+        <p>19 TL ödeme yap, benzersiz sürpriz linkin anında hazır.</p>
+      </div>
+      <div class="adim">
+        <div class="adim-num">3</div>
+        <h3>At & Bekle</h3>
+        <p>Linki WhatsApp'tan at. Açtığı an animasyon başlar, sürpriz patlar!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FİYAT -->
+<div class="fiyat-section">
+  <h2 class="section-title">Fiyatlar</h2>
+  <p class="section-sub">Bir kahveden ucuz, bin kat daha etkili</p>
+  <div class="fiyat-grid">
+
+    <div class="fiyat-kart">
+      <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:16px">Tek Hediye</div>
+      <div class="fiyat">19<span> TL</span></div>
+      <div class="fiyat-aciklama">Tek seferlik sürpriz link</div>
+      <div class="fiyat-ozellik">Tüm ambalaj seçenekleri</div>
+      <div class="fiyat-ozellik">Fotoğraf yükleme</div>
+      <div class="fiyat-ozellik">Kişisel mesaj</div>
+      <div class="fiyat-ozellik">Ses efekti</div>
+      <button class="fiyat-btn" onclick="window.location.href='olustur.html'">Hemen Oluştur</button>
+    </div>
+
+    <div class="fiyat-kart populer">
+      <div class="populer-badge">⭐ En Popüler</div>
+      <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:16px">3'lü Paket</div>
+      <div class="fiyat">39<span> TL</span></div>
+      <div class="fiyat-aciklama">3 ayrı sürpriz link</div>
+      <div class="fiyat-ozellik">Tüm ambalaj seçenekleri</div>
+      <div class="fiyat-ozellik">Fotoğraf yükleme</div>
+      <div class="fiyat-ozellik">Kişisel mesaj</div>
+      <div class="fiyat-ozellik">Ses efekti</div>
+      <div class="fiyat-ozellik">Kişi başı 13 TL!</div>
+      <button class="fiyat-btn" onclick="window.location.href='olustur.html?paket=3lu'">Paketi Al</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo" style="font-size:16px">Sürpriz<span>Link</span></div>
+  <div>© 2026 SürprizLink — Tüm hakları saklıdır</div>
+</footer>
+
+</body>
+</html>
