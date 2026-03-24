@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sürprizin Var! 🎁</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #0a0a0f;
+  color: white;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── CANVAS ── */
+#canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── ARKA PLAN ── */
+.arka-plan {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  transition: background 1s;
+}
+
+/* ── ANA İÇERİK ── */
+.icerik {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 40px 24px;
+  max-width: 480px;
+  width: 100%;
+}
+
+/* ── EKRAN 1: KAPALII AMBALAJ ── */
+#ekran-kapali {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.ambalaj-wrapper {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.ambalaj-wrapper:active { transform: scale(0.95); }
+
+.ambalaj-ana {
+  font-size: 120px;
+  display: block;
+  animation: sallan 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 40px rgba(124,58,237,0.4));
+  user-select: none;
+}
+
+@keyframes sallan {
+  0%, 100% { transform: rotate(-5deg) scale(1); }
+  25% { transform: rotate(5deg) scale(1.05); }
+  50% { transform: rotate(-3deg) scale(1); }
+  75% { transform: rotate(3deg) scale(1.02); }
+}
+
+.tik-efekti {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  border: 3px solid rgba(124,58,237,0.4);
+  animation: tik 1.5s ease-out infinite;
+}
+
+.tik-efekti:nth-child(2) { animation-delay: 0.5s; }
+.tik-efekti:nth-child(3) { animation-delay: 1s; }
+
+@keyframes tik {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+.ac-yazi {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  color: rgba(255,255,255,0.9);
+  animation: nabiz 1s ease-in-out infinite;
+}
+
+@keyframes nabiz {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.97); }
+}
+
+.kimden-on {
+  font-size: 14px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 1px;
+}
+
+/* ── AÇILMA ANİMASYONU ── */
+#ekran-acilis {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.acilis-emoji {
+  font-size: 100px;
+  animation: patla 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes patla {
+  from { transform: scale(0) rotate(-20deg); opacity: 0; }
+  to { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* ── EKRAN 2: AÇIK HEDİYE ── */
+#ekran-acik {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  animation: yukariCik 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes yukariCik {
+  from { opacity: 0; transform: translateY(40px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.hediye-foto {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255,255,255,0.2);
+  display: none;
+  animation: yukariCik 0.6s both;
+  animation-delay: 0.1s;
+}
+
+.acik-emoji {
+  font-size: 72px;
+  filter: drop-shadow(0 0 30px rgba(255,255,255,0.3));
+  animation: yukariCik 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.kimden {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: 'Syne', sans-serif;
+  animation: yukariCik 0.5s both;
+  animation-delay: 0.2s;
+}
+
+.mesaj-kutu {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 24px 28px;
+  max-width: 380px;
+  animation: yukariCik 0.5s both;
+  animation-delay: 0.3s;
+}
+
+.mesaj-text {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.4;
+  color: white;
+}
+
+.gonderen-text {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 12px;
+  font-style: italic;
+}
+
+/* Alt butonlar */
+.alt-butonlar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 300px;
+  animation: yukariCik 0.5s both;
+  animation-delay: 0.5s;
+}
+
+.sen-de-btn {
+  padding: 16px;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  border: none;
+  border-radius: 14px;
+  color: white;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sen-de-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(124,58,237,0.4);
+}
+
+.paylash-btn {
+  padding: 14px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 14px;
+  color: rgba(255,255,255,0.7);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.paylash-btn:hover { background: rgba(255,255,255,0.15); color: white; }
+
+/* ── AMBALAJ SPESİFİK TEMALAR ── */
+.tema-kutu .arka-plan { background: radial-gradient(ellipse at center, #1a0a2e 0%, #0a0510 100%); }
+.tema-yumurta .arka-plan { background: radial-gradient(ellipse at center, #0a1a0a 0%, #050a05 100%); }
+.tema-zarf .arka-plan { background: radial-gradient(ellipse at center, #1a1000 0%, #0a0800 100%); }
+.tema-fiyonk .arka-plan { background: radial-gradient(ellipse at center, #1a0010 0%, #0a0008 100%); }
+.tema-balon .arka-plan { background: radial-gradient(ellipse at center, #001a1a 0%, #000a0a 100%); }
+.tema-sihir .arka-plan { background: radial-gradient(ellipse at center, #0a001a 0%, #050010 100%); }
+</style>
+</head>
+<body class="tema-kutu">
+
+<div class="arka-plan"></div>
+<canvas id="canvas"></canvas>
+
+<div class="icerik">
+
+  <!-- EKRAN 1: KAPALI -->
+  <div id="ekran-kapali">
+    <div class="ambalaj-wrapper" onclick="ambalajAc()">
+      <div class="tik-efekti"></div>
+      <div class="tik-efekti"></div>
+      <div class="tik-efekti"></div>
+      <span class="ambalaj-ana" id="ambalaj-ikon">🎁</span>
+    </div>
+    <div class="ac-yazi">👆 Dokun ve Aç!</div>
+    <div class="kimden-on" id="kimden-on">Sana bir sürpriz gönderildi</div>
+  </div>
+
+  <!-- EKRAN: AÇILIŞ -->
+  <div id="ekran-acilis">
+    <div class="acilis-emoji" id="acilis-emoji">✨</div>
+  </div>
+
+  <!-- EKRAN 2: AÇIK -->
+  <div id="ekran-acik">
+    <img class="hediye-foto" id="hediye-foto" src="" alt="">
+    <div class="acik-emoji" id="acik-emoji">🎁</div>
+    <div class="kimden" id="kimden-yazi">SÜRPRİZİN VAR</div>
+    <div class="mesaj-kutu">
+      <div class="mesaj-text" id="mesaj-text"></div>
+      <div class="gonderen-text" id="gonderen-yazi"></div>
+    </div>
+    <div class="alt-butonlar">
+      <button class="sen-de-btn" onclick="window.location.href='index.html'">
+        🎁 Sen de Birine Gönder
+      </button>
+      <button class="paylash-btn" onclick="paylash()">
+        📤 Paylaş
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── Veri Yükle ──
+let veri = {
+  ambalaj: 'kutu',
+  ambalajEmoji: '🎁',
+  mesaj: 'Sana özel bir sürprizim var! 🎉',
+  gonderen: '',
+  ses: 'konfeti',
+  renk: 'mor',
+  foto: null,
+  kategori: 'genel'
+};
+
+// Test için — gerçekte Supabase'den veya localStorage'dan gelecek
+const params = new URLSearchParams(window.location.search);
+const test = params.get('test');
+
+if (test) {
+  // Test modu: localStorage'dan oku
+  const kayitli = localStorage.getItem('hediye_data');
+  if (kayitli) {
+    try { veri = { ...veri, ...JSON.parse(kayitli) }; } catch(e) {}
+  }
+}
+
+// Ambalaj ikonlarını ayarla
+const ambalajIkonlar = {
+  'kutu': '🎁',
+  'yumurta': '🥚',
+  'zarf': '💌',
+  'fiyonk': '🎀',
+  'balon': '🎈',
+  'sihir': '🪄'
+};
+
+// Ambalaja göre tema
+const temalar = {
+  'kutu': 'tema-kutu',
+  'yumurta': 'tema-yumurta',
+  'zarf': 'tema-zarf',
+  'fiyonk': 'tema-fiyonk',
+  'balon': 'tema-balon',
+  'sihir': 'tema-sihir'
+};
+
+// Açılma emojileri
+const acilisEmojilar = {
+  'kutu': ['✨', '🎊', '🎉'],
+  'yumurta': ['💥', '✨', '🌟'],
+  'zarf': ['📜', '💌', '✨'],
+  'fiyonk': ['🎀', '✨', '💝'],
+  'balon': ['💥', '🎈', '✨'],
+  'sihir': ['⚡', '🌟', '✨']
+};
+
+// Parçacık renkleri
+const parcacikRenkleri = {
+  'mor': ['#7c3aed', '#a855f7', '#c084fc', '#e9d5ff'],
+  'pembe': ['#ff3d7f', '#ff6b9d', '#ffb3cc', '#ffe0ec'],
+  'turuncu': ['#ff6b35', '#ff8c42', '#ffb347', '#ffd700'],
+  'mavi': ['#06b6d4', '#0ea5e9', '#38bdf8', '#7dd3fc'],
+  'yesil': ['#22c55e', '#4ade80', '#86efac', '#bbf7d0'],
+  'sari': ['#f59e0b', '#fbbf24', '#fcd34d', '#fef08a'],
+  'fuşya': ['#ec4899', '#f472b6', '#f9a8d4', '#fce7f3'],
+  'gri': ['#64748b', '#94a3b8', '#cbd5e1', '#e2e8f0']
+};
+
+// ── Başlangıç ──
+function baslat() {
+  const ambalaj = veri.ambalaj || 'kutu';
+  const ikon = ambalajIkonlar[ambalaj] || '🎁';
+
+  // Tema uygula
+  document.body.className = temalar[ambalaj] || 'tema-kutu';
+
+  // İkon
+  document.getElementById('ambalaj-ikon').textContent = ikon;
+  document.getElementById('acik-emoji').textContent = ikon;
+
+  // Kimden yazısı
+  if (veri.gonderen) {
+    document.getElementById('kimden-on').textContent = `${veri.gonderen} sana bir sürpriz gönderdi 💝`;
+  }
+
+  // Fotoğraf
+  if (veri.foto) {
+    const img = document.getElementById('hediye-foto');
+    img.src = veri.foto;
+    img.style.display = 'block';
+  }
+}
+
+baslat();
+
+// ── Ambalaj Aç ──
+let acildi = false;
+
+function ambalajAc() {
+  if (acildi) return;
+  acildi = true;
+
+  // Titreşim
+  if (navigator.vibrate) navigator.vibrate([200, 100, 300]);
+
+  // Ses çal
+  sesCal(veri.ses);
+
+  // Açılış animasyonu
+  const kapali = document.getElementById('ekran-kapali');
+  const acilis = document.getElementById('ekran-acilis');
+  const acik = document.getElementById('ekran-acik');
+
+  // 1. Kapanı gizle
+  kapali.style.animation = 'patla 0.3s reverse both';
+  setTimeout(() => {
+    kapali.style.display = 'none';
+
+    // 2. Açılış efekti göster
+    acilis.style.display = 'flex';
+    const emojiler = acilisEmojilar[veri.ambalaj] || ['✨'];
+    let i = 0;
+    const interval = setInterval(() => {
+      document.getElementById('acilis-emoji').textContent = emojiler[i % emojiler.length];
+      i++;
+      if (i >= 4) clearInterval(interval);
+    }, 150);
+
+    // 3. Parçacıkları başlat
+    setTimeout(() => parcaciklariBaslat(), 100);
+
+    // 4. Asıl içeriği göster
+    setTimeout(() => {
+      acilis.style.display = 'none';
+      acik.style.display = 'flex';
+
+      // Mesajı doldur
+      const mesajEl = document.getElementById('mesaj-text');
+      yaziyazdir(mesajEl, veri.mesaj || 'Sana özel bir sürprizim var! 🎉');
+
+      if (veri.gonderen) {
+        document.getElementById('gonderen-yazi').textContent = '— ' + veri.gonderen;
+        document.getElementById('kimden-yazi').textContent = veri.gonderen.toUpperCase() + "'TAN SÜRPRİZ";
+      }
+
+    }, 700);
+
+  }, 400);
+}
+
+// ── Typewriter efekti ──
+function yaziyazdir(el, metin) {
+  el.textContent = '';
+  let i = 0;
+  const interval = setInterval(() => {
+    el.textContent += metin[i];
+    i++;
+    if (i >= metin.length) clearInterval(interval);
+  }, 40);
+}
+
+// ── Parçacıklar ──
+function parcaciklariBaslat() {
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const renkler = parcacikRenkleri[veri.renk] || parcacikRenkleri['mor'];
+
+  // Ambalaja göre semboller
+  const semboller = {
+    'kutu': ['🎁', '🎊', '⭐', '✨', '🌟'],
+    'yumurta': ['🥚', '✨', '🌟', '💛', '⭐'],
+    'zarf': ['💌', '❤️', '✨', '💕', '⭐'],
+    'fiyonk': ['🎀', '💝', '✨', '💕', '🌸'],
+    'balon': ['🎈', '🎊', '✨', '⭐', '🌟'],
+    'sihir': ['✨', '⭐', '🌟', '💫', '🪄']
+  }[veri.ambalaj] || ['✨', '⭐', '🌟'];
+
+  const parcaciklar = [];
+
+  // Ekran ortasından patlama
+  for (let i = 0; i < 80; i++) {
+    const aci = (Math.random() * Math.PI * 2);
+    const hiz = 3 + Math.random() * 8;
+    parcaciklar.push({
+      x: canvas.width / 2,
+      y: canvas.height / 2,
+      vx: Math.cos(aci) * hiz,
+      vy: Math.sin(aci) * hiz - Math.random() * 5,
+      renk: renkler[Math.floor(Math.random() * renkler.length)],
+      sembol: Math.random() > 0.5 ? semboller[Math.floor(Math.random() * semboller.length)] : null,
+      boyut: 6 + Math.random() * 10,
+      opaklık: 1,
+      yer: Math.random() > 0.5,
+      rot: Math.random() * Math.PI * 2,
+      rotHiz: (Math.random() - 0.5) * 0.2
+    });
+  }
+
+  // Sürekli yağan parçacıklar
+  for (let i = 0; i < 40; i++) {
+    parcaciklar.push({
+      x: Math.random() * canvas.width,
+      y: -50 - Math.random() * 300,
+      vx: (Math.random() - 0.5) * 2,
+      vy: 1.5 + Math.random() * 2.5,
+      renk: renkler[Math.floor(Math.random() * renkler.length)],
+      sembol: semboller[Math.floor(Math.random() * semboller.length)],
+      boyut: 14 + Math.random() * 18,
+      opaklık: 0.8,
+      yer: false,
+      rot: Math.random() * Math.PI * 2,
+      rotHiz: (Math.random() - 0.5) * 0.05,
+      yagmur: true
+    });
+  }
+
+  let frame = 0;
+
+  function ciz() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    frame++;
+
+    parcaciklar.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.rot += p.rotHiz;
+
+      if (!p.yagmur) {
+        p.vy += 0.15; // yerçekimi
+        p.opaklık -= 0.008;
+      } else {
+        if (p.y > canvas.height + 60) {
+          p.y = -60;
+          p.x = Math.random() * canvas.width;
+        }
+      }
+
+      if (p.opaklık <= 0) return;
+
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, p.opaklık);
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+
+      if (p.sembol) {
+        ctx.font = `${p.boyut}px serif`;
+        ctx.fillText(p.sembol, -p.boyut/2, p.boyut/2);
+      } else {
+        ctx.fillStyle = p.renk;
+        if (p.yer) {
+          ctx.fillRect(-p.boyut/2, -p.boyut/2, p.boyut, p.boyut/2);
+        } else {
+          ctx.beginPath();
+          ctx.arc(0, 0, p.boyut/2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      ctx.restore();
+    });
+
+    requestAnimationFrame(ciz);
+  }
+
+  ciz();
+}
+
+// ── Ses ──
+function sesCal(tip) {
+  if (tip === 'sessiz') return;
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+    if (tip === 'konfeti') {
+      [523, 659, 784, 1047, 1319].forEach((f, i) => {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.frequency.value = f;
+        o.type = 'sine';
+        g.gain.setValueAtTime(0.25, ctx.currentTime + i * 0.1);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.1 + 0.4);
+        o.start(ctx.currentTime + i * 0.1);
+        o.stop(ctx.currentTime + i * 0.1 + 0.4);
+      });
+    } else if (tip === 'muzik') {
+      [262, 330, 392, 523, 392, 330, 262].forEach((f, i) => {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.frequency.value = f;
+        o.type = 'triangle';
+        g.gain.setValueAtTime(0.2, ctx.currentTime + i * 0.15);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.15 + 0.3);
+        o.start(ctx.currentTime + i * 0.15);
+        o.stop(ctx.currentTime + i * 0.15 + 0.3);
+      });
+    } else if (tip === 'kalp') {
+      [0, 0.4].forEach(t => {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.type = 'sine';
+        o.frequency.setValueAtTime(80, ctx.currentTime + t);
+        g.gain.setValueAtTime(0.4, ctx.currentTime + t);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t + 0.3);
+        o.start(ctx.currentTime + t);
+        o.stop(ctx.currentTime + t + 0.3);
+      });
+    } else if (tip === 'alkis') {
+      for (let i = 0; i < 5; i++) {
+        const bufSize = ctx.sampleRate * 0.1;
+        const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+        const data = buf.getChannelData(0);
+        for (let j = 0; j < bufSize; j++) data[j] = Math.random() * 2 - 1;
+        const src = ctx.createBufferSource();
+        const g = ctx.createGain();
+        src.buffer = buf;
+        src.connect(g); g.connect(ctx.destination);
+        g.gain.setValueAtTime(0.3, ctx.currentTime + i * 0.12);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.12 + 0.1);
+        src.start(ctx.currentTime + i * 0.12);
+      }
+    }
+  } catch(e) {}
+}
+
+// ── Paylaş ──
+function paylash() {
+  if (navigator.share) {
+    navigator.share({
+      title: 'Sürprizim var! 🎁',
+      text: 'Bak ne aldım! Sen de birine gönder:',
+      url: window.location.origin
+    });
+  } else {
+    navigator.clipboard.writeText(window.location.origin).then(() => {
+      alert('Site adresi kopyalandı!');
+    });
+  }
+}
+
+window.addEventListener('resize', () => {
+  const canvas = document.getElementById('canvas');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
+</body>
+</html>
