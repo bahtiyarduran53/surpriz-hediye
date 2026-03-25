@@ -97,6 +97,8 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 .fiyat-toplam span { color: var(--accent); }
 .cta-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--accent), var(--accent2)); border: none; border-radius: 14px; color: white; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; cursor: pointer; transition: all 0.2s; }
 .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,0.4); }
+.onizle-btn { width: 100%; padding: 14px; background: transparent; border: 2px solid var(--accent); border-radius: 14px; color: var(--accent2); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; cursor: pointer; transition: all 0.2s; margin-top: 14px; }
+.onizle-btn:hover { background: rgba(124,58,237,0.08); }
 .guvenli { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; color: var(--muted); margin-top: 10px; }
 
 @media (max-width: 768px) {
@@ -244,7 +246,8 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
           <div class="fiyat-satir"><span>Surpriz Link</span><span>19 TL</span></div>
           <div class="fiyat-toplam"><span>Toplam</span><span>19 TL</span></div>
         </div>
-        <button class="cta-btn" onclick="odemeGit()">Odemeye Gec - 19 TL</button>
+        <button class="onizle-btn" onclick="onizleGit()">&#x1F441; Surprizi Onizle</button>
+        <button class="cta-btn" onclick="odemeGit()" style="margin-top:10px">Odemeye Gec - 19 TL</button>
         <div class="guvenli">Guvenli odeme - Aninda teslim</div>
       </div>
     </div>
@@ -692,6 +695,15 @@ function geriGit(num) {
 }
 
 // ── ÖDEME ──
+function onizleGit() {
+  if (!state.anaKategori) { alert('Lutfen once kategori secin!'); return; }
+  if (!state.altKategori) { alert('Lutfen once alt kategori secin!'); return; }
+  state.mesaj = document.getElementById('mesaj').value;
+  state.gonderen = document.getElementById('gonderen').value;
+  localStorage.setItem('hediye_data', JSON.stringify(state));
+  window.open('surpriz.html?test=1', '_blank');
+}
+
 function odemeGit() {
   if (!state.anaKategori) { alert('Lutfen kategori secin!'); return; }
   if (!state.altKategori) { alert('Lutfen alt kategori secin!'); return; }
