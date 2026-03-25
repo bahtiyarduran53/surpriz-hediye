@@ -292,29 +292,52 @@ body {
 
 </div>
 
+<script src="config.js"></script>
 <script>
 // ── Veri Yükle ──
-let veri = {
+var veri = {
   ambalaj: 'kutu',
-  ambalajEmoji: '🎁',
-  mesaj: 'Sana özel bir sürprizim var! 🎉',
+  ambalajEmoji: '',
+  mesaj: 'Sana ozel bir surprizim var!',
   gonderen: '',
   ses: 'konfeti',
   renk: 'mor',
   foto: null,
-  kategori: 'genel'
+  anaKategori: 'genel'
 };
 
-// Test için — gerçekte Supabase'den veya localStorage'dan gelecek
-const params = new URLSearchParams(window.location.search);
-const test = params.get('test');
+var params = new URLSearchParams(window.location.search);
+var test = params.get('test');
+var id = params.get('id');
 
-if (test) {
-  // Test modu: localStorage'dan oku
-  const kayitli = localStorage.getItem('hediye_data');
-  if (kayitli) {
-    try { veri = { ...veri, ...JSON.parse(kayitli) }; } catch(e) {}
+async function veriYukle() {
+  if (id && !test) {
+    // Supabase'den oku
+    var sonuc = await DB.hediyeOku(id);
+    if (sonuc.basarili) {
+      var d = sonuc.veri;
+      veri.ambalaj = d.ambalaj || 'kutu';
+      veri.ambalajEmoji = d.ambalaj_emoji || '';
+      veri.mesaj = d.mesaj || '';
+      veri.gonderen = d.gonderen || '';
+      veri.ses = d.ses || 'sessiz';
+      veri.renk = d.renk || 'mor';
+      if (d.fotograf_url) veri.foto = d.fotograf_url;
+    } else {
+      // Supabase'de yoksa localStorage'dan dene
+      var yerel = localStorage.getItem('surpriz_' + id);
+      if (yerel) {
+        try { veri = Object.assign(veri, JSON.parse(yerel)); } catch(e) {}
+      }
+    }
+  } else if (test) {
+    // Test modu: localStorage'dan oku
+    var kayitli = localStorage.getItem('hediye_data');
+    if (kayitli) {
+      try { veri = Object.assign(veri, JSON.parse(kayitli)); } catch(e) {}
+    }
   }
+  baslat();
 }
 
 // Ambalaj ID'sine göre emoji ve tema belirle
@@ -688,6 +711,9 @@ window.addEventListener('resize', () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 });
+
+// Veriyi yükle ve başlat
+veriYukle();
 </script>
 </body>
 </html>
