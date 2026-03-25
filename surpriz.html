@@ -317,35 +317,82 @@ if (test) {
   }
 }
 
-// Ambalaj ikonlarını ayarla
-const ambalajIkonlar = {
-  'kutu': '🎁',
-  'yumurta': '🥚',
-  'zarf': '💌',
-  'fiyonk': '🎀',
-  'balon': '🎈',
-  'sihir': '🪄'
-};
+// Ambalaj ID'sine göre emoji ve tema belirle
+function ambalajBilgisiAl(ambalajId, ambalajEmoji) {
+  // Önce kaydedilmiş emojiyi kullan
+  if (ambalajEmoji && ambalajEmoji.length > 0) return ambalajEmoji;
+  
+  // ID'ye göre varsayılan emoji
+  var eslesme = {
+    'bok': '💩', 'bok-kutu': '💩', 'bok-kutu2': '💩', 'bok2': '💩', 'bok-kupa': '💩',
+    'tuvalet': '🧻', 'tuvalet2': '🧻', 'tuvalet3': '🧻', 'rulo': '🧻',
+    'bomba': '💣', 'bomba-kutu': '💣', 'bomba2': '💣', 'bomba3': '💣',
+    'tuzak': '🪤', 'tuzak-kutu': '🪤',
+    'yilan': '🐍', 'yilan-kutu': '🐍',
+    'kusma': '🤮', 'kusma2': '🤮',
+    'kafatasi': '💀',
+    'tehlike': '⚠️', 'tehlike2': '⚠️', 'tehlike3': '⚠️',
+    'megafon': '📢', 'gazete': '📰', 'mikrofon': '🎤',
+    'palyaco': '🤡', 'sahte-kupa': '🏆', 'sertifika2': '📜',
+    'yastik': '🛏️', 'kanape': '🛋️', 'ayi': '🧸',
+    'pinokyo': '🤥', 'yalan-sert': '📜', 'maske': '🎭',
+    'tac': '👑', 'tac2': '👑', 'drama': '🎭',
+    'zarf': '💌', 'mektup': '💌', 'mektup2': '💌', 'mektup3': '💌', 'mektup4': '💌', 'mektup5': '💌',
+    'gul': '🌹', 'gul2': '🌹', 'gul3': '🌹', 'gul4': '🌹', 'gul5': '🌹', 'gul6': '🌹', 'gul7': '🌹', 'gul8': '🌹',
+    'kalp': '💝', 'kalp2': '💝', 'kalp3': '💝', 'kalp4': '💝', 'kalp5': '💝', 'kalp6': '💝', 'kalp-kupa': '💝',
+    'kirik': '💔',
+    'sarilma': '🫂', 'sarilma2': '🫂',
+    'ay': '🌙', 'ay2': '🌙',
+    'gunes': '☀️',
+    'cicek': '🌸', 'cicek2': '🌸', 'cicek3': '💐', 'cicek4': '🌸', 'cicek5': '💐',
+    'cift': '👫',
+    'pasta': '🎂',
+    'balon': '🎈',
+    'hediye': '🎁', 'hediye2': '🎁',
+    'diploma': '🎓',
+    'kupa': '🏆', 'kupa2': '🏆', 'kupa3': '🏆', 'kupa4': '🏆', 'kupa5': '🏆',
+    'altin-kupa': '🏆',
+    'konfeti': '🎊', 'konfeti2': '🎊', 'konfeti3': '🎊',
+    'madalya': '🥇', 'madalya2': '🥇',
+    'sertifika': '📜', 'sertifika3': '📜', 'deha': '📜',
+    'bebek-sepet': '👶', 'biberon': '🍼', 'fiyonk': '🎀',
+    'canta': '💼',
+    'roket': '🚀',
+    'sihir': '🪄', 'sihir2': '🪄',
+    'pati': '🐾', 'kemik': '🦴', 'balik': '🐟',
+    'ucak': '✈️', 'bavul': '🧳', 'harita': '🗺️',
+    'cicek-buket': '💐',
+    'kravat': '👔',
+    'hilal': '🌙', 'bayram-paket': '🎁', 'altin': '✨',
+    'agac': '🎄', 'yilbasi-kutu': '🎁', 'kardan': '⛄',
+    'beyin': '🧠',
+    'laptop': '💻', 'saat': '⏰', 'grafik': '📊',
+    'ilac': '💊'
+  };
+  return eslesme[ambalajId] || '🎁';
+}
 
-// Ambalaja göre tema
-const temalar = {
-  'kutu': 'tema-kutu',
-  'yumurta': 'tema-yumurta',
-  'zarf': 'tema-zarf',
-  'fiyonk': 'tema-fiyonk',
-  'balon': 'tema-balon',
-  'sihir': 'tema-sihir'
-};
+// Emojiğe göre tema belirle
+function temaAl(emoji) {
+  if (!emoji) return 'tema-kutu';
+  var komik = ['💩','🧻','💣','🪤','🐍','🤮','💀','⚠️','📢','🤡'];
+  var romantik = ['💌','🌹','💝','💔','🫂','🌙','☀️','🌸','💐','👫'];
+  var yesil = ['🐾','🦴','🐟','🌱'];
+  if (komik.some(function(e) { return emoji.includes(e); })) return 'tema-yumurta';
+  if (romantik.some(function(e) { return emoji.includes(e); })) return 'tema-fiyonk';
+  if (yesil.some(function(e) { return emoji.includes(e); })) return 'tema-balon';
+  return 'tema-kutu';
+}
 
-// Açılma emojileri
-const acilisEmojilar = {
-  'kutu': ['✨', '🎊', '🎉'],
-  'yumurta': ['💥', '✨', '🌟'],
-  'zarf': ['📜', '💌', '✨'],
-  'fiyonk': ['🎀', '✨', '💝'],
-  'balon': ['💥', '🎈', '✨'],
-  'sihir': ['⚡', '🌟', '✨']
-};
+// Emojiğe göre açılış emojileri
+function acilisEmojiAl(emoji) {
+  if (!emoji) return ['✨', '🎊', '🎉'];
+  var komik = ['💩','🧻','💣','🪤','🐍','🤮','💀'];
+  var romantik = ['💌','🌹','💝','💔','🫂'];
+  if (komik.some(function(e) { return emoji.includes(e); })) return ['💥', '😱', '🤣'];
+  if (romantik.some(function(e) { return emoji.includes(e); })) return ['💕', '✨', '💝'];
+  return ['✨', '🎊', '🎉'];
+}
 
 // Parçacık renkleri
 const parcacikRenkleri = {
@@ -361,11 +408,12 @@ const parcacikRenkleri = {
 
 // ── Başlangıç ──
 function baslat() {
-  const ambalaj = veri.ambalaj || 'kutu';
-  const ikon = ambalajIkonlar[ambalaj] || '🎁';
+  var ambalajId = veri.ambalaj || 'kutu';
+  var ambalajEmoji = veri.ambalajEmoji || '';
+  var ikon = ambalajBilgisiAl(ambalajId, ambalajEmoji);
 
   // Tema uygula
-  document.body.className = temalar[ambalaj] || 'tema-kutu';
+  document.body.className = temaAl(ikon);
 
   // İkon
   document.getElementById('ambalaj-ikon').textContent = ikon;
@@ -373,7 +421,7 @@ function baslat() {
 
   // Kimden yazısı
   if (veri.gonderen) {
-    document.getElementById('kimden-on').textContent = `${veri.gonderen} sana bir sürpriz gönderdi 💝`;
+    document.getElementById('kimden-on').textContent = veri.gonderen + ' sana bir surpriz gonderdi!';
   }
 
   // Fotoğraf
@@ -411,7 +459,10 @@ function ambalajAc() {
 
     // 2. Açılış efekti göster
     acilis.style.display = 'flex';
-    const emojiler = acilisEmojilar[veri.ambalaj] || ['✨'];
+    var ambalajId = veri.ambalaj || 'kutu';
+    var ambalajEmoji = veri.ambalajEmoji || '';
+    var ikon = ambalajBilgisiAl(ambalajId, ambalajEmoji);
+    var emojiler = acilisEmojiAl(ikon);
     let i = 0;
     const interval = setInterval(() => {
       document.getElementById('acilis-emoji').textContent = emojiler[i % emojiler.length];
