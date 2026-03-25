@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ödeme — SürprizLink</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f; --surface: #13131a; --surface2: #1a1a24;
+  --border: #22222e; --text: #f0f0f8; --muted: #6b6b80;
+  --accent: #7c3aed; --accent2: #a855f7;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
+.kart {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 24px; padding: 48px 40px; max-width: 480px;
+  width: 100%; text-align: center;
+}
+.logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 22px; margin-bottom: 32px; cursor: pointer; }
+.logo span { color: var(--accent); }
+.ozet-kutu {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 16px; padding: 20px; margin-bottom: 28px;
+}
+.ozet-baslik { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-family: 'Syne', sans-serif; font-weight: 700; margin-bottom: 16px; }
+.ozet-satir { display: flex; justify-content: space-between; font-size: 14px; padding: 6px 0; border-bottom: 1px solid var(--border); }
+.ozet-satir:last-of-type { border-bottom: none; }
+.ozet-satir-label { color: var(--muted); }
+.fiyat-satir { display: flex; justify-content: space-between; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 24px; padding-top: 12px; margin-top: 12px; border-top: 1px solid var(--border); }
+.fiyat-satir span { color: var(--accent); }
+.odeme-btn {
+  width: 100%; padding: 18px; background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border: none; border-radius: 14px; color: white; font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 17px; cursor: pointer; transition: all 0.2s; margin-bottom: 16px;
+}
+.odeme-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,0.4); }
+.guvenli { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+.geri-btn { color: var(--muted); font-size: 14px; cursor: pointer; background: none; border: none; padding: 0; }
+.geri-btn:hover { color: var(--text); }
+.ozellikler { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 28px; }
+.ozellik { background: var(--surface2); border-radius: 12px; padding: 12px; font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.ozellik-ikon { font-size: 18px; }
+</style>
+</head>
+<body>
+
+<div class="kart">
+  <div class="logo" onclick="window.location.href='index.html'">Surpriz<span>Link</span></div>
+
+  <!-- OZET -->
+  <div class="ozet-kutu">
+    <div class="ozet-baslik">Siparis Ozeti</div>
+    <div class="ozet-satir">
+      <span class="ozet-satir-label">Kategori</span>
+      <span id="ozet-kategori">—</span>
+    </div>
+    <div class="ozet-satir">
+      <span class="ozet-satir-label">Alt Kategori</span>
+      <span id="ozet-alt">—</span>
+    </div>
+    <div class="ozet-satir">
+      <span class="ozet-satir-label">Ambalaj</span>
+      <span id="ozet-ambalaj">—</span>
+    </div>
+    <div class="fiyat-satir">
+      <span>Toplam</span>
+      <span>19 TL</span>
+    </div>
+  </div>
+
+  <!-- ÖZELLİKLER -->
+  <div class="ozellikler">
+    <div class="ozellik"><span class="ozellik-ikon">⚡</span>Aninda teslim</div>
+    <div class="ozellik"><span class="ozellik-ikon">🔒</span>Guvenli odeme</div>
+    <div class="ozellik"><span class="ozellik-ikon">🎁</span>Ozel animasyon</div>
+    <div class="ozellik"><span class="ozellik-ikon">📱</span>Her cihazda calisir</div>
+  </div>
+
+  <!-- ÖDEME BUTONU -->
+  <button class="odeme-btn" onclick="shopierOdeme()">
+    💳 Shopier ile Guvenli Ode — 19 TL
+  </button>
+
+  <div class="guvenli">🔒 256-bit SSL ile korunan guvenli odeme</div>
+
+  <button class="geri-btn" onclick="window.location.href='olustur.html'">← Geri Don</button>
+</div>
+
+<script>
+// localStorage'dan veriyi oku
+window.onload = function() {
+  var kayitli = localStorage.getItem('hediye_data');
+  if (kayitli) {
+    try {
+      var veri = JSON.parse(kayitli);
+      document.getElementById('ozet-kategori').textContent = veri.anaKategori || '—';
+      document.getElementById('ozet-alt').textContent = veri.altKategori || '—';
+      document.getElementById('ozet-ambalaj').textContent = veri.ambalaj || '—';
+    } catch(e) {}
+  }
+};
+
+function shopierOdeme() {
+  // Shopier ödeme linkine yönlendir
+  var shopierLink = 'https://www.shopier.com/SurprizLink/45544491';
+
+  // Ödeme sonrası dönüş için veriyi sakla
+  var kayitli = localStorage.getItem('hediye_data');
+  if (kayitli) {
+    localStorage.setItem('odeme_bekliyor', kayitli);
+  }
+
+  // Shopier'a yönlendir
+  window.location.href = shopierLink;
+}
+</script>
+
+</body>
+</html>
