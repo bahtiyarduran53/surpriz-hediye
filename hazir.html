@@ -151,21 +151,36 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 
 <div class="toast" id="toast">✓ Link kopyalandı!</div>
 
+<script src="config.js"></script>
 <script>
 // ── Link Üret ──
 var surprizLink = '';
 
-window.onload = function() {
+window.onload = async function() {
   // localStorage'dan veriyi oku
   var kayitli = localStorage.getItem('odeme_bekliyor') || localStorage.getItem('hediye_data');
   
   if (kayitli) {
     try {
       var veri = JSON.parse(kayitli);
-      // Benzersiz ID üret
-      var id = Math.random().toString(36).substr(2, 8).toUpperCase();
-      // Veriyi yeni ID ile kaydet
-      localStorage.setItem('surpriz_' + id, kayitli);
+
+      // Supabase'e kaydet
+      document.getElementById('link-url').textContent = 'Kaydediliyor...';
+      var sonuc = await DB.hediyeKaydet(veri);
+
+      var id;
+      if (sonuc.basarili) {
+        id = sonuc.id;
+        // Fotoğraf varsa yükle
+        if (veri.foto) {
+          await DB.fotografYukle(id, veri.foto);
+        }
+      } else {
+        // Supabase çalışmazsa yedek olarak localStorage kullan
+        id = Math.random().toString(36).substr(2, 8).toUpperCase();
+        localStorage.setItem('surpriz_' + id, kayitli);
+      }
+
       // Link oluştur
       surprizLink = window.location.origin + '/surpriz.html?id=' + id;
       document.getElementById('link-url').textContent = surprizLink;
