@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linkin Hazır! — SürprizLink</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f; --surface: #13131a; --surface2: #1a1a24;
+  --border: #22222e; --text: #f0f0f8; --muted: #6b6b80;
+  --accent: #7c3aed; --accent2: #a855f7;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
+
+.konfeti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+
+.kart {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 24px; padding: 48px 40px; max-width: 500px;
+  width: 100%; text-align: center; position: relative; z-index: 1;
+  animation: yukariCik 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes yukariCik {
+  from { opacity: 0; transform: translateY(40px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 22px; margin-bottom: 32px; cursor: pointer; }
+.logo span { color: var(--accent); }
+
+.basari-ikon { font-size: 72px; margin-bottom: 16px; animation: bounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both; animation-delay: 0.3s; }
+@keyframes bounce { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+.baslik { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 28px; margin-bottom: 8px; }
+.alt-baslik { color: var(--muted); font-size: 15px; margin-bottom: 32px; line-height: 1.6; }
+
+.link-kutu {
+  background: var(--bg); border: 2px solid var(--accent);
+  border-radius: 14px; padding: 16px 20px;
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 12px;
+}
+
+.link-url {
+  flex: 1; font-size: 14px; color: var(--accent2);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  text-align: left; font-family: 'Syne', sans-serif; font-weight: 700;
+}
+
+.kopyala-btn {
+  padding: 8px 16px; background: var(--accent); border: none;
+  border-radius: 8px; color: white; font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 13px; cursor: pointer; transition: all 0.2s;
+  white-space: nowrap;
+}
+.kopyala-btn:hover { background: var(--accent2); }
+.kopyala-btn.kopyalandi { background: #22c55e; }
+
+.paylash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
+
+.paylash-btn {
+  padding: 12px; border-radius: 12px; border: 2px solid var(--border);
+  background: transparent; color: var(--text); font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.paylash-btn:hover { border-color: var(--accent); background: rgba(124,58,237,0.08); }
+
+.onizle-btn {
+  width: 100%; padding: 14px; background: transparent;
+  border: 2px solid var(--border); border-radius: 14px;
+  color: var(--muted); font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.2s;
+  margin-bottom: 12px;
+}
+.onizle-btn:hover { border-color: var(--muted); color: var(--text); }
+
+.yeni-btn {
+  width: 100%; padding: 14px; background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border: none; border-radius: 14px; color: white;
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px;
+  cursor: pointer; transition: all 0.2s;
+}
+.yeni-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,0.4); }
+
+.bilgi-kutu {
+  background: rgba(124,58,237,0.08); border: 1px solid rgba(124,58,237,0.2);
+  border-radius: 12px; padding: 14px 16px; margin-bottom: 24px;
+  font-size: 13px; color: var(--muted); line-height: 1.6; text-align: left;
+}
+
+.bilgi-kutu strong { color: var(--text); }
+
+.toast {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #22c55e; color: white; padding: 12px 24px;
+  border-radius: 20px; font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 14px; z-index: 999;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.toast.goster { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<canvas class="konfeti-canvas" id="canvas"></canvas>
+
+<div class="kart">
+  <div class="logo" onclick="window.location.href='index.html'">Surpriz<span>Link</span></div>
+
+  <div class="basari-ikon">🎉</div>
+  <div class="baslik">Linkin Hazir!</div>
+  <div class="alt-baslik">Asagidaki linki kopyala ve arkadaşına at. Açtığı an sürpriz başlıyor!</div>
+
+  <!-- LİNK KUTUSU -->
+  <div class="link-kutu">
+    <span class="link-url" id="link-url">yukleniyor...</span>
+    <button class="kopyala-btn" id="kopyala-btn" onclick="linkkopyala()">Kopyala</button>
+  </div>
+
+  <!-- BİLGİ -->
+  <div class="bilgi-kutu">
+    <strong>💡 Nasıl kullanırsın?</strong><br>
+    Bu linki WhatsApp, Instagram veya SMS ile gönder. Karşı taraf linki açtığında sürpriz animasyon başlayacak!
+  </div>
+
+  <!-- PAYLAŞ -->
+  <div class="paylash-grid">
+    <button class="paylash-btn" onclick="whatsappPaylash()">
+      📱 WhatsApp
+    </button>
+    <button class="paylash-btn" onclick="linkPaylash()">
+      📤 Paylaş
+    </button>
+  </div>
+
+  <!-- ÖNİZLE -->
+  <button class="onizle-btn" onclick="onizle()">
+    👁 Surprizi Onizle
+  </button>
+
+  <!-- YENİ HEDİYE -->
+  <button class="yeni-btn" onclick="window.location.href='olustur.html'">
+    🎁 Yeni Surpriz Olustur
+  </button>
+</div>
+
+<div class="toast" id="toast">✓ Link kopyalandı!</div>
+
+<script>
+// ── Link Üret ──
+var surprizLink = '';
+
+window.onload = function() {
+  // localStorage'dan veriyi oku
+  var kayitli = localStorage.getItem('odeme_bekliyor') || localStorage.getItem('hediye_data');
+  
+  if (kayitli) {
+    try {
+      var veri = JSON.parse(kayitli);
+      // Benzersiz ID üret
+      var id = Math.random().toString(36).substr(2, 8).toUpperCase();
+      // Veriyi yeni ID ile kaydet
+      localStorage.setItem('surpriz_' + id, kayitli);
+      // Link oluştur
+      surprizLink = window.location.origin + '/surpriz.html?id=' + id;
+      document.getElementById('link-url').textContent = surprizLink;
+      // Temizle
+      localStorage.removeItem('odeme_bekliyor');
+    } catch(e) {
+      // Test modu
+      surprizLink = window.location.origin + '/surpriz.html?id=TEST123';
+      document.getElementById('link-url').textContent = surprizLink;
+    }
+  } else {
+    // Test modu
+    surprizLink = window.location.origin + '/surpriz.html?id=ORNEK456';
+    document.getElementById('link-url').textContent = surprizLink;
+  }
+
+  // Konfeti başlat
+  konfetiBaşlat();
+};
+
+// ── Kopyala ──
+function linkkopyala() {
+  navigator.clipboard.writeText(surprizLink).then(function() {
+    var btn = document.getElementById('kopyala-btn');
+    btn.textContent = '✓ Kopyalandi';
+    btn.classList.add('kopyalandi');
+    setTimeout(function() {
+      btn.textContent = 'Kopyala';
+      btn.classList.remove('kopyalandi');
+    }, 2000);
+    toastGoster();
+  }).catch(function() {
+    // Fallback
+    var input = document.createElement('input');
+    input.value = surprizLink;
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('copy');
+    document.body.removeChild(input);
+    toastGoster();
+  });
+}
+
+function toastGoster() {
+  var toast = document.getElementById('toast');
+  toast.classList.add('goster');
+  setTimeout(function() { toast.classList.remove('goster'); }, 2500);
+}
+
+// ── WhatsApp ──
+function whatsappPaylash() {
+  var mesaj = encodeURIComponent('Sana bir surprizim var! Aç bakalım 🎁\n' + surprizLink);
+  window.open('https://wa.me/?text=' + mesaj, '_blank');
+}
+
+// ── Paylaş ──
+function linkPaylash() {
+  if (navigator.share) {
+    navigator.share({
+      title: 'Sana bir surprizim var!',
+      text: 'Aç bakalım 🎁',
+      url: surprizLink
+    });
+  } else {
+    linkkopyala();
+  }
+}
+
+// ── Önizle ──
+function onizle() {
+  window.open(surprizLink, '_blank');
+}
+
+// ── Konfeti ──
+function konfetiBaşlat() {
+  var canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  var renkler = ['#7c3aed', '#a855f7', '#ff3d7f', '#ff6b35', '#22c55e', '#f59e0b'];
+  var parcaciklar = [];
+
+  for (var i = 0; i < 100; i++) {
+    parcaciklar.push({
+      x: Math.random() * canvas.width,
+      y: -20 - Math.random() * 200,
+      vx: (Math.random() - 0.5) * 3,
+      vy: 2 + Math.random() * 4,
+      renk: renkler[Math.floor(Math.random() * renkler.length)],
+      boyut: 6 + Math.random() * 8,
+      rot: Math.random() * Math.PI * 2,
+      rotV: (Math.random() - 0.5) * 0.1,
+      kare: Math.random() > 0.5
+    });
+  }
+
+  var frame = 0;
+  function ciz() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    frame++;
+
+    parcaciklar.forEach(function(p) {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.rot += p.rotV;
+      if (p.y > canvas.height + 20) {
+        p.y = -20;
+        p.x = Math.random() * canvas.width;
+      }
+      ctx.save();
+      ctx.globalAlpha = 0.8;
+      ctx.fillStyle = p.renk;
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      if (p.kare) {
+        ctx.fillRect(-p.boyut/2, -p.boyut/2, p.boyut, p.boyut/2);
+      } else {
+        ctx.beginPath();
+        ctx.arc(0, 0, p.boyut/2, 0, Math.PI*2);
+        ctx.fill();
+      }
+      ctx.restore();
+    });
+
+    if (frame < 300) requestAnimationFrame(ciz);
+    else {
+      // Yavaşça dur
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+  ciz();
+}
+
+window.addEventListener('resize', function() {
+  var canvas = document.getElementById('canvas');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
+</body>
+</html>
