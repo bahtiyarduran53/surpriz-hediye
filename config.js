@@ -1,6 +1,6 @@
 // Supabase Baglanti Bilgileri
 var SUPABASE_URL = 'https://zhqknqwwspouwpykrcoh.supabase.co';
-var SUPABASE_KEY = 'sb_publishable_NlBZnGu40ynpId1VCsjSPw_LwKDzGFI';
+var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpocWtucXd3c3BvdXdweWtyY29oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNjI4NDUsImV4cCI6MjA4OTkzODg0NX0.lLI8c82tTaKH2o2CYYjiVrKgldSGmJ_WlmWQyKdkz3M';
 
 // Supabase API yardimci fonksiyonlari
 var DB = {
