@@ -319,57 +319,54 @@ if (test) {
 
 // Ambalaj ID'sine göre emoji ve tema belirle
 function ambalajBilgisiAl(ambalajId, ambalajEmoji) {
-  // Önce kaydedilmiş emojiyi kullan
-  if (ambalajEmoji && ambalajEmoji.length > 0) return ambalajEmoji;
+  if (ambalajEmoji && ambalajEmoji.length > 0 && !ambalajEmoji.includes('&#')) return ambalajEmoji;
   
-  // ID'ye göre varsayılan emoji
   var eslesme = {
-    'bok': '💩', 'bok-kutu': '💩', 'bok-kutu2': '💩', 'bok2': '💩', 'bok-kupa': '💩',
-    'tuvalet': '🧻', 'tuvalet2': '🧻', 'tuvalet3': '🧻', 'rulo': '🧻',
-    'bomba': '💣', 'bomba-kutu': '💣', 'bomba2': '💣', 'bomba3': '💣',
-    'tuzak': '🪤', 'tuzak-kutu': '🪤',
-    'yilan': '🐍', 'yilan-kutu': '🐍',
-    'kusma': '🤮', 'kusma2': '🤮',
-    'kafatasi': '💀',
-    'tehlike': '⚠️', 'tehlike2': '⚠️', 'tehlike3': '⚠️',
-    'megafon': '📢', 'gazete': '📰', 'mikrofon': '🎤',
-    'palyaco': '🤡', 'sahte-kupa': '🏆', 'sertifika2': '📜',
-    'yastik': '🛏️', 'kanape': '🛋️', 'ayi': '🧸',
-    'pinokyo': '🤥', 'yalan-sert': '📜', 'maske': '🎭',
-    'tac': '👑', 'tac2': '👑', 'drama': '🎭',
-    'zarf': '💌', 'mektup': '💌', 'mektup2': '💌', 'mektup3': '💌', 'mektup4': '💌', 'mektup5': '💌',
-    'gul': '🌹', 'gul2': '🌹', 'gul3': '🌹', 'gul4': '🌹', 'gul5': '🌹', 'gul6': '🌹', 'gul7': '🌹', 'gul8': '🌹',
-    'kalp': '💝', 'kalp2': '💝', 'kalp3': '💝', 'kalp4': '💝', 'kalp5': '💝', 'kalp6': '💝', 'kalp-kupa': '💝',
-    'kirik': '💔',
-    'sarilma': '🫂', 'sarilma2': '🫂',
-    'ay': '🌙', 'ay2': '🌙',
-    'gunes': '☀️',
-    'cicek': '🌸', 'cicek2': '🌸', 'cicek3': '💐', 'cicek4': '🌸', 'cicek5': '💐',
-    'cift': '👫',
-    'pasta': '🎂',
-    'balon': '🎈',
-    'hediye': '🎁', 'hediye2': '🎁',
-    'diploma': '🎓',
-    'kupa': '🏆', 'kupa2': '🏆', 'kupa3': '🏆', 'kupa4': '🏆', 'kupa5': '🏆',
-    'altin-kupa': '🏆',
-    'konfeti': '🎊', 'konfeti2': '🎊', 'konfeti3': '🎊',
-    'madalya': '🥇', 'madalya2': '🥇',
-    'sertifika': '📜', 'sertifika3': '📜', 'deha': '📜',
-    'bebek-sepet': '👶', 'biberon': '🍼', 'fiyonk': '🎀',
-    'canta': '💼',
-    'roket': '🚀',
-    'sihir': '🪄', 'sihir2': '🪄',
-    'pati': '🐾', 'kemik': '🦴', 'balik': '🐟',
-    'ucak': '✈️', 'bavul': '🧳', 'harita': '🗺️',
-    'cicek-buket': '💐',
-    'kravat': '👔',
-    'hilal': '🌙', 'bayram-paket': '🎁', 'altin': '✨',
-    'agac': '🎄', 'yilbasi-kutu': '🎁', 'kardan': '⛄',
-    'beyin': '🧠',
-    'laptop': '💻', 'saat': '⏰', 'grafik': '📊',
-    'ilac': '💊'
+    'bok': '\uD83D\uDCA9', 'bok-kutu': '\uD83D\uDCA9', 'bok-kutu2': '\uD83D\uDCA9', 'bok2': '\uD83D\uDCA9', 'bok-kupa': '\uD83D\uDCA9',
+    'tuvalet': '\uD83E\uDDFB', 'tuvalet2': '\uD83E\uDDFB', 'tuvalet3': '\uD83E\uDDFB', 'rulo': '\uD83E\uDDFB',
+    'bomba': '\uD83D\uDCA3', 'bomba-kutu': '\uD83D\uDCA3', 'bomba2': '\uD83D\uDCA3', 'bomba3': '\uD83D\uDCA3',
+    'tuzak': '\uD83E\uDE9E', 'tuzak-kutu': '\uD83E\uDE9E',
+    'yilan': '\uD83D\uDC0D', 'yilan-kutu': '\uD83D\uDC0D',
+    'kusma': '\uD83E\uDD2E', 'kusma2': '\uD83E\uDD2E',
+    'kafatasi': '\uD83D\uDC80',
+    'tehlike': '\u26A0\uFE0F', 'tehlike2': '\u26A0\uFE0F', 'tehlike3': '\u26A0\uFE0F',
+    'megafon': '\uD83D\uDCE2', 'gazete': '\uD83D\uDCF0', 'mikrofon': '\uD83C\uDFA4',
+    'palyaco': '\uD83E\uDD21', 'sahte-kupa': '\uD83C\uDFC6', 'sertifika2': '\uD83D\uDCDC',
+    'yastik': '\uD83D\uDECF\uFE0F', 'kanape': '\uD83D\uDECB\uFE0F', 'ayi': '\uD83E\uDDF8',
+    'pinokyo': '\uD83E\uDD25', 'yalan-sert': '\uD83D\uDCDC', 'maske': '\uD83C\uDFAD',
+    'tac': '\uD83D\uDC51', 'tac2': '\uD83D\uDC51', 'drama': '\uD83C\uDFAD',
+    'zarf': '\uD83D\uDC8C', 'mektup': '\uD83D\uDC8C', 'mektup2': '\uD83D\uDC8C', 'mektup3': '\uD83D\uDC8C', 'mektup4': '\uD83D\uDC8C', 'mektup5': '\uD83D\uDC8C',
+    'gul': '\uD83C\uDF39', 'gul2': '\uD83C\uDF39', 'gul3': '\uD83C\uDF39', 'gul4': '\uD83C\uDF39', 'gul5': '\uD83C\uDF39', 'gul6': '\uD83C\uDF39', 'gul7': '\uD83C\uDF39', 'gul8': '\uD83C\uDF39',
+    'kalp': '\uD83D\uDC9D', 'kalp2': '\uD83D\uDC9D', 'kalp3': '\uD83D\uDC9D', 'kalp4': '\uD83D\uDC9D', 'kalp5': '\uD83D\uDC9D', 'kalp6': '\uD83D\uDC9D', 'kalp-kupa': '\uD83D\uDC9D',
+    'kirik': '\uD83D\uDC94',
+    'sarilma': '\uD83E\uDEF6', 'sarilma2': '\uD83E\uDEF6',
+    'ay': '\uD83C\uDF19', 'ay2': '\uD83C\uDF19',
+    'gunes': '\u2600\uFE0F',
+    'cicek': '\uD83C\uDF38', 'cicek2': '\uD83C\uDF38', 'cicek3': '\uD83D\uDC90', 'cicek4': '\uD83C\uDF38', 'cicek5': '\uD83D\uDC90',
+    'cift': '\uD83D\uDC6B',
+    'pasta': '\uD83C\uDF82',
+    'balon': '\uD83C\uDF88',
+    'hediye': '\uD83C\uDF81', 'hediye2': '\uD83C\uDF81',
+    'diploma': '\uD83C\uDF93',
+    'kupa': '\uD83C\uDFC6', 'kupa2': '\uD83C\uDFC6', 'kupa3': '\uD83C\uDFC6', 'kupa4': '\uD83C\uDFC6', 'kupa5': '\uD83C\uDFC6',
+    'altin-kupa': '\uD83C\uDFC6',
+    'konfeti': '\uD83C\uDF8A', 'konfeti2': '\uD83C\uDF8A', 'konfeti3': '\uD83C\uDF8A',
+    'madalya': '\uD83E\uDD47', 'madalya2': '\uD83E\uDD47',
+    'sertifika': '\uD83D\uDCDC', 'sertifika3': '\uD83D\uDCDC', 'deha': '\uD83D\uDCDC',
+    'bebek-sepet': '\uD83D\uDC76', 'biberon': '\uD83C\uDF7C', 'fiyonk': '\uD83C\uDF80',
+    'canta': '\uD83D\uDCBC',
+    'roket': '\uD83D\uDE80',
+    'sihir': '\uD83E\uDE84', 'sihir2': '\uD83E\uDE84',
+    'pati': '\uD83D\uDC3E', 'kemik': '\uD83E\uDDB4', 'balik': '\uD83D\uDC1F',
+    'ucak': '\u2708\uFE0F', 'bavul': '\uD83E\uDDF3', 'harita': '\uD83D\uDDFA\uFE0F',
+    'kravat': '\uD83D\uDC54',
+    'hilal': '\uD83C\uDF19', 'bayram-paket': '\uD83C\uDF81', 'altin': '\u2728',
+    'agac': '\uD83C\uDF84', 'yilbasi-kutu': '\uD83C\uDF81', 'kardan': '\u26C4',
+    'beyin': '\uD83E\uDDE0',
+    'laptop': '\uD83D\uDCBB', 'saat': '\u23F0', 'grafik': '\uD83D\uDCCA',
+    'ilac': '\uD83D\uDC8A'
   };
-  return eslesme[ambalajId] || '🎁';
+  return eslesme[ambalajId] || '\uD83C\uDF81';
 }
 
 // Emojiğe göre tema belirle
@@ -416,8 +413,8 @@ function baslat() {
   document.body.className = temaAl(ikon);
 
   // İkon
-  document.getElementById('ambalaj-ikon').textContent = ikon;
-  document.getElementById('acik-emoji').textContent = ikon;
+  document.getElementById('ambalaj-ikon').innerHTML = ikon;
+  document.getElementById('acik-emoji').innerHTML = ikon;
 
   // Kimden yazısı
   if (veri.gonderen) {
