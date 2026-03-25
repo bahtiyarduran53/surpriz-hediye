@@ -624,7 +624,10 @@ function altKategoriSec(id, el) {
   // İlk ambalajı otomatik seç
   if (alt.ambalajlar.length > 0) {
     state.ambalaj = alt.ambalajlar[0].id;
-    state.ambalajEmoji = alt.ambalajlar[0].emoji;
+    // HTML entity'yi gerçek emojiye çevir
+    var tmpDiv = document.createElement('div');
+    tmpDiv.innerHTML = alt.ambalajlar[0].emoji;
+    state.ambalajEmoji = tmpDiv.textContent || tmpDiv.innerText || alt.ambalajlar[0].emoji;
     document.getElementById('onizleme-ambalaj').innerHTML = alt.ambalajlar[0].emoji;
     document.getElementById('ozet-ambalaj').textContent = alt.ambalajlar[0].isim;
   }
@@ -643,7 +646,10 @@ function ambalajSec(id, emoji, isim, el) {
   document.querySelectorAll('.ambalaj-kart').forEach(function(k) { k.classList.remove('aktif'); });
   el.classList.add('aktif');
   state.ambalaj = id;
-  state.ambalajEmoji = emoji;
+  // HTML entity'yi gerçek emojiye çevir
+  var tmpDiv = document.createElement('div');
+  tmpDiv.innerHTML = emoji;
+  state.ambalajEmoji = tmpDiv.textContent || tmpDiv.innerText || emoji;
   document.getElementById('onizleme-ambalaj').innerHTML = emoji;
   document.getElementById('ozet-ambalaj').textContent = isim;
 }
