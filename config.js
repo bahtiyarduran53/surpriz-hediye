@@ -18,7 +18,7 @@ var DB = {
         gonderen: veri.gonderen || '',
         ses: veri.ses || 'sessiz',
         renk: veri.renk || 'mor',
-        fotograf_url: null,
+        fotograf_url: veri.foto || null,
         ana_kategori: veri.anaKategori || '',
         alt_kategori: veri.altKategori || '',
         odeme_durumu: 'odendi',
