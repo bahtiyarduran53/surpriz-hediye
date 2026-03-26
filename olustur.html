@@ -209,8 +209,8 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
           placeholder="Adin veya takma adin" oninput="gonderenGuncelle(this)" maxlength="50">
 
         <label class="form-label" style="margin-top:20px">Fotograf (opsiyonel)</label>
-        <div class="foto-upload">
-          <input type="file" id="foto-input" accept="image/*" onchange="fotoYukle(this)">
+        <div class="foto-upload" onclick="document.getElementById('foto-input').click()">
+          <input type="file" id="foto-input" accept="image/*" onchange="fotoYukle(this)" style="display:none">
           <div id="foto-icerik">
             <div style="font-size:28px">&#x1F4F8;</div>
             <div class="foto-upload-text">Fotograf ekle — maks 5MB</div>
