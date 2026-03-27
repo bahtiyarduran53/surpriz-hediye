@@ -114,7 +114,7 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 <body>
 
 <nav>
-  <div class="logo" onclick="window.location.href='index.html'">Surpriz<span>Link</span></div>
+  <div class="logo" onclick="window.location.href='index.html'">Sürpriz<span>Link</span></div>
   <div class="nav-back" onclick="window.location.href='index.html'">Ana Sayfa</div>
 </nav>
 
@@ -137,39 +137,39 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
   <div class="adim-cizgi"></div>
   <div class="adim-item">
     <div class="adim-daire" id="d4">4</div>
-    <div class="adim-label" id="dl4">Odeme</div>
+    <div class="adim-label" id="dl4">Ödeme</div>
   </div>
 </div>
 
 <!-- EKRAN 1: ANA KATEGORİ -->
 <div class="ekran aktif" id="ekran1">
   <div class="ekran-baslik">Hangi kategori?</div>
-  <div class="ekran-sub">Gondermek istedigin surprizin turunu sec</div>
+  <div class="ekran-sub">Göndermek istediğin sürprizin türünü seç</div>
   <div class="ana-kategori-grid">
     <div class="ana-kategori-kart" onclick="anaKategoriSec('komik', this)">
       <div class="ana-kategori-emoji">&#x1F602;</div>
-      <div class="ana-kategori-isim">Komik & Saka</div>
-      <div class="ana-kategori-sayi">7 secenek</div>
+      <div class="ana-kategori-isim">Komik & Şaka</div>
+      <div class="ana-kategori-sayi">7 seçenek</div>
     </div>
     <div class="ana-kategori-kart" onclick="anaKategoriSec('romantik', this)">
       <div class="ana-kategori-emoji">&#x1F495;</div>
       <div class="ana-kategori-isim">Duygusal & Romantik</div>
-      <div class="ana-kategori-sayi">7 secenek</div>
+      <div class="ana-kategori-sayi">7 seçenek</div>
     </div>
     <div class="ana-kategori-kart" onclick="anaKategoriSec('onemli', this)">
       <div class="ana-kategori-emoji">&#x1F389;</div>
-      <div class="ana-kategori-isim">Onemli Anlar</div>
-      <div class="ana-kategori-sayi">9 secenek</div>
+      <div class="ana-kategori-isim">Önemli Anlar</div>
+      <div class="ana-kategori-sayi">9 seçenek</div>
     </div>
     <div class="ana-kategori-kart" onclick="anaKategoriSec('yilin', this)">
       <div class="ana-kategori-emoji">&#x1F3C6;</div>
-      <div class="ana-kategori-isim">Yilin Enleri</div>
-      <div class="ana-kategori-sayi">9 secenek</div>
+      <div class="ana-kategori-isim">Yılın Enleri</div>
+      <div class="ana-kategori-sayi">9 seçenek</div>
     </div>
     <div class="ana-kategori-kart" onclick="anaKategoriSec('ozel', this)">
       <div class="ana-kategori-emoji">&#x1F338;</div>
-      <div class="ana-kategori-isim">Ozel Gunler</div>
-      <div class="ana-kategori-sayi">6 secenek</div>
+      <div class="ana-kategori-isim">Özel Günler</div>
+      <div class="ana-kategori-sayi">6 seçenek</div>
     </div>
   </div>
 </div>
@@ -177,8 +177,8 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 <!-- EKRAN 2: ALT KATEGORİ -->
 <div class="ekran" id="ekran2">
   <button class="geri-btn" onclick="geriGit(1)">&#8592; Geri</button>
-  <div class="ekran-baslik" id="alt-kat-baslik">Alt Kategori Sec</div>
-  <div class="ekran-sub" id="alt-kat-sub">Tam olarak ne gondermek istiyorsun?</div>
+  <div class="ekran-baslik" id="alt-kat-baslik">Alt Kategori Seç</div>
+  <div class="ekran-sub" id="alt-kat-sub">Tam olarak ne göndermek istiyorsun?</div>
   <div class="alt-kategori-grid" id="alt-kategori-grid"></div>
 </div>
 
@@ -189,42 +189,42 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
     <div>
       <!-- AMBALAJ -->
       <div class="form-kart">
-        <div class="form-kart-baslik">Ambalaj Sec</div>
-        <div class="form-kart-sub" id="ambalaj-sub">Karsi taraf bunu acacak!</div>
+        <div class="form-kart-baslik">Ambalaj Seç</div>
+        <div class="form-kart-sub" id="ambalaj-sub">Karşı taraf bunu açacak!</div>
         <div class="ambalaj-grid" id="ambalaj-grid"></div>
       </div>
 
       <!-- MESAJ -->
       <div class="form-kart">
-        <div class="form-kart-baslik">Icerik Ekle</div>
-        <div class="form-kart-sub">Kisisel dokunusunu ekle</div>
+        <div class="form-kart-baslik">İçerik Ekle</div>
+        <div class="form-kart-sub">Kişisel dokunuşunu ekle</div>
 
-        <label class="form-label">Mesajin</label>
+        <label class="form-label">Mesajın</label>
         <textarea class="input-field" id="mesaj" rows="4" maxlength="300"
-          placeholder="Mesajini buraya yaz..." oninput="mesajGuncelle(this)"></textarea>
+          placeholder="Mesajını buraya yaz..." oninput="mesajGuncelle(this)"></textarea>
         <div class="karakter-sayac"><span id="karakter">0</span>/300</div>
 
         <label class="form-label" style="margin-top:20px">Kimden? (opsiyonel)</label>
         <input class="input-field" id="gonderen" type="text"
-          placeholder="Adin veya takma adin" oninput="gonderenGuncelle(this)" maxlength="50">
+          placeholder="Adın veya takma adın" oninput="gonderenGuncelle(this)" maxlength="50">
 
-        <label class="form-label" style="margin-top:20px">Fotograf (opsiyonel)</label>
+        <label class="form-label" style="margin-top:20px">Fotoğraf (opsiyonel)</label>
         <div class="foto-upload" onclick="document.getElementById('foto-input').click()">
           <input type="file" id="foto-input" accept="image/*" onchange="fotoYukle(this)" style="display:none">
           <div id="foto-icerik">
             <div style="font-size:28px">&#x1F4F8;</div>
-            <div class="foto-upload-text">Fotograf ekle — maks 5MB</div>
+            <div class="foto-upload-text">Fotoğraf ekle — maks 5MB</div>
           </div>
           <img class="foto-onizleme" id="foto-onizleme">
         </div>
 
         <label class="form-label" style="margin-top:20px">Ses Efekti</label>
         <div class="ses-grid">
-          <button class="ses-btn aktif" data-s="sessiz" onclick="secSes(this)">Sessiz</button>
-          <button class="ses-btn" data-s="konfeti" onclick="secSes(this)">Konfeti</button>
-          <button class="ses-btn" data-s="muzik" onclick="secSes(this)">Muzik</button>
-          <button class="ses-btn" data-s="kalp" onclick="secSes(this)">Kalp</button>
-          <button class="ses-btn" data-s="alkis" onclick="secSes(this)">Alkis</button>
+          <button class="ses-btn aktif" data-s="sessiz" onclick="secSes(this)">🔇 Sessiz</button>
+          <button class="ses-btn" data-s="konfeti" onclick="secSes(this)">🎉 Konfeti</button>
+          <button class="ses-btn" data-s="muzik" onclick="secSes(this)">🎵 Müzik</button>
+          <button class="ses-btn" data-s="kalp" onclick="secSes(this)">💓 Kalp</button>
+          <button class="ses-btn" data-s="alkis" onclick="secSes(this)">👏 Alkış</button>
         </div>
       </div>
     </div>
@@ -232,23 +232,23 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
     <!-- ÖZET -->
     <div class="ozet-panel">
       <div class="ozet-kart">
-        <div class="ozet-baslik">Onizleme</div>
+        <div class="ozet-baslik">Önizleme</div>
         <div class="onizleme-kutu">
           <div class="onizleme-ambalaj" id="onizleme-ambalaj">&#x1F381;</div>
           <div class="onizleme-alt-kat" id="onizleme-altkat"></div>
-          <div class="onizleme-mesaj" id="onizleme-mesaj">Mesajin burada gorunecek...</div>
+          <div class="onizleme-mesaj" id="onizleme-mesaj">Mesajın burada görünecek...</div>
         </div>
         <div class="ozet-satir"><span class="ozet-satir-label">Kategori</span><span id="ozet-kategori">-</span></div>
         <div class="ozet-satir"><span class="ozet-satir-label">Alt Kategori</span><span id="ozet-alt">-</span></div>
         <div class="ozet-satir"><span class="ozet-satir-label">Ambalaj</span><span id="ozet-ambalaj">-</span></div>
         <div class="ozet-satir"><span class="ozet-satir-label">Ses</span><span id="ozet-ses">Sessiz</span></div>
         <div class="fiyat-ozet">
-          <div class="fiyat-satir"><span>Surpriz Link</span><span>19 TL</span></div>
+          <div class="fiyat-satir"><span>Sürpriz Link</span><span>19 TL</span></div>
           <div class="fiyat-toplam"><span>Toplam</span><span>19 TL</span></div>
         </div>
-        <button class="onizle-btn" onclick="onizleGit()">&#x1F441; Surprizi Onizle</button>
-        <button class="cta-btn" onclick="odemeGit()" style="margin-top:10px">Odemeye Gec - 19 TL</button>
-        <div class="guvenli">Guvenli odeme - Aninda teslim</div>
+        <button class="onizle-btn" onclick="onizleGit()">👁 Sürprizi Önizle</button>
+        <button class="cta-btn" onclick="odemeGit()" style="margin-top:10px">Ödemeye Geç — 19 TL</button>
+        <div class="guvenli">🔒 Güvenli ödeme · Anında teslim</div>
       </div>
     </div>
   </div>
@@ -258,48 +258,48 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 // ── VERİ YAPISI ──
 var kategoriler = {
   komik: {
-    isim: 'Komik & Saka',
+    isim: 'Komik & Şaka',
     emoji: '&#x1F602;',
     altlar: [
-      { id: 'bok', isim: 'Bok Gonder', emoji: '&#x1F4A9;',
+      { id: 'bok', isim: 'Bok Gönder', emoji: '&#x1F4A9;',
         ambalajlar: [
           { id: 'bok-kutu', isim: 'Bok Kutusu', emoji: '&#x1F4A9;' },
-          { id: 'tuvalet', isim: 'Tuvalet Rullosu', emoji: '&#x1F9FB;' },
+          { id: 'tuvalet', isim: 'Tuvalet Rulosu', emoji: '&#x1F9FB;' },
           { id: 'bomba', isim: 'Bomba', emoji: '&#x1F4A3;' }
         ]
       },
       { id: 'bomba', isim: 'Dikkat Bomba Var', emoji: '&#x1F4A3;',
         ambalajlar: [
           { id: 'bomba-kutu', isim: 'Bomba Kutusu', emoji: '&#x1F4A3;' },
-          { id: 'tehlike', isim: 'Tehlike Paketi', emoji: '&#x26A0;' },
+          { id: 'tehlike', isim: 'Tehlike Paketi', emoji: '&#x26A0;&#xFE0F;' },
           { id: 'tuzak', isim: 'Tuzak', emoji: '&#x1FA9E;' }
         ]
       },
-      { id: 'tuvalet', isim: 'Tuvalet Kagidi', emoji: '&#x1F9FB;',
+      { id: 'tuvalet', isim: 'Tuvalet Kağıdı', emoji: '&#x1F9FB;',
         ambalajlar: [
           { id: 'rulo', isim: 'Rulo Paket', emoji: '&#x1F9FB;' },
           { id: 'bok-kutu2', isim: 'Bok Kutusu', emoji: '&#x1F4A9;' },
-          { id: 'kusma', isim: 'Kusma Kovasi', emoji: '&#x1F92E;' }
+          { id: 'kusma', isim: 'Kusma Kovası', emoji: '&#x1F92E;' }
         ]
       },
-      { id: 'tuzak', isim: 'Tuzaga Dustun', emoji: '&#x1FA9E;',
+      { id: 'tuzak', isim: 'Tuzağa Düştün', emoji: '&#x1FA9E;',
         ambalajlar: [
           { id: 'tuzak-kutu', isim: 'Tuzak Kutusu', emoji: '&#x1FA9E;' },
           { id: 'bomba2', isim: 'Bomba', emoji: '&#x1F4A3;' },
-          { id: 'tehlike2', isim: 'Tehlike Paketi', emoji: '&#x26A0;' }
+          { id: 'tehlike2', isim: 'Tehlike Paketi', emoji: '&#x26A0;&#xFE0F;' }
         ]
       },
-      { id: 'yilan', isim: 'Yilani Bulduk', emoji: '&#x1F40D;',
+      { id: 'yilan', isim: 'Yılanı Bulduk', emoji: '&#x1F40D;',
         ambalajlar: [
-          { id: 'yilan-kutu', isim: 'Yilan Kutusu', emoji: '&#x1F40D;' },
-          { id: 'tehlike3', isim: 'Tehlike Paketi', emoji: '&#x26A0;' },
-          { id: 'kafatasi', isim: 'Kafatasi', emoji: '&#x1F480;' }
+          { id: 'yilan-kutu', isim: 'Yılan Kutusu', emoji: '&#x1F40D;' },
+          { id: 'tehlike3', isim: 'Tehlike Paketi', emoji: '&#x26A0;&#xFE0F;' },
+          { id: 'kafatasi', isim: 'Kafatası', emoji: '&#x1F480;' }
         ]
       },
-      { id: 'mide', isim: 'Midem Bulandi', emoji: '&#x1F92E;',
+      { id: 'mide', isim: 'Midem Bulandı', emoji: '&#x1F92E;',
         ambalajlar: [
-          { id: 'kusma2', isim: 'Kusma Kovasi', emoji: '&#x1F92E;' },
-          { id: 'tuvalet2', isim: 'Tuvalet Kagidi', emoji: '&#x1F9FB;' },
+          { id: 'kusma2', isim: 'Kusma Kovası', emoji: '&#x1F92E;' },
+          { id: 'tuvalet2', isim: 'Tuvalet Kağıdı', emoji: '&#x1F9FB;' },
           { id: 'bok2', isim: 'Bok Kutusu', emoji: '&#x1F4A9;' }
         ]
       },
@@ -316,62 +316,62 @@ var kategoriler = {
     isim: 'Duygusal & Romantik',
     emoji: '&#x1F495;',
     altlar: [
-      { id: 'gizli', isim: 'Gizli Hayranisin Var', emoji: '&#x1F48C;',
+      { id: 'gizli', isim: 'Gizli Hayranın Var', emoji: '&#x1F48C;',
         ambalajlar: [
-          { id: 'zarf', isim: 'Mektup Zarfi', emoji: '&#x1F48C;' },
-          { id: 'gul', isim: 'Gul Kutusu', emoji: '&#x1F339;' },
+          { id: 'zarf', isim: 'Mektup Zarfı', emoji: '&#x1F48C;' },
+          { id: 'gul', isim: 'Gül Kutusu', emoji: '&#x1F339;' },
           { id: 'kalp', isim: 'Kalp', emoji: '&#x1F49D;' }
         ]
       },
-      { id: 'ozledim', isim: 'Cok Ozledim', emoji: '&#x1F97A;',
+      { id: 'ozledim', isim: 'Çok Özledim', emoji: '&#x1F97A;',
         ambalajlar: [
-          { id: 'sarilma', isim: 'Sarilma Kutusu', emoji: '&#x1FAF6;' },
+          { id: 'sarilma', isim: 'Sarılma Kutusu', emoji: '&#x1F917;' },
           { id: 'mektup', isim: 'Mektup', emoji: '&#x1F48C;' },
-          { id: 'ay', isim: 'Ay Isigi', emoji: '&#x1F319;' }
+          { id: 'ay', isim: 'Ay Işığı', emoji: '&#x1F319;' }
         ]
       },
-      { id: 'ozur', isim: 'Ozur Dilerim', emoji: '&#x1F494;',
+      { id: 'ozur', isim: 'Özür Dilerim', emoji: '&#x1F494;',
         ambalajlar: [
-          { id: 'kirik', isim: 'Kirik Kalp', emoji: '&#x1F494;' },
-          { id: 'gul2', isim: 'Gul Kutusu', emoji: '&#x1F339;' },
+          { id: 'kirik', isim: 'Kırık Kalp', emoji: '&#x1F494;' },
+          { id: 'gul2', isim: 'Gül Kutusu', emoji: '&#x1F339;' },
           { id: 'mektup2', isim: 'Mektup', emoji: '&#x1F48C;' }
         ]
       },
-      { id: 'seviyorum', isim: 'Seni Seviyorum', emoji: '&#x1FAF6;',
+      { id: 'seviyorum', isim: 'Seni Seviyorum', emoji: '&#x2764;&#xFE0F;',
         ambalajlar: [
           { id: 'kalp2', isim: 'Kalp Kutusu', emoji: '&#x1F49D;' },
-          { id: 'gul3', isim: 'Gul', emoji: '&#x1F339;' },
+          { id: 'gul3', isim: 'Gül', emoji: '&#x1F339;' },
           { id: 'sihir', isim: 'Sihirli Kutu', emoji: '&#x2728;' }
         ]
       },
-      { id: 'geceler', isim: 'Iyi Geceler Sevgilim', emoji: '&#x1F319;',
+      { id: 'geceler', isim: 'İyi Geceler Sevgilim', emoji: '&#x1F319;',
         ambalajlar: [
           { id: 'ay2', isim: 'Ay Kutusu', emoji: '&#x1F319;' },
-          { id: 'yildiz', isim: 'Yildiz', emoji: '&#x2B50;' },
+          { id: 'yildiz', isim: 'Yıldız', emoji: '&#x2B50;' },
           { id: 'mektup3', isim: 'Mektup', emoji: '&#x1F48C;' }
         ]
       },
-      { id: 'gunaydin', isim: 'Gunaydin Askim', emoji: '&#x2600;',
+      { id: 'gunaydin', isim: 'Günaydın Aşkım', emoji: '&#x2600;&#xFE0F;',
         ambalajlar: [
-          { id: 'gunes', isim: 'Gunes Kutusu', emoji: '&#x2600;' },
-          { id: 'cicek', isim: 'Cicek', emoji: '&#x1F338;' },
+          { id: 'gunes', isim: 'Güneş Kutusu', emoji: '&#x2600;&#xFE0F;' },
+          { id: 'cicek', isim: 'Çiçek', emoji: '&#x1F338;' },
           { id: 'kalp3', isim: 'Kalp', emoji: '&#x1F49D;' }
         ]
       },
-      { id: 'guzel', isim: 'Seninle Her Yer Guzel', emoji: '&#x1F46B;',
+      { id: 'guzel', isim: 'Seninle Her Yer Güzel', emoji: '&#x1F46B;',
         ambalajlar: [
-          { id: 'cift', isim: 'Cift Kutusu', emoji: '&#x1F46B;' },
-          { id: 'gul4', isim: 'Gul', emoji: '&#x1F339;' },
+          { id: 'cift', isim: 'Çift Kutusu', emoji: '&#x1F46B;' },
+          { id: 'gul4', isim: 'Gül', emoji: '&#x1F339;' },
           { id: 'kalp4', isim: 'Kalp', emoji: '&#x1F49D;' }
         ]
       }
     ]
   },
   onemli: {
-    isim: 'Onemli Anlar',
+    isim: 'Önemli Anlar',
     emoji: '&#x1F389;',
     altlar: [
-      { id: 'dogum', isim: 'Dogum Gunu', emoji: '&#x1F382;',
+      { id: 'dogum', isim: 'Doğum Günü', emoji: '&#x1F382;',
         ambalajlar: [
           { id: 'pasta', isim: 'Pasta Kutusu', emoji: '&#x1F382;' },
           { id: 'balon', isim: 'Balon', emoji: '&#x1F388;' },
@@ -392,9 +392,9 @@ var kategoriler = {
           { id: 'fiyonk', isim: 'Pembe/Mavi Kutu', emoji: '&#x1F380;' }
         ]
       },
-      { id: 'is', isim: 'Yeni Is', emoji: '&#x1F4BC;',
+      { id: 'is', isim: 'Yeni İş', emoji: '&#x1F4BC;',
         ambalajlar: [
-          { id: 'canta', isim: 'Canta Kutusu', emoji: '&#x1F4BC;' },
+          { id: 'canta', isim: 'Çanta Kutusu', emoji: '&#x1F4BC;' },
           { id: 'kupa2', isim: 'Kupa', emoji: '&#x1F3C6;' },
           { id: 'konfeti2', isim: 'Konfeti', emoji: '&#x1F38A;' }
         ]
@@ -406,97 +406,97 @@ var kategoriler = {
           { id: 'sertifika', isim: 'Sertifika', emoji: '&#x1F4DC;' }
         ]
       },
-      { id: 'gecmis', isim: 'Gecmis Olsun', emoji: '&#x1F3E5;',
+      { id: 'gecmis', isim: 'Geçmiş Olsun', emoji: '&#x1F3E5;',
         ambalajlar: [
-          { id: 'cicek2', isim: 'Cicek Buketi', emoji: '&#x1F490;' },
-          { id: 'ilac', isim: 'Ilac Kutusu', emoji: '&#x1F48A;' },
-          { id: 'sarilma2', isim: 'Sarilma', emoji: '&#x1FAF6;' }
+          { id: 'cicek2', isim: 'Çiçek Buketi', emoji: '&#x1F490;' },
+          { id: 'ilac', isim: 'İlaç Kutusu', emoji: '&#x1F48A;' },
+          { id: 'sarilma2', isim: 'Sarılma', emoji: '&#x1F917;' }
         ]
       },
-      { id: 'yolculuk', isim: 'Iyi Yolculuklar', emoji: '&#x2708;',
+      { id: 'yolculuk', isim: 'İyi Yolculuklar', emoji: '&#x2708;&#xFE0F;',
         ambalajlar: [
-          { id: 'ucak', isim: 'Ucak Kutusu', emoji: '&#x2708;' },
+          { id: 'ucak', isim: 'Uçak Kutusu', emoji: '&#x2708;&#xFE0F;' },
           { id: 'bavul', isim: 'Bavul', emoji: '&#x1F9F3;' },
-          { id: 'harita', isim: 'Harita', emoji: '&#x1F5FA;' }
+          { id: 'harita', isim: 'Harita', emoji: '&#x1F5FA;&#xFE0F;' }
         ]
       },
-      { id: 'baslangic', isim: 'Yeni Baslangic', emoji: '&#x1F195;',
+      { id: 'baslangic', isim: 'Yeni Başlangıç', emoji: '&#x1F680;',
         ambalajlar: [
           { id: 'roket', isim: 'Roket', emoji: '&#x1F680;' },
           { id: 'sihir2', isim: 'Sihirli Kutu', emoji: '&#x2728;' },
           { id: 'konfeti3', isim: 'Konfeti', emoji: '&#x1F38A;' }
         ]
       },
-      { id: 'evcil', isim: 'Evcil Hayvanindan', emoji: '&#x1F43E;',
+      { id: 'evcil', isim: 'Evcil Hayvanından', emoji: '&#x1F43E;',
         ambalajlar: [
           { id: 'pati', isim: 'Pati Kutusu', emoji: '&#x1F43E;' },
           { id: 'kemik', isim: 'Kemik', emoji: '&#x1F9B4;' },
-          { id: 'balik', isim: 'Balik', emoji: '&#x1F41F;' }
+          { id: 'balik', isim: 'Balık', emoji: '&#x1F41F;' }
         ]
       }
     ]
   },
   yilin: {
-    isim: 'Yilin Enleri',
+    isim: 'Yılın Enleri',
     emoji: '&#x1F3C6;',
     altlar: [
-      { id: 'en-bok', isim: 'Yilin En Buyuk Boku', emoji: '&#x1F4A9;',
+      { id: 'en-bok', isim: 'Yılın En Büyük Boku', emoji: '&#x1F4A9;',
         ambalajlar: [
-          { id: 'bok-kupa', isim: 'Bok Kupasi', emoji: '&#x1F4A9;' },
-          { id: 'tuvalet3', isim: 'Tuvalet Kagidi', emoji: '&#x1F9FB;' },
+          { id: 'bok-kupa', isim: 'Bok Kupası', emoji: '&#x1F4A9;' },
+          { id: 'tuvalet3', isim: 'Tuvalet Kağıdı', emoji: '&#x1F9FB;' },
           { id: 'bomba3', isim: 'Bomba', emoji: '&#x1F4A3;' }
         ]
       },
-      { id: 'en-mal', isim: 'Yilin En Mali', emoji: '&#x1F926;',
+      { id: 'en-mal', isim: 'Yılın En Malı', emoji: '&#x1F926;',
         ambalajlar: [
-          { id: 'palyaco', isim: 'Palyaco Kutusu', emoji: '&#x1F921;' },
+          { id: 'palyaco', isim: 'Palyaço Kutusu', emoji: '&#x1F921;' },
           { id: 'sahte-kupa', isim: 'Sahte Kupa', emoji: '&#x1F3C6;' },
-          { id: 'sertifika2', isim: 'Mal Sertifikasi', emoji: '&#x1F4DC;' }
+          { id: 'sertifika2', isim: 'Mal Sertifikası', emoji: '&#x1F4DC;' }
         ]
       },
-      { id: 'en-tembel', isim: 'Yilin En Tembeli', emoji: '&#x1F634;',
+      { id: 'en-tembel', isim: 'Yılın En Tembeli', emoji: '&#x1F634;',
         ambalajlar: [
-          { id: 'yastik', isim: 'Yastik Kutusu', emoji: '&#x1F6CF;' },
-          { id: 'kanape', isim: 'Kanepe', emoji: '&#x1F6CB;' },
-          { id: 'ayi', isim: 'Oyuncak Ayi', emoji: '&#x1F9F8;' }
+          { id: 'yastik', isim: 'Yastık Kutusu', emoji: '&#x1F6CF;&#xFE0F;' },
+          { id: 'kanape', isim: 'Kanepe', emoji: '&#x1F6CB;&#xFE0F;' },
+          { id: 'ayi', isim: 'Oyuncak Ayı', emoji: '&#x1F9F8;' }
         ]
       },
-      { id: 'en-yalanci', isim: 'Yilin En Buyuk Yalancisi', emoji: '&#x1F925;',
+      { id: 'en-yalanci', isim: 'Yılın En Büyük Yalancısı', emoji: '&#x1F925;',
         ambalajlar: [
           { id: 'pinokyo', isim: 'Pinokyo Kutusu', emoji: '&#x1F925;' },
-          { id: 'yalan-sert', isim: 'Yalan Sertifikasi', emoji: '&#x1F4DC;' },
+          { id: 'yalan-sert', isim: 'Yalan Sertifikası', emoji: '&#x1F4DC;' },
           { id: 'maske', isim: 'Maske', emoji: '&#x1F3AD;' }
         ]
       },
-      { id: 'en-drama', isim: "Yilin En Dramatik Queen'i", emoji: '&#x1F631;',
+      { id: 'en-drama', isim: "Yılın En Dramatik Queen'i", emoji: '&#x1F631;',
         ambalajlar: [
-          { id: 'tac', isim: 'Tac Kutusu', emoji: '&#x1F451;' },
+          { id: 'tac', isim: 'Taç Kutusu', emoji: '&#x1F451;' },
           { id: 'drama', isim: 'Drama Maskesi', emoji: '&#x1F3AD;' },
-          { id: 'gul5', isim: 'Gul', emoji: '&#x1F339;' }
+          { id: 'gul5', isim: 'Gül', emoji: '&#x1F339;' }
         ]
       },
-      { id: 'en-arkadasik', isim: 'Yilin En Iyi Arkadasi', emoji: '&#x1F947;',
+      { id: 'en-arkadasik', isim: 'Yılın En İyi Arkadaşı', emoji: '&#x1F947;',
         ambalajlar: [
-          { id: 'altin-kupa', isim: 'Altin Kupa', emoji: '&#x1F3C6;' },
+          { id: 'altin-kupa', isim: 'Altın Kupa', emoji: '&#x1F3C6;' },
           { id: 'madalya2', isim: 'Madalya', emoji: '&#x1F947;' },
           { id: 'sertifika3', isim: 'Sertifika', emoji: '&#x1F4DC;' }
         ]
       },
-      { id: 'en-zeki', isim: 'Yilin En Zekisi', emoji: '&#x1F9E0;',
+      { id: 'en-zeki', isim: 'Yılın En Zekisi', emoji: '&#x1F9E0;',
         ambalajlar: [
           { id: 'beyin', isim: 'Beyin Kutusu', emoji: '&#x1F9E0;' },
           { id: 'kupa4', isim: 'Kupa', emoji: '&#x1F3C6;' },
-          { id: 'deha', isim: 'Deha Sertifikasi', emoji: '&#x1F4DC;' }
+          { id: 'deha', isim: 'Deha Sertifikası', emoji: '&#x1F4DC;' }
         ]
       },
-      { id: 'en-sevgili', isim: 'Yilin En Iyi Sevgilisi', emoji: '&#x1F491;',
+      { id: 'en-sevgili', isim: 'Yılın En İyi Sevgilisi', emoji: '&#x1F491;',
         ambalajlar: [
-          { id: 'kalp-kupa', isim: 'Kalp Kupasi', emoji: '&#x1F49D;' },
-          { id: 'gul6', isim: 'Gul', emoji: '&#x1F339;' },
+          { id: 'kalp-kupa', isim: 'Kalp Kupası', emoji: '&#x1F49D;' },
+          { id: 'gul6', isim: 'Gül', emoji: '&#x1F339;' },
           { id: 'mektup4', isim: 'Mektup', emoji: '&#x1F48C;' }
         ]
       },
-      { id: 'en-iskolik', isim: 'Yilin En Iskoligi', emoji: '&#x1F4BB;',
+      { id: 'en-iskolik', isim: 'Yılın En İşkoliği', emoji: '&#x1F4BB;',
         ambalajlar: [
           { id: 'laptop', isim: 'Laptop Kutusu', emoji: '&#x1F4BB;' },
           { id: 'saat', isim: 'Saat', emoji: '&#x23F0;' },
@@ -506,31 +506,31 @@ var kategoriler = {
     ]
   },
   ozel: {
-    isim: 'Ozel Gunler',
+    isim: 'Özel Günler',
     emoji: '&#x1F338;',
     altlar: [
-      { id: 'sevgililer', isim: 'Sevgililer Gunu', emoji: '&#x1F49D;',
+      { id: 'sevgililer', isim: 'Sevgililer Günü', emoji: '&#x1F49D;',
         ambalajlar: [
           { id: 'kalp5', isim: 'Kalp Kutusu', emoji: '&#x1F49D;' },
-          { id: 'gul7', isim: 'Gul', emoji: '&#x1F339;' },
+          { id: 'gul7', isim: 'Gül', emoji: '&#x1F339;' },
           { id: 'mektup5', isim: 'Mektup', emoji: '&#x1F48C;' }
         ]
       },
-      { id: '8mart', isim: '8 Mart Kadinlar Gunu', emoji: '&#x1F338;',
+      { id: '8mart', isim: '8 Mart Kadınlar Günü', emoji: '&#x1F338;',
         ambalajlar: [
-          { id: 'cicek3', isim: 'Cicek Buketi', emoji: '&#x1F490;' },
-          { id: 'cicek4', isim: 'Cicek Kutusu', emoji: '&#x1F338;' },
-          { id: 'tac2', isim: 'Tac', emoji: '&#x1F451;' }
+          { id: 'cicek3', isim: 'Çiçek Buketi', emoji: '&#x1F490;' },
+          { id: 'cicek4', isim: 'Çiçek Kutusu', emoji: '&#x1F338;' },
+          { id: 'tac2', isim: 'Taç', emoji: '&#x1F451;' }
         ]
       },
-      { id: 'anneler', isim: 'Anneler Gunu', emoji: '&#x1F469;',
+      { id: 'anneler', isim: 'Anneler Günü', emoji: '&#x1F469;',
         ambalajlar: [
-          { id: 'cicek5', isim: 'Cicek Buketi', emoji: '&#x1F490;' },
-          { id: 'gul8', isim: 'Gul', emoji: '&#x1F339;' },
+          { id: 'cicek5', isim: 'Çiçek Buketi', emoji: '&#x1F490;' },
+          { id: 'gul8', isim: 'Gül', emoji: '&#x1F339;' },
           { id: 'kalp6', isim: 'Kalp', emoji: '&#x1F49D;' }
         ]
       },
-      { id: 'babalar', isim: 'Babalar Gunu', emoji: '&#x1F468;',
+      { id: 'babalar', isim: 'Babalar Günü', emoji: '&#x1F468;',
         ambalajlar: [
           { id: 'kravat', isim: 'Kravat Kutusu', emoji: '&#x1F454;' },
           { id: 'kupa5', isim: 'Kupa', emoji: '&#x1F3C6;' },
@@ -541,13 +541,13 @@ var kategoriler = {
         ambalajlar: [
           { id: 'hilal', isim: 'Hilal Kutusu', emoji: '&#x1F319;' },
           { id: 'bayram-paket', isim: 'Bayram Paketi', emoji: '&#x1F381;' },
-          { id: 'altin', isim: 'Altin Kutu', emoji: '&#x2728;' }
+          { id: 'altin', isim: 'Altın Kutu', emoji: '&#x2728;' }
         ]
       },
-      { id: 'yilbasi', isim: 'Yilbasi', emoji: '&#x1F384;',
+      { id: 'yilbasi', isim: 'Yılbaşı', emoji: '&#x1F384;',
         ambalajlar: [
-          { id: 'agac', isim: 'Yilbasi Agaci', emoji: '&#x1F384;' },
-          { id: 'yilbasi-kutu', isim: 'Yilbasi Kutusu', emoji: '&#x1F381;' },
+          { id: 'agac', isim: 'Yılbaşı Ağacı', emoji: '&#x1F384;' },
+          { id: 'yilbasi-kutu', isim: 'Yılbaşı Kutusu', emoji: '&#x1F381;' },
           { id: 'kardan', isim: 'Kardan Adam', emoji: '&#x26C4;' }
         ]
       }
@@ -571,7 +571,7 @@ var state = {
 function anaKategoriSec(id, el) {
   state.anaKategori = id;
   var kat = kategoriler[id];
-  document.getElementById('alt-kat-baslik').textContent = kat.isim + ' - Ne gondermek istiyorsun?';
+  document.getElementById('alt-kat-baslik').textContent = kat.isim + ' — Ne göndermek istiyorsun?';
   document.getElementById('ozet-kategori').textContent = kat.isim;
 
   // Alt kategorileri doldur
@@ -587,7 +587,7 @@ function anaKategoriSec(id, el) {
   });
 
   // Adım güncelle
-  document.getElementById('d1').textContent = '&#x2713;';
+  document.getElementById('d1').textContent = '✓';
   document.getElementById('d1').className = 'adim-daire tamam';
   document.getElementById('d2').className = 'adim-daire aktif';
   document.getElementById('dl2').className = 'adim-label aktif';
@@ -633,7 +633,7 @@ function altKategoriSec(id, el) {
   }
 
   // Adım güncelle
-  document.getElementById('d2').textContent = '&#x2713;';
+  document.getElementById('d2').textContent = '✓';
   document.getElementById('d2').className = 'adim-daire tamam';
   document.getElementById('d3').className = 'adim-daire aktif';
   document.getElementById('dl3').className = 'adim-label aktif';
