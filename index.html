@@ -156,7 +156,7 @@ nav {
   box-shadow: 0 8px 24px rgba(124,58,237,0.4);
 }
 
-.btn-secondary {
+.btn-seçondary {
   padding: 16px 32px;
   background: transparent;
   border: 2px solid var(--border);
@@ -169,7 +169,7 @@ nav {
   transition: all 0.2s;
 }
 
-.btn-secondary:hover { border-color: var(--muted); }
+.btn-seçondary:hover { border-color: var(--muted); }
 
 /* ── ÖZEL GÜN BANNER ── */
 .special-banner {
@@ -222,18 +222,18 @@ nav {
 .banner-btn:hover { opacity: 0.9; }
 
 /* ── KATEGORİLER ── */
-.section {
+.seçtion {
   padding: 0 48px 64px;
 }
 
-.section-title {
+.seçtion-title {
   font-family: 'Syne', sans-serif;
   font-weight: 800;
   font-size: 28px;
   margin-bottom: 8px;
 }
 
-.section-sub {
+.seçtion-sub {
   color: var(--muted);
   font-size: 15px;
   margin-bottom: 32px;
@@ -303,7 +303,7 @@ nav {
 }
 
 /* ── NASIL ÇALIŞIR ── */
-.nasil-section {
+.nasil-seçtion {
   padding: 64px 48px;
   background: var(--surface);
   border-top: 1px solid var(--border);
@@ -349,7 +349,7 @@ nav {
 }
 
 /* ── FİYAT ── */
-.fiyat-section {
+.fiyat-seçtion {
   padding: 0 48px 80px;
   text-align: center;
 }
@@ -465,9 +465,9 @@ footer {
   .hero { padding: 60px 20px 48px; }
   .hero h1 { font-size: 36px; }
   .special-banner { margin: 0 20px 32px; flex-direction: column; }
-  .section { padding: 0 20px 48px; }
-  .nasil-section { padding: 48px 20px; }
-  .fiyat-section { padding: 0 20px 60px; }
+  .seçtion { padding: 0 20px 48px; }
+  .nasil-seçtion { padding: 48px 20px; }
+  .fiyat-seçtion { padding: 0 20px 60px; }
   footer { padding: 24px 20px; flex-direction: column; gap: 8px; text-align: center; }
 }
 </style>
@@ -477,7 +477,7 @@ footer {
 <!-- NAV -->
 <nav>
   <div class="logo">Sürpriz<span>Link</span></div>
-  <button class="nav-cta" onclick="window.location.href='olustur.html'">🎁 Hediye Oluştur</button>
+  <button class="nav-cta" onclick="window.location.href='oluştur.html'">🎁 Hediye Oluştur</button>
 </nav>
 
 <!-- HERO -->
@@ -486,42 +486,42 @@ footer {
   <h1>Sürprizi <em>hissettir,</em><br>linki at, bekle.</h1>
   <p>Kişiselleştirilmiş dijital hediyeler. Anında teslim, sıfır kargo, %100 sürpriz.</p>
   <div class="hero-btns">
-    <button class="btn-primary" onclick="window.location.href='olustur.html'">🎁 Hemen Oluştur</button>
-    <button class="btn-secondary" onclick="document.getElementById('nasil').scrollIntoView({behavior:'smooth'})">Nasıl Çalışır?</button>
+    <button class="btn-primary" onclick="window.location.href='oluştur.html'">🎁 Hemen Oluştur</button>
+    <button class="btn-seçondary" onclick="document.getElementById('nasil').scrollIntoView({behavior:'smooth'})">Nasıl Çalışır?</button>
   </div>
 </div>
 
 <!-- KATEGORİLER -->
-<div class="section">
-  <h2 class="section-title">Kategoriler</h2>
-  <p class="section-sub">Hangi sürprizi göndermek istiyorsun?</p>
+<div class="seçtion">
+  <h2 class="seçtion-title">Kategoriler</h2>
+  <p class="seçtion-sub">Hangi sürprizi göndermek istiyorsun?</p>
   <div class="kategori-grid" id="kategori-grid">
 
-    <div class="kategori-kart" onclick="window.location.href='olustur.html?kategori=komik'">
+    <div class="kategori-kart" onclick="window.location.href='oluştur.html?kategori=komik'">
       <div class="kategori-emoji">😂</div>
       <div class="kategori-isim">Komik & Şaka</div>
       <div class="kategori-sayi">En çok tercih edilen</div>
     </div>
 
-    <div class="kategori-kart" onclick="window.location.href='olustur.html?kategori=romantik'">
+    <div class="kategori-kart" onclick="window.location.href='oluştur.html?kategori=romantik'">
       <div class="kategori-emoji">💕</div>
       <div class="kategori-isim">Duygusal & Romantik</div>
       <div class="kategori-sayi">Sevgililer için</div>
     </div>
 
-    <div class="kategori-kart" onclick="window.location.href='olustur.html?kategori=onemli'">
+    <div class="kategori-kart" onclick="window.location.href='oluştur.html?kategori=onemli'">
       <div class="kategori-emoji">🎉</div>
       <div class="kategori-isim">Önemli Anlar</div>
       <div class="kategori-sayi">Doğum günü, mezuniyet...</div>
     </div>
 
-    <div class="kategori-kart" onclick="window.location.href='olustur.html?kategori=yilin'">
+    <div class="kategori-kart" onclick="window.location.href='oluştur.html?kategori=yilin'">
       <div class="kategori-emoji">🏆</div>
       <div class="kategori-isim">Yılın Enleri</div>
       <div class="kategori-sayi">Komik ödüller</div>
     </div>
 
-    <div class="kategori-kart" onclick="window.location.href='olustur.html?kategori=ozel'">
+    <div class="kategori-kart" onclick="window.location.href='oluştur.html?kategori=ozel'">
       <div class="kategori-emoji">🌸</div>
       <div class="kategori-isim">Özel Günler</div>
       <div class="kategori-sayi">Bayram, yılbaşı...</div>
@@ -531,10 +531,10 @@ footer {
 </div>
 
 <!-- NASIL ÇALIŞIR -->
-<div class="nasil-section" id="nasil">
+<div class="nasil-seçtion" id="nasil">
   <div style="max-width:800px; margin:0 auto">
-    <h2 class="section-title">Nasıl Çalışır?</h2>
-    <p class="section-sub">3 adımda sürprizini hazırla</p>
+    <h2 class="seçtion-title">Nasıl Çalışır?</h2>
+    <p class="seçtion-sub">3 adımda sürprizini hazırla</p>
     <div class="adimlar">
       <div class="adim">
         <div class="adim-num">1</div>
@@ -556,9 +556,9 @@ footer {
 </div>
 
 <!-- FİYAT -->
-<div class="fiyat-section">
-  <h2 class="section-title">Fiyat</h2>
-  <p class="section-sub">Bir kahveden ucuz, bin kat daha etkili</p>
+<div class="fiyat-seçtion">
+  <h2 class="seçtion-title">Fiyat</h2>
+  <p class="seçtion-sub">Bir kahveden ucuz, bin kat daha etkili</p>
   <div class="fiyat-grid" style="max-width:380px">
 
     <div class="fiyat-kart populer">
@@ -571,7 +571,7 @@ footer {
       <div class="fiyat-ozellik">Kişisel mesaj</div>
       <div class="fiyat-ozellik">Ses efekti</div>
       <div class="fiyat-ozellik">Anında teslim</div>
-      <button class="fiyat-btn" onclick="window.location.href='olustur.html'">Hemen Oluştur</button>
+      <button class="fiyat-btn" onclick="window.location.href='oluştur.html'">Hemen Oluştur</button>
     </div>
 
   </div>
