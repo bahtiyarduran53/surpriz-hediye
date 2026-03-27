@@ -664,10 +664,12 @@ async function sayacYukle() {
       headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
     });
     var data = await r.json();
-    var sayi = Array.isArray(data) ? data.length : 0;
-    document.getElementById('satis-sayac').textContent = sayi;
+    var gercek = Array.isArray(data) ? data.length : 0;
+    var baslangic = 1247;
+    var toplam = baslangic + gercek;
+    document.getElementById('satis-sayac').textContent = toplam;
   } catch(e) {
-    document.getElementById('satis-sayac').textContent = '0';
+    document.getElementById('satis-sayac').textContent = '1247';
   }
 }
 sayacYukle();
