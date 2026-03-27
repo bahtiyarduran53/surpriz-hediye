@@ -396,6 +396,18 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
           </div>
           <img class="foto-onizleme" id="foto-onizleme">
         </div>
+
+        <label class="form-label" style="margin-top:20px">Ses Efekti</label>
+        <div class="ses-grid">
+          <button class="ses-btn aktif" data-s="sessiz" onclick="secSes(this)">🔇 Sessiz</button>
+          <button class="ses-btn" data-s="konfeti" onclick="secSes(this)">🎉 Konfeti</button>
+          <button class="ses-btn" data-s="muzik" onclick="secSes(this)">🎵 Müzik</button>
+          <button class="ses-btn" data-s="kalp" onclick="secSes(this)">💓 Kalp</button>
+          <button class="ses-btn" data-s="alkis" onclick="secSes(this)">👏 Alkış</button>
+          <button class="ses-btn" data-s="osuruk" onclick="secSes(this)">💨 Osuruk</button>
+          <button class="ses-btn" data-s="seviyorum" onclick="secSes(this)">💕 Romantik</button>
+          <button class="ses-btn" data-s="korkutma" onclick="secSes(this)">👻 Korku</button>
+        </div>
       </div>
     </div>
 
@@ -411,6 +423,7 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
         <div class="ozet-satir"><span class="ozet-satir-label">Kategori</span><span id="ozet-kategori">-</span></div>
         <div class="ozet-satir"><span class="ozet-satir-label">Alt Kategori</span><span id="ozet-alt">-</span></div>
         <div class="ozet-satir"><span class="ozet-satir-label">Ambalaj</span><span id="ozet-ambalaj">-</span></div>
+        <div class="ozet-satir"><span class="ozet-satir-label">Ses</span><span id="ozet-ses">Sessiz</span></div>
         <div class="fiyat-ozet">
           <div class="fiyat-satir"><span>Sürpriz Link</span><span>19 TL</span></div>
           <div class="fiyat-toplam"><span>Toplam</span><span>19 TL</span></div>
@@ -855,15 +868,9 @@ function secSes(btn) {
   document.querySelectorAll('.ses-btn').forEach(function(b) { b.classList.remove('aktif'); });
   btn.classList.add('aktif');
   state.ses = btn.getAttribute('data-s');
-}
-
-function titresimCal(tip) {
-  if (!navigator.vibrate) return;
-  if (tip === 'titresim') {
-    navigator.vibrate([200, 100, 200, 100, 200]);
-  } else if (tip === 'guclu') {
-    navigator.vibrate([500, 100, 500, 100, 500]);
-  }
+  document.getElementById('ozet-ses').textContent = btn.textContent;
+  // Seçince önizleme çal
+  sesCal(state.ses);
 }
 
 // ── EKRAN GEÇİŞ ──
@@ -909,7 +916,9 @@ function popupAc() {
 
   // Titreşim
   if (navigator.vibrate) navigator.vibrate([200, 100, 300]);
-  titresimCal(state.ses);
+
+  // Ses - kullanıcı tıkladığı için çalışır
+  sesCal(state.ses || 'konfeti');
 
   // Konfeti
   popupKonfeti();
@@ -945,6 +954,121 @@ function popupAc() {
   }, 300);
 }
 
+function sesCal(tip) {
+  if (!tip || tip === 'sessiz') return;
+  try {
+    var AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    var actx = new AudioCtx();
+
+    if (tip === 'konfeti') {
+      // Yükselen müzik
+      [261, 329, 392, 523, 659, 784, 1047].forEach(function(f, i) {
+        var o = actx.createOscillator();
+        var g = actx.createGain();
+        o.connect(g); g.connect(actx.destination);
+        o.frequency.value = f; o.type = 'sine';
+        g.gain.setValueAtTime(0.25, actx.currentTime + i * 0.08);
+        g.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + i * 0.08 + 0.3);
+        o.start(actx.currentTime + i * 0.08);
+        o.stop(actx.currentTime + i * 0.08 + 0.3);
+      });
+
+    } else if (tip === 'muzik') {
+      // Müzik kutusu melodisi
+      [523, 659, 784, 659, 523, 392, 523].forEach(function(f, i) {
+        var o = actx.createOscillator();
+        var g = actx.createGain();
+        o.connect(g); g.connect(actx.destination);
+        o.frequency.value = f; o.type = 'triangle';
+        g.gain.setValueAtTime(0.2, actx.currentTime + i * 0.18);
+        g.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + i * 0.18 + 0.4);
+        o.start(actx.currentTime + i * 0.18);
+        o.stop(actx.currentTime + i * 0.18 + 0.4);
+      });
+
+    } else if (tip === 'kalp') {
+      // Kalp atışı
+      [0, 0.35, 0.7].forEach(function(t) {
+        var o = actx.createOscillator();
+        var g = actx.createGain();
+        o.connect(g); g.connect(actx.destination);
+        o.type = 'sine';
+        o.frequency.setValueAtTime(120, actx.currentTime + t);
+        o.frequency.exponentialRampToValueAtTime(60, actx.currentTime + t + 0.2);
+        g.gain.setValueAtTime(0.5, actx.currentTime + t);
+        g.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + t + 0.25);
+        o.start(actx.currentTime + t);
+        o.stop(actx.currentTime + t + 0.25);
+      });
+
+    } else if (tip === 'alkis') {
+      // Alkış sesi
+      for (var i = 0; i < 6; i++) {
+        (function(idx) {
+          var bufSize = Math.floor(actx.sampleRate * 0.06);
+          var buf = actx.createBuffer(1, bufSize, actx.sampleRate);
+          var data = buf.getChannelData(0);
+          for (var j = 0; j < bufSize; j++) data[j] = (Math.random() * 2 - 1) * 0.8;
+          var src = actx.createBufferSource();
+          var g = actx.createGain();
+          src.buffer = buf;
+          src.connect(g); g.connect(actx.destination);
+          g.gain.setValueAtTime(0.35, actx.currentTime + idx * 0.11);
+          g.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + idx * 0.11 + 0.06);
+          src.start(actx.currentTime + idx * 0.11);
+        })(i);
+      }
+
+    } else if (tip === 'osuruk') {
+      // Osuruk sesi 💨
+      var o = actx.createOscillator();
+      var g = actx.createGain();
+      var dist = actx.createWaveShaper();
+      var curve = new Float32Array(256);
+      for (var i = 0; i < 256; i++) curve[i] = (Math.random() * 2 - 1);
+      dist.curve = curve;
+      o.connect(dist); dist.connect(g); g.connect(actx.destination);
+      o.type = 'sawtooth';
+      o.frequency.setValueAtTime(120, actx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(40, actx.currentTime + 0.8);
+      g.gain.setValueAtTime(0.5, actx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + 0.8);
+      o.start(actx.currentTime);
+      o.stop(actx.currentTime + 0.8);
+
+    } else if (tip === 'seviyorum') {
+      // Romantik melodi — seni seviyorum
+      [392, 440, 494, 523, 494, 440, 392, 349, 392].forEach(function(f, i) {
+        var o = actx.createOscillator();
+        var g = actx.createGain();
+        o.connect(g); g.connect(actx.destination);
+        o.frequency.value = f; o.type = 'sine';
+        g.gain.setValueAtTime(0.2, actx.currentTime + i * 0.2);
+        g.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + i * 0.2 + 0.35);
+        o.start(actx.currentTime + i * 0.2);
+        o.stop(actx.currentTime + i * 0.2 + 0.35);
+      });
+
+    } else if (tip === 'korkutma') {
+      // Korku sesi 👻
+      var o2 = actx.createOscillator();
+      var g2 = actx.createGain();
+      o2.connect(g2); g2.connect(actx.destination);
+      o2.type = 'sawtooth';
+      o2.frequency.setValueAtTime(200, actx.currentTime);
+      o2.frequency.setValueAtTime(180, actx.currentTime + 0.1);
+      o2.frequency.setValueAtTime(200, actx.currentTime + 0.2);
+      o2.frequency.setValueAtTime(160, actx.currentTime + 0.3);
+      o2.frequency.exponentialRampToValueAtTime(80, actx.currentTime + 0.8);
+      g2.gain.setValueAtTime(0.3, actx.currentTime);
+      g2.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + 0.8);
+      o2.start(actx.currentTime);
+      o2.stop(actx.currentTime + 0.8);
+    }
+  } catch(e) {
+    console.log('Ses hatası:', e);
+  }
 }
 
 function popupKonfeti() {
@@ -1030,6 +1154,7 @@ window.onload = function() {
 <!-- POPUP ÖNİZLEME -->
 <div class="onizleme-overlay" id="onizleme-overlay">
   <div class="onizleme-popup">
+    <div class="onizleme-filigran">👁 ÖNİZLEME MODU</div>
     <div class="onizleme-sahne" id="popup-sahne">
       <canvas id="popup-canvas"></canvas>
       <div id="popup-kapali" style="display:flex; flex-direction:column; align-items:center; gap:12px; position:relative; z-index:2;">
