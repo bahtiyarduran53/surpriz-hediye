@@ -572,11 +572,24 @@ function fotoYukle(input) {
   if (file.size > 5 * 1024 * 1024) { alert('Fotoğraf 5MB dan büyük olamaz!'); return; }
   var reader = new FileReader();
   reader.onload = function(e) {
-    state.foto = e.target.result;
-    var img = document.getElementById('foto-onizleme');
+    // Fotoğrafı küçült
+    var img = new Image();
+    img.onload = function() {
+      var canvas = document.createElement('canvas');
+      var maxSize = 600;
+      var w = img.width, h = img.height;
+      if (w > h) { if (w > maxSize) { h = h * maxSize / w; w = maxSize; } }
+      else { if (h > maxSize) { w = w * maxSize / h; h = maxSize; } }
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      var kucuk = canvas.toDataURL('image/jpeg', 0.7);
+      state.foto = kucuk;
+      var onizleme = document.getElementById('foto-onizleme');
+      onizleme.src = kucuk;
+      onizleme.style.display = 'block';
+      document.getElementById('foto-icerik').style.display = 'none';
+    };
     img.src = e.target.result;
-    img.style.display = 'block';
-    document.getElementById('foto-icerik').style.display = 'none';
   };
   reader.readAsDataURL(file);
 }
