@@ -110,10 +110,10 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 <canvas class="konfeti-canvas" id="canvas"></canvas>
 
 <div class="kart">
-  <div class="logo" onclick="window.location.href='index.html'">Surpriz<span>Link</span></div>
+  <div class="logo" onclick="window.location.href='index.html'">Sürpriz<span>Link</span></div>
 
   <div class="basari-ikon">🎉</div>
-  <div class="baslik">Linkin Hazir!</div>
+  <div class="baslik">Linkin Hazır!</div>
   <div class="alt-baslik">Asagidaki linki kopyala ve arkadaşına at. Açtığı an sürpriz başlıyor!</div>
 
   <!-- LİNK KUTUSU -->
@@ -140,12 +140,12 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 
   <!-- ÖNİZLE -->
   <button class="onizle-btn" onclick="onizle()">
-    👁 Surprizi Onizle
+    👁 Sürprizi Onizle
   </button>
 
   <!-- YENİ HEDİYE -->
-  <button class="yeni-btn" onclick="window.location.href='olustur.html'">
-    🎁 Yeni Surpriz Olustur
+  <button class="yeni-btn" onclick="window.location.href='oluştur.html'">
+    🎁 Yeni Sürpriz Oluştur
   </button>
 </div>
 
@@ -154,7 +154,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 <script src="config.js"></script>
 <script>
 // ── Link Üret ──
-var surprizLink = '';
+var sürprizLink = '';
 
 window.onload = async function() {
   // localStorage'dan veriyi oku
@@ -174,23 +174,23 @@ window.onload = async function() {
       } else {
         // Supabase çalışmazsa yedek olarak localStorage kullan
         id = Math.random().toString(36).substr(2, 8).toUpperCase();
-        localStorage.setItem('surpriz_' + id, kayitli);
+        localStorage.setItem('sürpriz_' + id, kayitli);
       }
 
       // Link oluştur
-      surprizLink = window.location.origin + '/surpriz.html?id=' + id;
-      document.getElementById('link-url').textContent = surprizLink;
+      sürprizLink = window.location.origin + '/sürpriz.html?id=' + id;
+      document.getElementById('link-url').textContent = sürprizLink;
       // Temizle
       localStorage.removeItem('odeme_bekliyor');
     } catch(e) {
       // Test modu
-      surprizLink = window.location.origin + '/surpriz.html?id=TEST123';
-      document.getElementById('link-url').textContent = surprizLink;
+      sürprizLink = window.location.origin + '/sürpriz.html?id=TEST123';
+      document.getElementById('link-url').textContent = sürprizLink;
     }
   } else {
     // Test modu
-    surprizLink = window.location.origin + '/surpriz.html?id=ORNEK456';
-    document.getElementById('link-url').textContent = surprizLink;
+    sürprizLink = window.location.origin + '/sürpriz.html?id=ORNEK456';
+    document.getElementById('link-url').textContent = sürprizLink;
   }
 
   // Konfeti başlat
@@ -199,7 +199,7 @@ window.onload = async function() {
 
 // ── Kopyala ──
 function linkkopyala() {
-  navigator.clipboard.writeText(surprizLink).then(function() {
+  navigator.clipboard.writeText(sürprizLink).then(function() {
     var btn = document.getElementById('kopyala-btn');
     btn.textContent = '✓ Kopyalandi';
     btn.classList.add('kopyalandi');
@@ -211,7 +211,7 @@ function linkkopyala() {
   }).catch(function() {
     // Fallback
     var input = document.createElement('input');
-    input.value = surprizLink;
+    input.value = sürprizLink;
     document.body.appendChild(input);
     input.select();
     document.execCommand('copy');
@@ -228,7 +228,7 @@ function toastGoster() {
 
 // ── WhatsApp ──
 function whatsappPaylash() {
-  var mesaj = encodeURIComponent('Sana bir surprizim var! Aç bakalım 🎁\n' + surprizLink);
+  var mesaj = encodeURIComponent('Sana bir sürprizim var! Aç bakalım 🎁\n' + sürprizLink);
   window.open('https://wa.me/?text=' + mesaj, '_blank');
 }
 
@@ -236,9 +236,9 @@ function whatsappPaylash() {
 function linkPaylash() {
   if (navigator.share) {
     navigator.share({
-      title: 'Sana bir surprizim var!',
+      title: 'Sana bir sürprizim var!',
       text: 'Aç bakalım 🎁',
-      url: surprizLink
+      url: sürprizLink
     });
   } else {
     linkkopyala();
@@ -247,7 +247,7 @@ function linkPaylash() {
 
 // ── Önizle ──
 function onizle() {
-  window.open(surprizLink, '_blank');
+  window.open(sürprizLink, '_blank');
 }
 
 // ── Konfeti ──
