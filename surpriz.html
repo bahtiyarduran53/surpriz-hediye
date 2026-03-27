@@ -298,7 +298,7 @@ body {
 var veri = {
   ambalaj: 'kutu',
   ambalajEmoji: '',
-  mesaj: 'Sana ozel bir surprizim var!',
+  mesaj: 'Sana ozel bir sürprizim var!',
   gonderen: '',
   ses: 'konfeti',
   renk: 'mor',
@@ -322,10 +322,10 @@ async function veriYukle() {
       veri.gonderen = d.gonderen || '';
       veri.ses = d.ses || 'sessiz';
       veri.renk = d.renk || 'mor';
-      if (d.fotograf_url) veri.foto = d.fotograf_url;
+      if (d.fotoğraf_url) veri.foto = d.fotoğraf_url;
     } else {
       // Supabase'de yoksa localStorage'dan dene
-      var yerel = localStorage.getItem('surpriz_' + id);
+      var yerel = localStorage.getItem('sürpriz_' + id);
       if (yerel) {
         try { veri = Object.assign(veri, JSON.parse(yerel)); } catch(e) {}
       }
@@ -441,7 +441,7 @@ function baslat() {
 
   // Kimden yazısı
   if (veri.gonderen) {
-    document.getElementById('kimden-on').textContent = veri.gonderen + ' sana bir surpriz gonderdi!';
+    document.getElementById('kimden-on').textContent = veri.gonderen + ' sana bir sürpriz gonderdi!';
   }
 
   // Fotoğraf
