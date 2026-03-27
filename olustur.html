@@ -912,20 +912,8 @@ function popupAc() {
   // Titreşim
   if (navigator.vibrate) navigator.vibrate([200, 100, 300]);
 
-  // Ses
-  try {
-    var actx = new (window.AudioContext || window.webkitAudioContext)();
-    [523, 659, 784, 1047].forEach(function(f, i) {
-      var o = actx.createOscillator();
-      var g = actx.createGain();
-      o.connect(g); g.connect(actx.destination);
-      o.frequency.value = f; o.type = 'sine';
-      g.gain.setValueAtTime(0.2, actx.currentTime + i * 0.1);
-      g.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + i * 0.1 + 0.3);
-      o.start(actx.currentTime + i * 0.1);
-      o.stop(actx.currentTime + i * 0.1 + 0.3);
-    });
-  } catch(e) {}
+  // Ses - kullanıcı tıkladığı için çalışır
+  sesCal(state.ses || 'konfeti');
 
   // Konfeti
   popupKonfeti();
@@ -959,6 +947,61 @@ function popupAc() {
     var gEl = document.getElementById('popup-gonderen');
     gEl.textContent = state.gonderen ? '— ' + state.gonderen : '';
   }, 300);
+}
+
+function sesCal(tip) {
+  if (!tip || tip === 'sessiz') return;
+  try {
+    var actx = new (window.AudioContext || window.webkitAudioContext)();
+    if (tip === 'konfeti') {
+      [523, 659, 784, 1047].forEach(function(f, i) {
+        var o = actx.createOscillator();
+        var g = actx.createGain();
+        o.connect(g); g.connect(actx.destination);
+        o.frequency.value = f; o.type = 'sine';
+        g.gain.setValueAtTime(0.2, actx.currentTime + i * 0.1);
+        g.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + i * 0.1 + 0.35);
+        o.start(actx.currentTime + i * 0.1);
+        o.stop(actx.currentTime + i * 0.1 + 0.35);
+      });
+    } else if (tip === 'muzik') {
+      [262, 330, 392, 523, 392, 330, 262].forEach(function(f, i) {
+        var o = actx.createOscillator();
+        var g = actx.createGain();
+        o.connect(g); g.connect(actx.destination);
+        o.frequency.value = f; o.type = 'triangle';
+        g.gain.setValueAtTime(0.2, actx.currentTime + i * 0.15);
+        g.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + i * 0.15 + 0.3);
+        o.start(actx.currentTime + i * 0.15);
+        o.stop(actx.currentTime + i * 0.15 + 0.3);
+      });
+    } else if (tip === 'kalp') {
+      [0, 0.4].forEach(function(t) {
+        var o = actx.createOscillator();
+        var g = actx.createGain();
+        o.connect(g); g.connect(actx.destination);
+        o.type = 'sine'; o.frequency.value = 80;
+        g.gain.setValueAtTime(0.4, actx.currentTime + t);
+        g.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + t + 0.3);
+        o.start(actx.currentTime + t);
+        o.stop(actx.currentTime + t + 0.3);
+      });
+    } else if (tip === 'alkis') {
+      for (var i = 0; i < 5; i++) {
+        var bufSize = actx.sampleRate * 0.08;
+        var buf = actx.createBuffer(1, bufSize, actx.sampleRate);
+        var data = buf.getChannelData(0);
+        for (var j = 0; j < bufSize; j++) data[j] = Math.random() * 2 - 1;
+        var src = actx.createBufferSource();
+        var g2 = actx.createGain();
+        src.buffer = buf;
+        src.connect(g2); g2.connect(actx.destination);
+        g2.gain.setValueAtTime(0.3, actx.currentTime + i * 0.1);
+        g2.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + i * 0.1 + 0.08);
+        src.start(actx.currentTime + i * 0.1);
+      }
+    }
+  } catch(e) {}
 }
 
 function popupKonfeti() {
@@ -1010,8 +1053,11 @@ function popupKapat() {
 }
 
 function popupSatinAl() {
-  popupKapat();
-  if (!state.mesaj.trim()) { alert('Lütfen mesaj yazın!'); return; }
+  if (!state.mesaj || !state.mesaj.trim()) {
+    popupKapat();
+    alert('Lütfen mesaj yazın!');
+    return;
+  }
   localStorage.setItem('hediye_data', JSON.stringify(state));
   window.location.href = 'odeme.html';
 }
