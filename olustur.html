@@ -101,6 +101,185 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 .onizle-btn:hover { background: rgba(124,58,237,0.08); }
 .guvenli { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; color: var(--muted); margin-top: 10px; }
 
+/* POPUP ÖNİZLEME */
+.onizleme-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(8px);
+}
+.onizleme-overlay.aktif { display: flex; }
+
+.onizleme-popup {
+  background: #0a0a0f;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 420px;
+  overflow: hidden;
+  position: relative;
+  animation: popupGel 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes popupGel {
+  from { opacity: 0; transform: scale(0.8) translateY(30px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.onizleme-filigran {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,107,53,0.9);
+  color: white;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 2px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  z-index: 10;
+}
+
+.onizleme-sahne {
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px 24px;
+  position: relative;
+  text-align: center;
+  gap: 12px;
+}
+
+#popup-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.popup-ambalaj {
+  font-size: 90px;
+  cursor: pointer;
+  animation: sallanPopup 2s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+  user-select: none;
+}
+
+@keyframes sallanPopup {
+  0%,100% { transform: rotate(-5deg) scale(1); }
+  50% { transform: rotate(5deg) scale(1.05); }
+}
+
+.popup-tik {
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  border: 2px solid rgba(124,58,237,0.4);
+  animation: tikPopup 1.5s ease-out infinite;
+  z-index: 1;
+}
+@keyframes tikPopup {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.popup-ac-yazi {
+  color: rgba(255,255,255,0.6);
+  font-size: 13px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  position: relative;
+  z-index: 2;
+  animation: nabizPopup 1s ease-in-out infinite;
+}
+@keyframes nabizPopup {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.popup-mesaj-alan {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.popup-acik-emoji { font-size: 64px; }
+
+.popup-mesaj-kutu {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 16px 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.popup-mesaj-text {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: white;
+  line-height: 1.4;
+}
+
+.popup-gonderen {
+  font-size: 13px;
+  color: var(--accent2);
+  margin-top: 6px;
+}
+
+.popup-altlar {
+  padding: 0 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+
+.popup-satin-al {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border: none;
+  border-radius: 14px;
+  color: white;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.popup-satin-al:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,0.4); }
+
+.popup-geri {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--muted);
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.popup-geri:hover { border-color: var(--muted); color: var(--text); }
+
 @media (max-width: 768px) {
   nav { padding: 16px 20px; }
   .adim-bar { padding: 16px 20px; }
@@ -702,12 +881,132 @@ function geriGit(num) {
 
 // ── ÖDEME ──
 function onizleGit() {
-  if (!state.anaKategori) { alert('Lutfen once kategori secin!'); return; }
-  if (!state.altKategori) { alert('Lutfen once alt kategori secin!'); return; }
+  if (!state.anaKategori) { alert('Lütfen önce kategori seçin!'); return; }
+  if (!state.altKategori) { alert('Lütfen önce alt kategori seçin!'); return; }
   state.mesaj = document.getElementById('mesaj').value;
   state.gonderen = document.getElementById('gonderen').value;
+  popupAcOnizleme();
+}
+
+function popupAcOnizleme() {
+  // Ambalaj emojisini ayarla
+  var ikon = state.ambalajEmoji || '🎁';
+  document.getElementById('popup-ambalaj').textContent = ikon;
+  document.getElementById('popup-acik-emoji').textContent = ikon;
+
+  // Kapalı ekranı göster
+  document.getElementById('popup-kapali').style.display = 'flex';
+  document.getElementById('popup-acik').style.display = 'none';
+
+  // Overlay aç
+  document.getElementById('onizleme-overlay').classList.add('aktif');
+  document.body.style.overflow = 'hidden';
+}
+
+var popupAcildi = false;
+
+function popupAc() {
+  if (popupAcildi) return;
+  popupAcildi = true;
+
+  // Titreşim
+  if (navigator.vibrate) navigator.vibrate([200, 100, 300]);
+
+  // Ses
+  try {
+    var actx = new (window.AudioContext || window.webkitAudioContext)();
+    [523, 659, 784, 1047].forEach(function(f, i) {
+      var o = actx.createOscillator();
+      var g = actx.createGain();
+      o.connect(g); g.connect(actx.destination);
+      o.frequency.value = f; o.type = 'sine';
+      g.gain.setValueAtTime(0.2, actx.currentTime + i * 0.1);
+      g.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + i * 0.1 + 0.3);
+      o.start(actx.currentTime + i * 0.1);
+      o.stop(actx.currentTime + i * 0.1 + 0.3);
+    });
+  } catch(e) {}
+
+  // Konfeti
+  popupKonfeti();
+
+  // Geçiş
+  document.getElementById('popup-kapali').style.display = 'none';
+
+  setTimeout(function() {
+    var acik = document.getElementById('popup-acik');
+    acik.style.display = 'flex';
+
+    // Mesajı yaz
+    var mesajEl = document.getElementById('popup-mesaj-text');
+    var mesaj = state.mesaj || 'Sana özel bir sürprizim var! 🎉';
+    mesajEl.textContent = '';
+    var i = 0;
+    var interval = setInterval(function() {
+      mesajEl.textContent += mesaj[i];
+      i++;
+      if (i >= mesaj.length) clearInterval(interval);
+    }, 35);
+
+    // Gönderen
+    var gEl = document.getElementById('popup-gonderen');
+    gEl.textContent = state.gonderen ? '— ' + state.gonderen : '';
+  }, 300);
+}
+
+function popupKonfeti() {
+  var canvas = document.getElementById('popup-canvas');
+  var sahne = document.getElementById('popup-sahne');
+  canvas.width = sahne.offsetWidth;
+  canvas.height = sahne.offsetHeight;
+  var ctx = canvas.getContext('2d');
+  var renkler = ['#7c3aed','#a855f7','#ff6b35','#ff3d7f','#ffd700','#22c55e'];
+  var parcaciklar = [];
+  for (var i = 0; i < 60; i++) {
+    var aci = Math.random() * Math.PI * 2;
+    var hiz = 3 + Math.random() * 6;
+    parcaciklar.push({
+      x: canvas.width / 2, y: canvas.height / 2,
+      vx: Math.cos(aci) * hiz, vy: Math.sin(aci) * hiz - Math.random() * 4,
+      renk: renkler[Math.floor(Math.random() * renkler.length)],
+      boyut: 5 + Math.random() * 7, opaklık: 1,
+      rot: Math.random() * Math.PI * 2, rotV: (Math.random() - 0.5) * 0.15
+    });
+  }
+  function ciz() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var hepsiGitti = true;
+    parcaciklar.forEach(function(p) {
+      p.x += p.vx; p.y += p.vy; p.vy += 0.12;
+      p.rot += p.rotV; p.opaklık -= 0.012;
+      if (p.opaklık > 0) {
+        hepsiGitti = false;
+        ctx.save();
+        ctx.globalAlpha = p.opaklık;
+        ctx.fillStyle = p.renk;
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.fillRect(-p.boyut/2, -p.boyut/2, p.boyut, p.boyut/2);
+        ctx.restore();
+      }
+    });
+    if (!hepsiGitti) requestAnimationFrame(ciz);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  ciz();
+}
+
+function popupKapat() {
+  document.getElementById('onizleme-overlay').classList.remove('aktif');
+  document.body.style.overflow = '';
+  popupAcildi = false;
+}
+
+function popupSatinAl() {
+  popupKapat();
+  if (!state.mesaj.trim()) { alert('Lütfen mesaj yazın!'); return; }
   localStorage.setItem('hediye_data', JSON.stringify(state));
-  window.open('surpriz.html?test=1', '_blank');
+  window.location.href = 'odeme.html';
 }
 
 function odemeGit() {
@@ -731,5 +1030,35 @@ window.onload = function() {
   }
 };
 </script>
+
+<!-- POPUP ÖNİZLEME -->
+<div class="onizleme-overlay" id="onizleme-overlay">
+  <div class="onizleme-popup">
+    <div class="onizleme-filigran">👁 ÖNİZLEME MODU</div>
+    <div class="onizleme-sahne" id="popup-sahne">
+      <canvas id="popup-canvas"></canvas>
+      <div id="popup-kapali" style="display:flex; flex-direction:column; align-items:center; gap:12px; position:relative; z-index:2;">
+        <div style="position:relative; cursor:pointer;" onclick="popupAc()">
+          <div class="popup-tik"></div>
+          <div class="popup-tik" style="animation-delay:0.5s"></div>
+          <div class="popup-ambalaj" id="popup-ambalaj">🎁</div>
+        </div>
+        <div class="popup-ac-yazi">👆 Dokunarak Aç!</div>
+      </div>
+      <div class="popup-mesaj-alan" id="popup-acik">
+        <div class="popup-acik-emoji" id="popup-acik-emoji">🎁</div>
+        <div class="popup-mesaj-kutu">
+          <div class="popup-mesaj-text" id="popup-mesaj-text"></div>
+          <div class="popup-gonderen" id="popup-gonderen"></div>
+        </div>
+      </div>
+    </div>
+    <div class="popup-altlar">
+      <button class="popup-satin-al" onclick="popupSatinAl()">💳 Beğendim, Satın Al — 19 TL</button>
+      <button class="popup-geri" onclick="popupKapat()">← Geri Dön, Düzenle</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
