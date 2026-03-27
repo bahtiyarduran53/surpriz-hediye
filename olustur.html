@@ -937,6 +937,13 @@ function popupAc() {
     var acik = document.getElementById('popup-acik');
     acik.style.display = 'flex';
 
+    // Fotoğraf varsa göster
+    if (state.foto) {
+      var fotoEl = document.getElementById('popup-foto');
+      fotoEl.src = state.foto;
+      fotoEl.style.display = 'block';
+    }
+
     // Mesajı yaz
     var mesajEl = document.getElementById('popup-mesaj-text');
     var mesaj = state.mesaj || 'Sana özel bir sürprizim var! 🎉';
@@ -1046,6 +1053,7 @@ window.onload = function() {
         <div class="popup-ac-yazi">👆 Dokunarak Aç!</div>
       </div>
       <div class="popup-mesaj-alan" id="popup-acik">
+        <img id="popup-foto" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,0.2); display:none;">
         <div class="popup-acik-emoji" id="popup-acik-emoji">🎁</div>
         <div class="popup-mesaj-kutu">
           <div class="popup-mesaj-text" id="popup-mesaj-text"></div>
