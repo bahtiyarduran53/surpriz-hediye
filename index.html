@@ -665,9 +665,9 @@ async function sayacYukle() {
     });
     var data = await r.json();
     var sayi = Array.isArray(data) ? data.length : 0;
-    document.getElementById('satis-sayac').textContent = sayi + '+';
+    document.getElementById('satis-sayac').textContent = sayi;
   } catch(e) {
-    document.getElementById('satis-sayac').textContent = '100+';
+    document.getElementById('satis-sayac').textContent = '0';
   }
 }
 sayacYukle();
