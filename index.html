@@ -156,7 +156,7 @@ nav {
   box-shadow: 0 8px 24px rgba(124,58,237,0.4);
 }
 
-.btn-seçondary {
+.btn-secondary {
   padding: 16px 32px;
   background: transparent;
   border: 2px solid var(--border);
@@ -169,7 +169,7 @@ nav {
   transition: all 0.2s;
 }
 
-.btn-seçondary:hover { border-color: var(--muted); }
+.btn-secondary:hover { border-color: var(--muted); }
 
 /* ── ÖZEL GÜN BANNER ── */
 .special-banner {
@@ -222,18 +222,18 @@ nav {
 .banner-btn:hover { opacity: 0.9; }
 
 /* ── KATEGORİLER ── */
-.seçtion {
+.section {
   padding: 0 48px 64px;
 }
 
-.seçtion-title {
+.section-title {
   font-family: 'Syne', sans-serif;
   font-weight: 800;
   font-size: 28px;
   margin-bottom: 8px;
 }
 
-.seçtion-sub {
+.section-sub {
   color: var(--muted);
   font-size: 15px;
   margin-bottom: 32px;
@@ -303,7 +303,7 @@ nav {
 }
 
 /* ── NASIL ÇALIŞIR ── */
-.nasil-seçtion {
+.nasil-section {
   padding: 64px 48px;
   background: var(--surface);
   border-top: 1px solid var(--border);
@@ -349,7 +349,7 @@ nav {
 }
 
 /* ── FİYAT ── */
-.fiyat-seçtion {
+.fiyat-section {
   padding: 0 48px 80px;
   text-align: center;
 }
@@ -459,15 +459,24 @@ footer {
   font-size: 14px;
 }
 
+/* SSS */
+.sss-kart { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: border-color 0.2s; }
+.sss-kart:hover { border-color: var(--accent); }
+.sss-soru { display: flex; justify-content: space-between; align-items: center; padding: 18px 20px; cursor: pointer; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; gap: 12px; }
+.sss-ok { color: var(--accent2); transition: transform 0.3s; flex-shrink: 0; }
+.sss-cevap { display: none; padding: 0 20px 18px; color: var(--muted); font-size: 14px; line-height: 1.7; border-top: 1px solid var(--border); padding-top: 14px; }
+.sss-kart.acik .sss-ok { transform: rotate(180deg); }
+.sss-kart.acik .sss-cevap { display: block; }
+
 /* ── MOBİL ── */
 @media (max-width: 768px) {
   nav { padding: 16px 20px; }
   .hero { padding: 60px 20px 48px; }
   .hero h1 { font-size: 36px; }
   .special-banner { margin: 0 20px 32px; flex-direction: column; }
-  .seçtion { padding: 0 20px 48px; }
-  .nasil-seçtion { padding: 48px 20px; }
-  .fiyat-seçtion { padding: 0 20px 60px; }
+  .section { padding: 0 20px 48px; }
+  .nasil-section { padding: 48px 20px; }
+  .fiyat-section { padding: 0 20px 60px; }
   footer { padding: 24px 20px; flex-direction: column; gap: 8px; text-align: center; }
 }
 </style>
@@ -487,14 +496,14 @@ footer {
   <p>Kişiselleştirilmiş dijital hediyeler. Anında teslim, sıfır kargo, %100 sürpriz.</p>
   <div class="hero-btns">
     <button class="btn-primary" onclick="window.location.href='olustur.html'">🎁 Hemen Oluştur</button>
-    <button class="btn-seçondary" onclick="document.getElementById('nasil').scrollIntoView({behavior:'smooth'})">Nasıl Çalışır?</button>
+    <button class="btn-secondary" onclick="document.getElementById('nasil').scrollIntoView({behavior:'smooth'})">Nasıl Çalışır?</button>
   </div>
 </div>
 
 <!-- KATEGORİLER -->
-<div class="seçtion">
-  <h2 class="seçtion-title">Kategoriler</h2>
-  <p class="seçtion-sub">Hangi sürprizi göndermek istiyorsun?</p>
+<div class="section">
+  <h2 class="section-title">Kategoriler</h2>
+  <p class="section-sub">Hangi sürprizi göndermek istiyorsun?</p>
   <div class="kategori-grid" id="kategori-grid">
 
     <div class="kategori-kart" onclick="window.location.href='olustur.html?kategori=komik'">
@@ -531,10 +540,10 @@ footer {
 </div>
 
 <!-- NASIL ÇALIŞIR -->
-<div class="nasil-seçtion" id="nasil">
+<div class="nasil-section" id="nasil">
   <div style="max-width:800px; margin:0 auto">
-    <h2 class="seçtion-title">Nasıl Çalışır?</h2>
-    <p class="seçtion-sub">3 adımda sürprizini hazırla</p>
+    <h2 class="section-title">Nasıl Çalışır?</h2>
+    <p class="section-sub">3 adımda sürprizini hazırla</p>
     <div class="adimlar">
       <div class="adim">
         <div class="adim-num">1</div>
@@ -556,9 +565,9 @@ footer {
 </div>
 
 <!-- FİYAT -->
-<div class="fiyat-seçtion">
-  <h2 class="seçtion-title">Fiyat</h2>
-  <p class="seçtion-sub">Bir kahveden ucuz, bin kat daha etkili</p>
+<div class="fiyat-section">
+  <h2 class="section-title">Fiyat</h2>
+  <p class="section-sub">Bir kahveden ucuz, bin kat daha etkili</p>
   <div class="fiyat-grid" style="max-width:380px">
 
     <div class="fiyat-kart populer">
@@ -577,11 +586,98 @@ footer {
   </div>
 </div>
 
+<!-- KULLANIM SAYACI -->
+<div style="background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:20px; text-align:center;">
+  <span style="font-family:'Syne',sans-serif; font-weight:700; font-size:16px; color:var(--accent2)">🎁 Bugüne kadar <span id="satis-sayac" style="color:#22c55e">...</span> sürpriz gönderildi!</span>
+</div>
+
+<!-- SSS -->
+<div class="section" id="sss">
+  <h2 class="section-title">Sıkça Sorulan Sorular</h2>
+  <p class="section-sub">Aklındaki soruların cevapları burada</p>
+  <div style="max-width:700px; margin:0 auto; display:flex; flex-direction:column; gap:12px;">
+
+    <div class="sss-kart">
+      <div class="sss-soru" onclick="sssAc(this)">
+        <span>💳 Ödeme yaptım, link ne zaman gelir?</span>
+        <span class="sss-ok">▼</span>
+      </div>
+      <div class="sss-cevap">Ödemeniz onaylandıktan hemen sonra Shopier sipariş sayfasındaki linke tıklayarak sürpriz linkinizi alabilirsiniz. Anında teslim!</div>
+    </div>
+
+    <div class="sss-kart">
+      <div class="sss-soru" onclick="sssAc(this)">
+        <span>🎁 Karşı taraf linki açmazsa ne olur?</span>
+        <span class="sss-ok">▼</span>
+      </div>
+      <div class="sss-cevap">Link kalıcıdır, istediğiniz zaman tekrar gönderebilirsiniz. Linki WhatsApp, Instagram, SMS ile paylaşabilirsiniz.</div>
+    </div>
+
+    <div class="sss-kart">
+      <div class="sss-soru" onclick="sssAc(this)">
+        <span>📸 Yüklediğim fotoğraf güvende mi?</span>
+        <span class="sss-ok">▼</span>
+      </div>
+      <div class="sss-cevap">Fotoğrafınız yalnızca sürpriz linkinizde görüntülenir, başka hiç kimseyle paylaşılmaz. Güvenli sunucuda saklanır.</div>
+    </div>
+
+    <div class="sss-kart">
+      <div class="sss-soru" onclick="sssAc(this)">
+        <span>↩️ İade politikası nedir?</span>
+        <span class="sss-ok">▼</span>
+      </div>
+      <div class="sss-cevap">Link oluşturulduktan sonra dijital ürün niteliği taşıdığından iade yapılamamaktadır. Satın almadan önce ücretsiz önizleme özelliğini kullanabilirsiniz.</div>
+    </div>
+
+    <div class="sss-kart">
+      <div class="sss-soru" onclick="sssAc(this)">
+        <span>📱 Mobilde çalışıyor mu?</span>
+        <span class="sss-ok">▼</span>
+      </div>
+      <div class="sss-cevap">Evet! SürprizLink tüm cihazlarda çalışır. Telefon, tablet ve bilgisayardan sorunsuz kullanabilirsiniz.</div>
+    </div>
+
+    <div class="sss-kart">
+      <div class="sss-soru" onclick="sssAc(this)">
+        <span>🔗 Linki kaç kişiye gönderebilirim?</span>
+        <span class="sss-ok">▼</span>
+      </div>
+      <div class="sss-cevap">Linki istediğiniz kadar kişiye gönderebilirsiniz. Her açıldığında aynı sürpriz animasyonu çalışır!</div>
+    </div>
+
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="logo" style="font-size:16px">Sürpriz<span>Link</span></div>
   <div>© 2026 SürprizLink — Tüm hakları saklıdır</div>
 </footer>
+
+<!-- SCRIPT -->
+<script src="config.js"></script>
+<script>
+// Satış sayacı
+async function sayacYukle() {
+  try {
+    var r = await fetch(SUPABASE_URL + '/rest/v1/hediyeler?select=id', {
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+    });
+    var data = await r.json();
+    var sayi = Array.isArray(data) ? data.length : 0;
+    document.getElementById('satis-sayac').textContent = sayi + '+';
+  } catch(e) {
+    document.getElementById('satis-sayac').textContent = '100+';
+  }
+}
+sayacYukle();
+
+// SSS aç/kapat
+function sssAc(el) {
+  var kart = el.parentElement;
+  kart.classList.toggle('acik');
+}
+</script>
 
 </body>
 </html>
