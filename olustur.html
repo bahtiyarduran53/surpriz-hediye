@@ -690,39 +690,74 @@ function popupKonfeti() {
   canvas.width = sahne.offsetWidth;
   canvas.height = sahne.offsetHeight;
   var ctx = canvas.getContext('2d');
-  var renkler = ['#7c3aed','#a855f7','#ff6b35','#ff3d7f','#ffd700','#22c55e'];
+  var tumRenkler = ['#7c3aed','#a855f7','#ff6b35','#ff3d7f','#ffd700','#22c55e','#06b6d4','#ffffff'];
   var parcaciklar = [];
+
+  var noktalar = [
+    { x: canvas.width/2, y: canvas.height/2 },
+    { x: canvas.width*0.15, y: canvas.height*0.3 },
+    { x: canvas.width*0.85, y: canvas.height*0.3 },
+  ];
+
+  noktalar.forEach(function(nokta, ni) {
+    for (var i = 0; i < 50; i++) {
+      var aci = Math.random() * Math.PI * 2;
+      var hiz = 3 + Math.random() * 10;
+      var tip = Math.random();
+      parcaciklar.push({
+        x: nokta.x, y: nokta.y,
+        vx: Math.cos(aci)*hiz, vy: Math.sin(aci)*hiz - Math.random()*6,
+        renk: tumRenkler[Math.floor(Math.random()*tumRenkler.length)],
+        tip: tip < 0.4 ? 'kare' : tip < 0.7 ? 'daire' : 'uzun',
+        boyut: 4 + Math.random()*10, opaklık: 1,
+        rot: Math.random()*Math.PI*2, rotV: (Math.random()-0.5)*0.25,
+        yerCekimi: 0.06 + Math.random()*0.06, gecikme: ni * 120
+      });
+    }
+  });
+
   for (var i = 0; i < 60; i++) {
-    var aci = Math.random() * Math.PI * 2;
-    var hiz = 3 + Math.random() * 6;
     parcaciklar.push({
-      x: canvas.width/2, y: canvas.height/2,
-      vx: Math.cos(aci)*hiz, vy: Math.sin(aci)*hiz - Math.random()*4,
-      renk: renkler[Math.floor(Math.random()*renkler.length)],
-      boyut: 5 + Math.random()*7, opaklık: 1,
-      rot: Math.random()*Math.PI*2, rotV: (Math.random()-0.5)*0.15
+      x: Math.random()*canvas.width, y: -10 - Math.random()*50,
+      vx: (Math.random()-0.5)*3, vy: 1.5 + Math.random()*3,
+      renk: tumRenkler[Math.floor(Math.random()*tumRenkler.length)],
+      tip: Math.random() > 0.5 ? 'kare' : 'uzun',
+      boyut: 5 + Math.random()*8, opaklık: 1,
+      rot: Math.random()*Math.PI*2, rotV: (Math.random()-0.5)*0.2,
+      yerCekimi: 0.03, gecikme: Math.random()*1200
     });
   }
-  function ciz() {
+
+  var baslangic = null;
+  function ciz(timestamp) {
+    if (!baslangic) baslangic = timestamp;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     var devam = false;
     parcaciklar.forEach(function(p) {
-      p.x += p.vx; p.y += p.vy; p.vy += 0.12;
-      p.rot += p.rotV; p.opaklık -= 0.012;
-      if (p.opaklık > 0) {
+      if (timestamp - baslangic < p.gecikme) { devam = true; return; }
+      p.x += p.vx; p.y += p.vy; p.vy += p.yerCekimi;
+      p.vx *= 0.99; p.rot += p.rotV; p.opaklık -= 0.004;
+      if (p.opaklık > 0 && p.y < canvas.height + 20) {
         devam = true;
         ctx.save();
         ctx.globalAlpha = p.opaklık;
         ctx.fillStyle = p.renk;
         ctx.translate(p.x, p.y);
         ctx.rotate(p.rot);
-        ctx.fillRect(-p.boyut/2, -p.boyut/2, p.boyut, p.boyut/2);
+        if (p.tip === 'kare') {
+          ctx.fillRect(-p.boyut/2, -p.boyut/2, p.boyut, p.boyut);
+        } else if (p.tip === 'daire') {
+          ctx.beginPath(); ctx.arc(0, 0, p.boyut/2, 0, Math.PI*2); ctx.fill();
+        } else {
+          ctx.fillRect(-p.boyut/6, -p.boyut/2, p.boyut/3, p.boyut);
+        }
         ctx.restore();
       }
     });
     if (devam) requestAnimationFrame(ciz);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
-  ciz();
+  requestAnimationFrame(ciz);
 }
 
 function popupKapat() {
