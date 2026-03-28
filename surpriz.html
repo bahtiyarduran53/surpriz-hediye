@@ -506,8 +506,8 @@ function ambalajAc() {
     
     // Titreşim
     if (navigator.vibrate) {
-      if (index < 3) navigator.vibrate(150);
-      else navigator.vibrate([300, 100, 300, 100, 300]);
+      if (index < 3) navigator.vibrate([200, 50, 200]);
+      else navigator.vibrate([400, 100, 400, 100, 600]);
     }
 
     // Ekran sarsılması
@@ -537,7 +537,7 @@ function gercekAcilis(kapali, acilis, acik) {
   setTimeout(function() { document.body.style.animation = ''; }, 500);
 
   // Titreşim patlaması
-  if (navigator.vibrate) navigator.vibrate([200, 50, 200, 50, 400]);
+  if (navigator.vibrate) navigator.vibrate([300, 80, 300, 80, 500, 100, 500]);
 
   // Kapanı gizle
   kapali.style.animation = 'patla 0.3s reverse both';
@@ -611,41 +611,41 @@ function parcaciklariBaslat() {
   ];
 
   patlamaNoktalari.forEach(function(nokta, ni) {
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 100; i++) {
       const aci = (Math.random() * Math.PI * 2);
-      const hiz = 4 + Math.random() * 12;
+      const hiz = 5 + Math.random() * 15;
       const tip = Math.random();
       parcaciklar.push({
         x: nokta.x, y: nokta.y,
         vx: Math.cos(aci) * hiz,
-        vy: Math.sin(aci) * hiz - Math.random() * 8,
+        vy: Math.sin(aci) * hiz - Math.random() * 10,
         renk: tumRenkler[Math.floor(Math.random() * tumRenkler.length)],
         tip: tip < 0.4 ? 'kare' : tip < 0.7 ? 'daire' : 'uzun',
-        boyut: 5 + Math.random() * 12,
+        boyut: 5 + Math.random() * 14,
         opaklık: 1,
         rot: Math.random() * Math.PI * 2,
         rotV: (Math.random() - 0.5) * 0.25,
-        yerCekimi: 0.08 + Math.random() * 0.08,
-        gecikme: ni * 80
+        yerCekimi: 0.06 + Math.random() * 0.06,
+        gecikme: ni * 120
       });
     }
   });
 
   // Yukarıdan yağan konfetiler
-  for (let i = 0; i < 80; i++) {
+  for (let i = 0; i < 150; i++) {
     parcaciklar.push({
       x: Math.random() * canvas.width,
-      y: -20 - Math.random() * 100,
+      y: -20 - Math.random() * 200,
       vx: (Math.random() - 0.5) * 4,
-      vy: 2 + Math.random() * 5,
+      vy: 1.5 + Math.random() * 4,
       renk: tumRenkler[Math.floor(Math.random() * tumRenkler.length)],
       tip: Math.random() > 0.5 ? 'kare' : 'uzun',
-      boyut: 6 + Math.random() * 10,
+      boyut: 6 + Math.random() * 12,
       opaklık: 1,
       rot: Math.random() * Math.PI * 2,
       rotV: (Math.random() - 0.5) * 0.2,
-      yerCekimi: 0.05,
-      gecikme: Math.random() * 1000
+      yerCekimi: 0.03,
+      gecikme: Math.random() * 1500
     });
   }
 
@@ -664,7 +664,7 @@ function parcaciklariBaslat() {
       p.vy += p.yerCekimi;
       p.vx *= 0.99;
       p.rot += p.rotV;
-      p.opaklık -= 0.008;
+      p.opaklık -= 0.004;
 
       if (p.opaklık > 0 && p.y < canvas.height + 20) {
         devam = true;
