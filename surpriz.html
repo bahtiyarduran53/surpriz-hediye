@@ -461,45 +461,107 @@ function ambalajAc() {
   if (acildi) return;
   acildi = true;
 
-  // Titreşim
-  if (navigator.vibrate) navigator.vibrate([200, 100, 300]);
-
-  // Ses çal
-  sesCal(veri.ses);
-
-  // Açılış animasyonu
   const kapali = document.getElementById('ekran-kapali');
   const acilis = document.getElementById('ekran-acilis');
   const acik = document.getElementById('ekran-acik');
 
-  // 1. Kapanı gizle
+  // Geri sayım overlay oluştur
+  var overlay = document.createElement('div');
+  overlay.id = 'gerisayim-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;';
+  
+  var sayimEl = document.createElement('div');
+  sayimEl.id = 'sayim-rakam';
+  sayimEl.style.cssText = 'font-size:160px;font-weight:900;color:white;font-family:Syne,sans-serif;line-height:1;transition:all 0.1s;';
+  
+  var sayimYazi = document.createElement('div');
+  sayimYazi.style.cssText = 'font-size:22px;color:rgba(255,255,255,0.6);font-family:Syne,sans-serif;font-weight:700;letter-spacing:3px;';
+  sayimYazi.textContent = 'SÜRPRİZ AÇILIYOR...';
+  
+  overlay.appendChild(sayimEl);
+  overlay.appendChild(sayimYazi);
+  document.body.appendChild(overlay);
+
+  // Geri sayım: 3... 2... 1...
+  var sayilar = ['3', '2', '1', '🎉'];
+  var renkler = ['#ff6b35', '#ff3d7f', '#7c3aed', '#ffd700'];
+  var index = 0;
+
+  function sayimAdimi() {
+    if (index >= sayilar.length) {
+      // Geri sayım bitti — aç!
+      overlay.remove();
+      gercekAcilis(kapali, acilis, acik);
+      return;
+    }
+
+    sayimEl.textContent = sayilar[index];
+    sayimEl.style.color = renkler[index];
+    sayimEl.style.transform = 'scale(1.3)';
+    
+    // Titreşim
+    if (navigator.vibrate) {
+      if (index < 3) navigator.vibrate(150);
+      else navigator.vibrate([300, 100, 300, 100, 300]);
+    }
+
+    // Ekran sarsılması
+    document.body.style.animation = 'none';
+    setTimeout(function() {
+      sayimEl.style.transform = 'scale(1)';
+    }, 100);
+
+    index++;
+    setTimeout(sayimAdimi, index < 4 ? 900 : 600);
+  }
+
+  // CSS sarsılma animasyonu ekle
+  if (!document.getElementById('sarsilma-style')) {
+    var style = document.createElement('style');
+    style.id = 'sarsilma-style';
+    style.textContent = '@keyframes sarsilma{0%,100%{transform:translate(0,0)}10%{transform:translate(-8px,8px)}20%{transform:translate(8px,-8px)}30%{transform:translate(-6px,6px)}40%{transform:translate(6px,-6px)}50%{transform:translate(-4px,4px)}60%{transform:translate(4px,-4px)}70%{transform:translate(-2px,2px)}80%{transform:translate(2px,-2px)}90%{transform:translate(0,0)}}';
+    document.head.appendChild(style);
+  }
+
+  sayimAdimi();
+}
+
+function gercekAcilis(kapali, acilis, acik) {
+  // Ekranı sarst
+  document.body.style.animation = 'sarsilma 0.5s ease-out';
+  setTimeout(function() { document.body.style.animation = ''; }, 500);
+
+  // Titreşim patlaması
+  if (navigator.vibrate) navigator.vibrate([200, 50, 200, 50, 400]);
+
+  // Kapanı gizle
   kapali.style.animation = 'patla 0.3s reverse both';
-  setTimeout(() => {
+  setTimeout(function() {
     kapali.style.display = 'none';
 
-    // 2. Açılış efekti göster
+    // Açılış efekti
     acilis.style.display = 'flex';
     var ambalajId = veri.ambalaj || 'kutu';
     var ambalajEmoji = veri.ambalajEmoji || '';
     var ikon = ambalajBilgisiAl(ambalajId, ambalajEmoji);
     var emojiler = acilisEmojiAl(ikon);
-    let i = 0;
-    const interval = setInterval(() => {
+    var i = 0;
+    var interval = setInterval(function() {
       document.getElementById('acilis-emoji').textContent = emojiler[i % emojiler.length];
       i++;
-      if (i >= 4) clearInterval(interval);
-    }, 150);
+      if (i >= 6) clearInterval(interval);
+    }, 120);
 
-    // 3. Parçacıkları başlat
-    setTimeout(() => parcaciklariBaslat(), 100);
+    // Parçacıkları başlat
+    setTimeout(function() { parcaciklariBaslat(); }, 100);
 
-    // 4. Asıl içeriği göster
-    setTimeout(() => {
+    // Asıl içeriği göster
+    setTimeout(function() {
       acilis.style.display = 'none';
       acik.style.display = 'flex';
 
-      // Mesajı doldur
-      const mesajEl = document.getElementById('mesaj-text');
+      // Mesajı yavaşça göster
+      var mesajEl = document.getElementById('mesaj-text');
       yaziyazdir(mesajEl, veri.mesaj || 'Sana özel bir sürprizim var! 🎉');
 
       if (veri.gonderen) {
@@ -507,7 +569,7 @@ function ambalajAc() {
         document.getElementById('kimden-yazi').textContent = veri.gonderen.toUpperCase() + "'TAN SÜRPRİZ";
       }
 
-    }, 700);
+    }, 800);
 
   }, 400);
 }
