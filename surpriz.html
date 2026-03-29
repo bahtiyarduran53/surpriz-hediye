@@ -558,8 +558,17 @@ function ambalajAc() {
   const acilis = document.getElementById('ekran-acilis');
   const acik = document.getElementById('ekran-acik');
 
-  // Audio context'i başlat (kullanıcı tıklaması gerekiyor)
-  sesiBaslat();
+  // Ses dosyalarını kullanıcı tıklamasıyla unlock et
+  try {
+    ['ses-bip','ses-patlama','ses-konfeti'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) {
+        el.load();
+        var p = el.play();
+        if (p) p.then(function() { el.pause(); el.currentTime = 0; }).catch(function(){});
+      }
+    });
+  } catch(e) {}
 
   // Geri sayım overlay oluştur
   var overlay = document.createElement('div');
