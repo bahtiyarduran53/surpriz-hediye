@@ -138,9 +138,14 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
     </button>
   </div>
 
+  <!-- STORY -->
+  <button class="onizle-btn" onclick="storyAc()" style="margin-top:10px; border-color:#ff3d7f; color:#ff3d7f;">
+    📸 Instagram Story Şablonu
+  </button>
+
   <!-- ÖNİZLE -->
   <button class="onizle-btn" onclick="onizle()">
-    👁 Sürprizi Onizle
+    👁 Sürprizi Önizle
   </button>
 
   <!-- YENİ HEDİYE -->
@@ -233,7 +238,12 @@ function toastGoster() {
 
 // ── WhatsApp ──
 function whatsappPaylash() {
-  var mesaj = encodeURIComponent('Sana bir sürprizim var! Aç bakalım 🎁\n' + surprizLink);
+  var mesaj = encodeURIComponent(
+    '🎁 Sana özel bir sürprizim var!\n' +
+    'Açmak için tıkla 👇\n\n' +
+    surprizLink + '\n\n' +
+    '✨ surprizlink.com ile oluşturuldu'
+  );
   window.open('https://wa.me/?text=' + mesaj, '_blank');
 }
 
@@ -321,6 +331,11 @@ window.addEventListener('resize', function() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 });
+
+function storyAc() {
+  var link = encodeURIComponent(surprizLink);
+  window.open('story.html?link=' + link, '_blank');
+}
 </script>
 </body>
 </html>
