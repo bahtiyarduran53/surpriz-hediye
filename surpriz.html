@@ -262,16 +262,6 @@ body {
 <div class="arka-plan"></div>
 <canvas id="canvas"></canvas>
 
-<!-- SES HAZIRLIK EKRANI -->
-<div id="ses-hazirlik" style="position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;cursor:pointer;" onclick="sesHazirlaVeBaslat()">
-  <div style="font-size:80px;animation:sallan 1.5s ease-in-out infinite;">🎁</div>
-  <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:24px;color:white;text-align:center;">Sürprizin Var!</div>
-  <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:16px;color:rgba(255,255,255,0.6);text-align:center;">Açmak için dokun 👆</div>
-  <div style="background:linear-gradient(135deg,#7c3aed,#a855f7);padding:16px 40px;border-radius:50px;font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:white;margin-top:8px;">
-    🎁 Sürprizi Aç!
-  </div>
-</div>
-
 <div class="icerik">
 
   <!-- EKRAN 1: KAPALI -->
@@ -583,6 +573,17 @@ function ambalajAc() {
   const kapali = document.getElementById('ekran-kapali');
   const acilis = document.getElementById('ekran-acilis');
   const acik = document.getElementById('ekran-acik');
+
+  // Kullanıcı tıkladı — sesleri hemen unlock et
+  ['ses-bip','ses-patlama','ses-konfeti'].forEach(function(id) {
+    try {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.volume = 0.001;
+      var p = el.play();
+      if (p) p.then(function() { el.pause(); el.currentTime = 0; el.volume = 1; }).catch(function(){});
+    } catch(e) {}
+  });
 
   // Geri sayım overlay oluştur
   var overlay = document.createElement('div');
