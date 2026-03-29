@@ -578,8 +578,37 @@ footer {
     <!-- Telefon çerçevesi -->
     <div style="position:relative;background:#1a1a24;border:3px solid #333;border-radius:36px;padding:12px;width:220px;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
       <div style="background:#0a0a0f;border-radius:26px;overflow:hidden;aspect-ratio:9/16;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:20px;position:relative;">
-        <!-- Canvas arka plan -->
-        <canvas id="telefon-canvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+        <!-- SVG Arka Plan -->
+        <svg style="position:absolute;inset:0;width:100%;height:100%;" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <radialGradient id="rg1" cx="30%" cy="30%"><stop offset="0%" stop-color="#7c3aed" stop-opacity="0.6"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+            <radialGradient id="rg2" cx="70%" cy="60%"><stop offset="0%" stop-color="#ff3d7f" stop-opacity="0.5"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+            <radialGradient id="rg3" cx="50%" cy="85%"><stop offset="0%" stop-color="#ff6b35" stop-opacity="0.4"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+            <radialGradient id="rg4" cx="80%" cy="20%"><stop offset="0%" stop-color="#06b6d4" stop-opacity="0.3"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+          </defs>
+          <rect width="100%" height="100%" fill="#0a0010"/>
+          <rect width="100%" height="100%" fill="url(#rg1)"/>
+          <rect width="100%" height="100%" fill="url(#rg2)"/>
+          <rect width="100%" height="100%" fill="url(#rg3)"/>
+          <rect width="100%" height="100%" fill="url(#rg4)"/>
+          <!-- Yıldızlar -->
+          <circle cx="10%" cy="8%" r="1" fill="white" opacity="0.9"/><circle cx="25%" cy="15%" r="1.5" fill="white" opacity="0.7"/>
+          <circle cx="40%" cy="5%" r="1" fill="white" opacity="0.8"/><circle cx="60%" cy="12%" r="1" fill="white" opacity="0.6"/>
+          <circle cx="75%" cy="7%" r="1.5" fill="white" opacity="0.9"/><circle cx="88%" cy="18%" r="1" fill="white" opacity="0.7"/>
+          <circle cx="15%" cy="25%" r="1" fill="white" opacity="0.5"/><circle cx="50%" cy="22%" r="1" fill="white" opacity="0.8"/>
+          <circle cx="85%" cy="30%" r="1.5" fill="white" opacity="0.6"/><circle cx="20%" cy="40%" r="1" fill="white" opacity="0.7"/>
+          <circle cx="70%" cy="45%" r="1" fill="white" opacity="0.5"/><circle cx="35%" cy="35%" r="1.5" fill="white" opacity="0.8"/>
+          <circle cx="90%" cy="55%" r="1" fill="white" opacity="0.6"/><circle cx="5%" cy="60%" r="1.5" fill="white" opacity="0.7"/>
+          <circle cx="55%" cy="65%" r="1" fill="white" opacity="0.5"/><circle cx="80%" cy="70%" r="1" fill="white" opacity="0.8"/>
+          <circle cx="30%" cy="75%" r="1.5" fill="white" opacity="0.6"/><circle cx="65%" cy="80%" r="1" fill="white" opacity="0.7"/>
+          <circle cx="12%" cy="88%" r="1" fill="white" opacity="0.5"/><circle cx="45%" cy="92%" r="1.5" fill="white" opacity="0.8"/>
+          <!-- Işık çizgileri -->
+          <line x1="0%" y1="0%" x2="100%" y2="100%" stroke="rgba(255,255,255,0.03)" stroke-width="30"/>
+          <line x1="100%" y1="0%" x2="0%" y2="100%" stroke="rgba(255,255,255,0.02)" stroke-width="20"/>
+          <!-- Parlak nokta -->
+          <circle cx="50%" cy="40%" r="60" fill="rgba(255,255,255,0.03)"/>
+          <circle cx="50%" cy="40%" r="30" fill="rgba(255,255,255,0.04)"/>
+        </svg>
         <!-- İçerik -->
         <div style="position:relative;z-index:2;text-align:center;">
           <div style="font-size:56px;animation:sallan 2s ease-in-out infinite;display:block;filter:drop-shadow(0 0 20px rgba(255,107,53,0.8));">🎁</div>
@@ -595,10 +624,6 @@ footer {
     <button onclick="demoAc()" style="background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;border-radius:50px;color:white;font-family:'Syne',sans-serif;font-weight:800;font-size:16px;padding:16px 40px;cursor:pointer;box-shadow:0 8px 32px rgba(124,58,237,0.4);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
       🎉 Sürprizi Aç ve Gör!
     </button>
-
-    <div style="font-size:13px;color:var(--muted);text-align:center;">
-      Gerçek kullanıcılar tam böyle görüyor ✨
-    </div>
   </div>
 </div>
 
@@ -608,8 +633,43 @@ footer {
 
     <!-- Sahne -->
     <div id="demo-sahne" style="position:relative;min-height:380px;border-radius:24px 24px 0 0;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:32px 24px;">
-      <!-- Canvas arka plan -->
-      <canvas id="demo-bg-canvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+      <!-- SVG Arka Plan -->
+      <svg style="position:absolute;inset:0;width:100%;height:100%;" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <radialGradient id="prg1" cx="25%" cy="25%"><stop offset="0%" stop-color="#7c3aed" stop-opacity="0.7"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+          <radialGradient id="prg2" cx="75%" cy="65%"><stop offset="0%" stop-color="#ff3d7f" stop-opacity="0.6"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+          <radialGradient id="prg3" cx="50%" cy="90%"><stop offset="0%" stop-color="#ff6b35" stop-opacity="0.5"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+          <radialGradient id="prg4" cx="85%" cy="15%"><stop offset="0%" stop-color="#06b6d4" stop-opacity="0.4"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+        </defs>
+        <rect width="100%" height="100%" fill="#0a0010"/>
+        <rect width="100%" height="100%" fill="url(#prg1)"/>
+        <rect width="100%" height="100%" fill="url(#prg2)"/>
+        <rect width="100%" height="100%" fill="url(#prg3)"/>
+        <rect width="100%" height="100%" fill="url(#prg4)"/>
+        <!-- Yıldızlar -->
+        <circle cx="8%" cy="10%" r="1.5" fill="white" opacity="0.9"/>
+        <circle cx="22%" cy="18%" r="1" fill="white" opacity="0.7"/>
+        <circle cx="45%" cy="8%" r="1.5" fill="white" opacity="0.8"/>
+        <circle cx="65%" cy="14%" r="1" fill="white" opacity="0.6"/>
+        <circle cx="80%" cy="6%" r="2" fill="white" opacity="0.9"/>
+        <circle cx="92%" cy="22%" r="1" fill="white" opacity="0.7"/>
+        <circle cx="15%" cy="35%" r="1.5" fill="white" opacity="0.5"/>
+        <circle cx="55%" cy="28%" r="1" fill="white" opacity="0.8"/>
+        <circle cx="88%" cy="40%" r="1.5" fill="white" opacity="0.6"/>
+        <circle cx="30%" cy="55%" r="1" fill="white" opacity="0.7"/>
+        <circle cx="72%" cy="50%" r="1" fill="white" opacity="0.5"/>
+        <circle cx="5%" cy="72%" r="1.5" fill="white" opacity="0.8"/>
+        <circle cx="42%" cy="80%" r="1" fill="white" opacity="0.6"/>
+        <circle cx="78%" cy="78%" r="1.5" fill="white" opacity="0.7"/>
+        <circle cx="20%" cy="90%" r="1" fill="white" opacity="0.5"/>
+        <circle cx="60%" cy="92%" r="2" fill="white" opacity="0.8"/>
+        <!-- Parlak merkez -->
+        <circle cx="50%" cy="45%" r="80" fill="rgba(255,255,255,0.025)"/>
+        <circle cx="50%" cy="45%" r="40" fill="rgba(255,255,255,0.03)"/>
+        <!-- Işık şeritleri -->
+        <line x1="0" y1="0" x2="100%" y2="100%" stroke="rgba(255,255,255,0.03)" stroke-width="40"/>
+        <line x1="100%" y1="0" x2="0" y2="100%" stroke="rgba(255,255,255,0.02)" stroke-width="25"/>
+      </svg>
       <!-- Geri sayım -->
       <div id="demo-sayim" style="position:absolute;inset:0;background:rgba(0,0,0,0.85);z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;">
         <div id="demo-rakam" style="font-size:140px;font-weight:900;color:white;font-family:'Syne',sans-serif;line-height:1;">3</div>
@@ -843,18 +903,135 @@ function arkaplanCiz(canvas, kucuk) {
 }
 
 window.addEventListener('load', function() {
-  // Telefon canvas
-  var tc = document.getElementById('telefon-canvas');
-  if (tc) arkaplanCiz(tc, true);
+  // Telefon canvas — biraz gecikmeyle çiz
+  setTimeout(function() {
+    var tc = document.getElementById('telefon-canvas');
+    if (tc && tc.offsetWidth > 0) {
+      tc.width = tc.offsetWidth;
+      tc.height = tc.offsetHeight;
+      arkaplanCiz(tc, true);
+    }
+  }, 200);
 
-  // Demo bg canvas
+  // Demo bg canvas — romantik hediye görseli
   var dc = document.getElementById('demo-bg-canvas');
   if (dc) {
-    dc.width = dc.offsetWidth || 400;
-    dc.height = dc.offsetHeight || 380;
-    arkaplanCiz(dc, false);
+    setTimeout(function() {
+      dc.width = dc.offsetWidth || 400;
+      dc.height = dc.offsetHeight || 380;
+      romantikGorselCiz(dc);
+    }, 100);
   }
 });
+
+function romantikGorselCiz(canvas) {
+  var ctx = canvas.getContext('2d');
+  var w = canvas.width;
+  var h = canvas.height;
+
+  // Derin romantik arka plan
+  var bg = ctx.createLinearGradient(0, 0, w, h);
+  bg.addColorStop(0, '#0d0015');
+  bg.addColorStop(0.3, '#1a0030');
+  bg.addColorStop(0.6, '#200025');
+  bg.addColorStop(1, '#0d000f');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, w, h);
+
+  // Işıltılı parlama — sol üst
+  var g1 = ctx.createRadialGradient(w*0.2, h*0.2, 0, w*0.2, h*0.2, w*0.6);
+  g1.addColorStop(0, 'rgba(168,85,247,0.35)');
+  g1.addColorStop(1, 'transparent');
+  ctx.fillStyle = g1; ctx.fillRect(0, 0, w, h);
+
+  // Işıltı — sağ alt pembe
+  var g2 = ctx.createRadialGradient(w*0.85, h*0.75, 0, w*0.85, h*0.75, w*0.5);
+  g2.addColorStop(0, 'rgba(255,61,127,0.3)');
+  g2.addColorStop(1, 'transparent');
+  ctx.fillStyle = g2; ctx.fillRect(0, 0, w, h);
+
+  // Turuncu alev — sol alt
+  var g3 = ctx.createRadialGradient(w*0.15, h*0.85, 0, w*0.15, h*0.85, w*0.4);
+  g3.addColorStop(0, 'rgba(255,107,53,0.2)');
+  g3.addColorStop(1, 'transparent');
+  ctx.fillStyle = g3; ctx.fillRect(0, 0, w, h);
+
+  // Yıldızlar
+  for (var i = 0; i < 80; i++) {
+    var x = Math.random() * w;
+    var y = Math.random() * h;
+    var r = Math.random() * 2;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(255,255,255,' + (0.2 + Math.random()*0.7) + ')';
+    ctx.fill();
+  }
+
+  // Işık şeritleri
+  ctx.save();
+  ctx.globalAlpha = 0.03;
+  ctx.strokeStyle = 'white';
+  ctx.lineWidth = 80;
+  for (var j = 0; j < 4; j++) {
+    ctx.beginPath();
+    ctx.moveTo(Math.random()*w, 0);
+    ctx.lineTo(Math.random()*w, h);
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  // Büyük kalp — arka planda soluk
+  ctx.save();
+  ctx.globalAlpha = 0.07;
+  ctx.font = Math.floor(w*0.55) + 'px serif';
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#ff3d7f';
+  ctx.fillText('❤️', w/2, h*0.55);
+  ctx.restore();
+
+  // Hediye kutusu — ortada büyük
+  ctx.save();
+  ctx.globalAlpha = 0.15;
+  ctx.font = Math.floor(w*0.35) + 'px serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('🎁', w*0.3, h*0.45);
+  ctx.restore();
+
+  // Çiçekler köşelerde
+  var cicekler = [
+    { x: w*0.08, y: h*0.12, e: '🌸', s: 0.12 },
+    { x: w*0.92, y: h*0.15, e: '🌹', s: 0.11 },
+    { x: w*0.05, y: h*0.88, e: '💐', s: 0.10 },
+    { x: w*0.92, y: h*0.85, e: '🌸', s: 0.10 },
+    { x: w*0.5,  y: h*0.05, e: '✨', s: 0.09 },
+    { x: w*0.75, y: h*0.5,  e: '💫', s: 0.08 },
+    { x: w*0.15, y: h*0.55, e: '⭐', s: 0.08 },
+  ];
+  cicekler.forEach(function(c) {
+    ctx.save();
+    ctx.globalAlpha = 0.35;
+    ctx.font = Math.floor(w*c.s) + 'px serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(c.e, c.x, c.y + Math.floor(w*c.s)*0.8);
+    ctx.restore();
+  });
+
+  // Parlak nokta efektleri
+  var noktalar = [
+    {x:w*0.3, y:h*0.2, renk:'#ffd700'},
+    {x:w*0.7, y:h*0.3, renk:'#ff3d7f'},
+    {x:w*0.2, y:h*0.7, renk:'#a855f7'},
+    {x:w*0.8, y:h*0.65, renk:'#ff6b35'},
+    {x:w*0.5, y:h*0.85, renk:'#22c55e'},
+  ];
+  noktalar.forEach(function(n) {
+    var gr = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, w*0.08);
+    gr.addColorStop(0, n.renk + 'cc');
+    gr.addColorStop(1, 'transparent');
+    ctx.fillStyle = gr;
+    ctx.fillRect(0, 0, w, h);
+  });
+}
 
 // Demo simülasyon
 function demoAc() {
