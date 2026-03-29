@@ -222,6 +222,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
       <button class="tab-btn aktif" onclick="tabGec('istatistik', this)">📊 İstatistikler</button>
       <button class="tab-btn" onclick="tabGec('kategoriler', this)">🗂️ Kategoriler</button>
       <button class="tab-btn" onclick="tabGec('hediyeler', this)">🎁 Hediyeler</button>
+      <button class="tab-btn" onclick="tabGec('yorumlar', this)">💬 Yorumlar</button>
     </div>
 
     <!-- İSTATİSTİKLER -->
@@ -298,6 +299,18 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
       </div>
     </div>
 
+    <!-- YORUMLAR -->
+    <div class="tab-icerik" id="tab-yorumlar">
+      <div style="display:flex; gap:10px; margin-bottom:16px;">
+        <button onclick="yorumFiltre('bekleyen')" id="filtre-bekleyen" style="padding:8px 16px;border-radius:8px;border:none;background:#f59e0b;color:white;font-weight:700;cursor:pointer;font-size:13px;">⏳ Bekleyen</button>
+        <button onclick="yorumFiltre('onaylanan')" id="filtre-onaylanan" style="padding:8px 16px;border-radius:8px;border:1px solid #22222e;background:transparent;color:#6b6b80;font-weight:700;cursor:pointer;font-size:13px;">✅ Onaylanan</button>
+        <button onclick="yorumFiltre('hepsi')" id="filtre-hepsi" style="padding:8px 16px;border-radius:8px;border:1px solid #22222e;background:transparent;color:#6b6b80;font-weight:700;cursor:pointer;font-size:13px;">📋 Hepsi</button>
+      </div>
+      <div id="yorum-admin-liste" style="display:flex;flex-direction:column;gap:12px;">
+        <div style="text-align:center;padding:32px;color:var(--muted)">Yükleniyor...</div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -331,6 +344,99 @@ function tabGec(id, btn) {
   document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('aktif'); });
   document.getElementById('tab-' + id).classList.add('aktif');
   btn.classList.add('aktif');
+  if (id === 'yorumlar') yorumlariYukleAdmin('bekleyen');
+}
+
+// ── YORUM YÖNETİMİ ──
+var aktifFiltre = 'bekleyen';
+
+function yorumFiltre(filtre) {
+  aktifFiltre = filtre;
+  ['bekleyen','onaylanan','hepsi'].forEach(function(f) {
+    var btn = document.getElementById('filtre-' + f);
+    btn.style.background = f === filtre ? (f === 'bekleyen' ? '#f59e0b' : f === 'onaylanan' ? '#22c55e' : '#7c3aed') : 'transparent';
+    btn.style.color = f === filtre ? 'white' : '#6b6b80';
+    btn.style.border = f === filtre ? 'none' : '1px solid #22222e';
+  });
+  yorumlariYukleAdmin(filtre);
+}
+
+async function yorumlariYukleAdmin(filtre) {
+  var liste = document.getElementById('yorum-admin-liste');
+  liste.innerHTML = '<div style="text-align:center;padding:32px;color:var(--muted)">Yükleniyor...</div>';
+
+  var url = SUPABASE_URL + '/rest/v1/yorumlar?order=tarih.desc';
+  if (filtre === 'bekleyen') url += '&onaylandi=eq.false';
+  else if (filtre === 'onaylanan') url += '&onaylandi=eq.true';
+
+  try {
+    var r = await fetch(url, {
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+    });
+    var data = await r.json();
+
+    if (!data || data.length === 0) {
+      liste.innerHTML = '<div style="text-align:center;padding:32px;color:var(--muted)">Yorum bulunamadı.</div>';
+      return;
+    }
+
+    liste.innerHTML = '';
+    data.forEach(function(y) {
+      var tarih = new Date(y.tarih).toLocaleDateString('tr-TR');
+      var yildiz = '★'.repeat(y.yildiz) + '☆'.repeat(5 - y.yildiz);
+      var kart = document.createElement('div');
+      kart.style.cssText = 'background:var(--surface);border:1px solid ' + (y.onaylandi ? '#22c55e33' : '#f59e0b33') + ';border-radius:14px;padding:16px;';
+      kart.innerHTML =
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;">' +
+          '<div>' +
+            '<div style="font-family:Syne,sans-serif;font-weight:700;font-size:15px;">' + y.isim + '</div>' +
+            '<div style="color:#ffd700;font-size:13px;margin:2px 0;">' + yildiz + '</div>' +
+            '<div style="color:var(--muted);font-size:12px;">' + tarih + '</div>' +
+          '</div>' +
+          '<div style="display:flex;gap:8px;">' +
+            (y.onaylandi
+              ? '<button onclick="yorumReddet(' + y.id + ', this)" style="padding:6px 12px;background:#ef444420;border:1px solid #ef4444;border-radius:8px;color:#ef4444;font-size:12px;cursor:pointer;font-weight:700;">✕ Kaldır</button>'
+              : '<button onclick="yorumOnayla(' + y.id + ', this)" style="padding:6px 12px;background:#22c55e20;border:1px solid #22c55e;border-radius:8px;color:#22c55e;font-size:12px;cursor:pointer;font-weight:700;">✓ Onayla</button>' +
+                '<button onclick="yorumSil(' + y.id + ', this)" style="padding:6px 12px;background:#ef444420;border:1px solid #ef4444;border-radius:8px;color:#ef4444;font-size:12px;cursor:pointer;font-weight:700;">✕ Sil</button>'
+            ) +
+          '</div>' +
+        '</div>' +
+        '<div style="margin-top:10px;font-size:14px;color:rgba(255,255,255,0.8);line-height:1.6;">' + y.yorum + '</div>';
+      liste.appendChild(kart);
+    });
+  } catch(e) {
+    liste.innerHTML = '<div style="text-align:center;padding:32px;color:#ef4444">Hata: ' + e.message + '</div>';
+  }
+}
+
+async function yorumOnayla(id, btn) {
+  btn.textContent = '...';
+  await fetch(SUPABASE_URL + '/rest/v1/yorumlar?id=eq.' + id, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY },
+    body: JSON.stringify({ onaylandi: true })
+  });
+  yorumlariYukleAdmin(aktifFiltre);
+}
+
+async function yorumReddet(id, btn) {
+  btn.textContent = '...';
+  await fetch(SUPABASE_URL + '/rest/v1/yorumlar?id=eq.' + id, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY },
+    body: JSON.stringify({ onaylandi: false })
+  });
+  yorumlariYukleAdmin(aktifFiltre);
+}
+
+async function yorumSil(id, btn) {
+  if (!confirm('Bu yorum silinsin mi?')) return;
+  btn.textContent = '...';
+  await fetch(SUPABASE_URL + '/rest/v1/yorumlar?id=eq.' + id, {
+    method: 'DELETE',
+    headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+  });
+  yorumlariYukleAdmin(aktifFiltre);
 }
 
 // ── VERİ YÜKLEMESİ ──
