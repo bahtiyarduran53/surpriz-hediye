@@ -154,7 +154,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 <script src="config.js"></script>
 <script>
 // ── Link Üret ──
-var sürprizLink = '';
+var surprizLink = '';
 
 window.onload = async function() {
   // localStorage'dan veriyi oku
@@ -174,32 +174,32 @@ window.onload = async function() {
       } else {
         // Supabase çalışmazsa yedek olarak localStorage kullan
         id = Math.random().toString(36).substr(2, 8).toUpperCase();
-        localStorage.setItem('sürpriz_' + id, kayitli);
+        localStorage.setItem('surpriz_' + id, kayitli);
       }
 
       // Link oluştur
-      sürprizLink = window.location.origin + '/sürpriz.html?id=' + id;
-      document.getElementById('link-url').textContent = sürprizLink;
+      surprizLink = window.location.origin + '/surpriz.html?id=' + id;
+      document.getElementById('link-url').textContent = surprizLink;
       // Temizle
       localStorage.removeItem('odeme_bekliyor');
     } catch(e) {
       // Test modu
-      sürprizLink = window.location.origin + '/sürpriz.html?id=TEST123';
-      document.getElementById('link-url').textContent = sürprizLink;
+      surprizLink = window.location.origin + '/surpriz.html?id=TEST123';
+      document.getElementById('link-url').textContent = surprizLink;
     }
   } else {
     // Test modu
-    sürprizLink = window.location.origin + '/sürpriz.html?id=ORNEK456';
-    document.getElementById('link-url').textContent = sürprizLink;
+    surprizLink = window.location.origin + '/surpriz.html?id=ORNEK456';
+    document.getElementById('link-url').textContent = surprizLink;
   }
 
   // Konfeti başlat
-  konfetiBaşlat();
+  konfetiBaslat();
 };
 
 // ── Kopyala ──
 function linkkopyala() {
-  navigator.clipboard.writeText(sürprizLink).then(function() {
+  navigator.clipboard.writeText(surprizLink).then(function() {
     var btn = document.getElementById('kopyala-btn');
     btn.textContent = '✓ Kopyalandi';
     btn.classList.add('kopyalandi');
@@ -211,7 +211,7 @@ function linkkopyala() {
   }).catch(function() {
     // Fallback
     var input = document.createElement('input');
-    input.value = sürprizLink;
+    input.value = surprizLink;
     document.body.appendChild(input);
     input.select();
     document.execCommand('copy');
@@ -228,7 +228,7 @@ function toastGoster() {
 
 // ── WhatsApp ──
 function whatsappPaylash() {
-  var mesaj = encodeURIComponent('Sana bir sürprizim var! Aç bakalım 🎁\n' + sürprizLink);
+  var mesaj = encodeURIComponent('Sana bir sürprizim var! Aç bakalım 🎁\n' + surprizLink);
   window.open('https://wa.me/?text=' + mesaj, '_blank');
 }
 
@@ -238,7 +238,7 @@ function linkPaylash() {
     navigator.share({
       title: 'Sana bir sürprizim var!',
       text: 'Aç bakalım 🎁',
-      url: sürprizLink
+      url: surprizLink
     });
   } else {
     linkkopyala();
@@ -247,11 +247,11 @@ function linkPaylash() {
 
 // ── Önizle ──
 function onizle() {
-  window.open(sürprizLink, '_blank');
+  window.open(surprizLink, '_blank');
 }
 
 // ── Konfeti ──
-function konfetiBaşlat() {
+function konfetiBaslat() {
   var canvas = document.getElementById('canvas');
   var ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
