@@ -107,6 +107,67 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 .popup-geri { width: 100%; padding: 12px; background: transparent; border: 1px solid var(--border); border-radius: 14px; color: var(--muted); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.2s; }
 .popup-geri:hover { border-color: var(--muted); color: var(--text); }
 
+/* SEÇİM EKRANI */
+.secim-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.88); z-index: 999;
+  align-items: center; justify-content: center;
+  padding: 20px; backdrop-filter: blur(10px);
+}
+.secim-overlay.aktif { display: flex; }
+.secim-popup {
+  background: #0a0a0f; border: 1px solid var(--border);
+  border-radius: 28px; width: 100%; max-width: 480px;
+  overflow: hidden; animation: popupGel 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.secim-baslik {
+  text-align: center; padding: 32px 24px 20px;
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 22px;
+}
+.secim-baslik span { font-size: 36px; display: block; margin-bottom: 8px; }
+.secim-kartlar { display: flex; flex-direction: column; gap: 12px; padding: 0 20px 24px; }
+.secim-kart {
+  border-radius: 18px; padding: 20px; cursor: pointer;
+  transition: all 0.2s; border: 2px solid var(--border);
+  background: var(--surface);
+}
+.secim-kart:hover { transform: translateY(-2px); }
+.secim-kart.ucretsiz:hover { border-color: #6b6b80; }
+.secim-kart.premium { border-color: #7c3aed; background: rgba(124,58,237,0.08); position: relative; }
+.secim-kart.premium:hover { border-color: #a855f7; box-shadow: 0 8px 32px rgba(124,58,237,0.3); }
+.secim-etiket {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: white; font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: 12px; letter-spacing: 1px; padding: 4px 16px; border-radius: 20px;
+  white-space: nowrap;
+}
+.secim-kart-baslik {
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px;
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.secim-ozellik { font-size: 14px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.secim-ozellik.var { color: rgba(255,255,255,0.85); }
+.secim-ozellik.yok { color: var(--muted); text-decoration: line-through; }
+.secim-btn {
+  width: 100%; padding: 14px; border: none; border-radius: 12px;
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px;
+  cursor: pointer; margin-top: 16px; transition: all 0.2s;
+}
+.secim-btn.ucretsiz-btn {
+  background: var(--surface2); color: var(--muted); border: 1px solid var(--border);
+}
+.secim-btn.ucretsiz-btn:hover { color: var(--text); border-color: var(--muted); }
+.secim-btn.premium-btn {
+  background: linear-gradient(135deg, #7c3aed, #a855f7); color: white;
+}
+.secim-btn.premium-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,0.4); }
+.secim-geri {
+  text-align: center; padding: 0 20px 20px;
+  color: var(--muted); font-size: 13px; cursor: pointer;
+}
+.secim-geri:hover { color: var(--text); }
+
 @media (max-width: 768px) {
   nav { padding: 16px 20px; }
   .adim-bar { padding: 16px 20px; }
@@ -123,6 +184,42 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 <audio id="ses-bip" src="bip.wav" preload="auto"></audio>
 <audio id="ses-patlama" src="patlama.wav" preload="auto"></audio>
 <audio id="ses-konfeti" src="konfeti.wav" preload="auto"></audio>
+
+<!-- SEÇİM EKRANI -->
+<div class="secim-overlay" id="secim-overlay">
+  <div class="secim-popup">
+    <div class="secim-baslik">
+      <span>🎉</span>
+      Harika! Sürprizin hazır!
+    </div>
+    <div class="secim-kartlar">
+
+      <!-- ÜCRETSİZ -->
+      <div class="secim-kart ucretsiz">
+        <div class="secim-kart-baslik">🆓 Ücretsiz</div>
+        <div class="secim-ozellik var">✅ Sürpriz linki oluşturulur</div>
+        <div class="secim-ozellik var">✅ Tüm kategoriler</div>
+        <div class="secim-ozellik yok">❌ Fotoğraf gösterilmez</div>
+        <div class="secim-ozellik yok">❌ "SürprizLink ile" damgası</div>
+        <div class="secim-ozellik yok">❌ 48 saat geçerli</div>
+        <button class="secim-btn ucretsiz-btn" onclick="ucretsizDevam()">Ücretsiz Devam Et</button>
+      </div>
+
+      <!-- PREMİUM -->
+      <div class="secim-kart premium">
+        <div class="secim-etiket">⭐ ÖNERİLEN</div>
+        <div class="secim-kart-baslik">💎 Premium — 9 TL</div>
+        <div class="secim-ozellik var">✅ Fotoğrafın da gönderilir</div>
+        <div class="secim-ozellik var">✅ Damga yok, tamamen kişisel</div>
+        <div class="secim-ozellik var">✅ Süresiz link</div>
+        <div class="secim-ozellik var">✅ Özel animasyon efektleri</div>
+        <button class="secim-btn premium-btn" onclick="premiumDevam()">💳 9 TL ile Devam Et</button>
+      </div>
+
+    </div>
+    <div class="secim-geri" onclick="secimKapat()">← Geri dön, düzenle</div>
+  </div>
+</div>
 
 <nav>
   <div class="logo" onclick="window.location.href='index.html'">Sürpriz<span>Link</span></div>
@@ -237,7 +334,7 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
           <div class="fiyat-toplam"><span>Toplam</span><span>19 TL</span></div>
         </div>
         <button class="onizle-btn" onclick="onizleGit()">&#x1F441; Sürprizi Önizle</button>
-        <button class="cta-btn" onclick="odemeGit()" style="margin-top:10px">Ödemeye Geç — 19 TL</button>
+        <button class="cta-btn" onclick="secimAc()" style="margin-top:10px">Devam Et →</button>
         <div class="guvenli">&#x1F512; Güvenli ödeme · Anında teslim</div>
       </div>
     </div>
@@ -267,7 +364,7 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
       </div>
     </div>
     <div class="popup-altlar">
-      <button class="popup-satin-al" onclick="popupOdemeGit()">&#x1F4B3; Ödemeye Geç — 19 TL</button>
+      <button class="popup-satin-al" onclick="popupOdemeGit()">Devam Et →</button>
       <button class="popup-geri" onclick="popupKapat()">&#8592; Geri Dön, Düzenle</button>
     </div>
   </div>
@@ -786,6 +883,40 @@ function popupKapat() {
   popupAcildi = false;
 }
 
+function secimAc() {
+  if (!state.anaKategori) { alert('Lütfen kategori seçin!'); return; }
+  if (!state.altKategori) { alert('Lütfen alt kategori seçin!'); return; }
+  state.mesaj = document.getElementById('mesaj').value;
+  if (!state.mesaj.trim()) { alert('Lütfen mesaj yazın!'); return; }
+  state.gonderen = document.getElementById('gonderen').value;
+  document.getElementById('secim-overlay').classList.add('aktif');
+  document.body.style.overflow = 'hidden';
+}
+
+function secimKapat() {
+  document.getElementById('secim-overlay').classList.remove('aktif');
+  document.body.style.overflow = '';
+}
+
+function ucretsizDevam() {
+  secimKapat();
+  state.premium = false;
+  state.foto = null; // Ücretsizde fotoğraf yok
+  localStorage.setItem('hediye_data', JSON.stringify(state));
+  window.location.href = 'hazir.html';
+}
+
+function premiumDevam() {
+  secimKapat();
+  state.premium = true;
+  localStorage.setItem('hediye_data', JSON.stringify(state));
+  window.location.href = 'https://www.shopier.com/SurprizLink/45665210';
+}
+
+function odemeGit() {
+  secimAc();
+}
+
 function popupOdemeGit() {
   state.mesaj = document.getElementById('mesaj').value;
   if (!state.mesaj || !state.mesaj.trim()) {
@@ -793,17 +924,9 @@ function popupOdemeGit() {
     alert('Lütfen mesaj yazın!');
     return;
   }
-  localStorage.setItem('hediye_data', JSON.stringify(state));
-  window.location.href = 'odeme.html';
-}
-
-function odemeGit() {
-  if (!state.anaKategori) { alert('Lütfen kategori seçin!'); return; }
-  if (!state.altKategori) { alert('Lütfen alt kategori seçin!'); return; }
-  state.mesaj = document.getElementById('mesaj').value;
-  if (!state.mesaj.trim()) { alert('Lütfen mesaj yazın!'); return; }
-  localStorage.setItem('hediye_data', JSON.stringify(state));
-  window.location.href = 'odeme.html';
+  state.gonderen = document.getElementById('gonderen').value;
+  popupKapat();
+  secimAc();
 }
 
 window.onload = function() {
