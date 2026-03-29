@@ -346,17 +346,18 @@ async function veriYukle() {
 
       // 24 saat kontrolü — sadece ücretsiz için
       if (!veri.premium && veri.olusturma) {
-        var olusturmaZamani = new Date(veri.olusturma).getTime();
-        var simdi = new Date().getTime();
-        var fark = simdi - olusturmaZamani;
-        var saatMs = 24 * 60 * 60 * 1000;
-        if (fark > saatMs) {
-          // Süre doldu
-          document.body.innerHTML = '';
-          document.body.style.cssText = 'margin:0;background:#0a0a0f;color:white;font-family:Arial,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:24px;';
-          document.body.innerHTML = '<div><div style="font-size:80px;margin-bottom:24px">⌛</div><h2 style="font-size:28px;margin-bottom:12px">Link Süresi Doldu</h2><p style="color:#888;margin-bottom:32px">Bu ücretsiz link 24 saatlik geçerlilik süresini tamamladı.</p><a href="/" style="background:#7c3aed;color:white;padding:14px 32px;border-radius:12px;text-decoration:none;font-weight:700;font-size:16px">🎁 Yeni Sürpriz Oluştur</a></div>';
-          return;
-        }
+        try {
+          var olusturmaZamani = new Date(veri.olusturma).getTime();
+          var simdi = new Date().getTime();
+          var fark = simdi - olusturmaZamani;
+          var saatMs = 24 * 60 * 60 * 1000;
+          if (fark > saatMs) {
+            document.body.innerHTML = '';
+            document.body.style.cssText = 'margin:0;background:#0a0a0f;color:white;font-family:Arial,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:24px;';
+            document.body.innerHTML = '<div><div style="font-size:80px;margin-bottom:24px">⌛</div><h2 style="font-size:28px;margin-bottom:12px">Link Süresi Doldu</h2><p style="color:#888;margin-bottom:32px">Bu ücretsiz link 24 saatlik geçerlilik süresini tamamladı.</p><a href="/" style="background:#7c3aed;color:white;padding:14px 32px;border-radius:12px;text-decoration:none;font-weight:700;font-size:16px">🎁 Yeni Sürpriz Oluştur</a></div>';
+            return;
+          }
+        } catch(e) {}
       }
 
       // Ücretsizde fotoğraf gösterme
@@ -498,6 +499,16 @@ function baslat() {
 }
 
 // ── Ses Motoru ──
+function sesiBaslat() {
+  try {
+    var AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return null;
+    var ac = new AudioCtx();
+    if (ac.state === 'suspended') ac.resume();
+    return ac;
+  } catch(e) { return null; }
+}
+
 function sesCal(id, volume) {
   try {
     var el = document.getElementById(id);
