@@ -696,6 +696,16 @@ function fotoYukle(input) {
   reader.readAsDataURL(file);
 }
 
+function sesCal(id, volume) {
+  try {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.currentTime = 0;
+    el.volume = volume || 1.0;
+    el.play().catch(function() {});
+  } catch(e) {}
+}
+
 function gosterEkran(num) {
   document.querySelectorAll('.ekran').forEach(function(e) { e.classList.remove('aktif'); });
   document.getElementById('ekran' + num).classList.add('aktif');
@@ -929,9 +939,11 @@ function popupOdemeGit() {
   secimAc();
 }
 
-window.onload = function() {
+window.onload = async function() {
   var params = new URLSearchParams(window.location.search);
   var k = params.get('kategori');
+  var ac = params.get('ac');
+
   if (k && kategoriler[k]) {
     var kartlar = document.querySelectorAll('.ana-kategori-kart');
     var keys = Object.keys(kategoriler);
@@ -939,7 +951,82 @@ window.onload = function() {
       if (keys[i] === k) anaKategoriSec(k, kart);
     });
   }
+
+  // Ücretsiz link açılışı — ID'den veri yükle ve popup göster
+  if (ac) {
+    try {
+      var sonuc = await DB.hediyeOku(ac);
+      if (sonuc.basarili) {
+        var d = sonuc.veri;
+
+        // 24 saat kontrolü
+        if (d.olusturma) {
+          var fark = new Date().getTime() - new Date(d.olusturma).getTime();
+          if (fark > 24 * 60 * 60 * 1000) {
+            document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#0a0a0f;color:white;font-family:Arial,sans-serif;text-align:center;padding:24px;flex-direction:column;gap:16px;"><div style="font-size:64px">⌛</div><h2>Link Süresi Doldu</h2><p style="color:#888">Bu ücretsiz link 24 saatlik süresini tamamladı.</p><a href="/" style="background:#7c3aed;color:white;padding:14px 32px;border-radius:12px;text-decoration:none;font-weight:700;">🎁 Yeni Sürpriz Oluştur</a></div>';
+            return;
+          }
+        }
+
+        // State'i doldur
+        state.ambalaj = d.ambalaj || 'kutu';
+        state.ambalajEmoji = d.ambalaj_emoji || '🎁';
+        state.mesaj = d.mesaj || '';
+        state.gonderen = d.gonderen || '';
+        state.foto = null; // Ücretsizde fotoğraf yok
+        state.premium = false;
+
+        // Popup aç
+        var ikon = state.ambalajEmoji || '🎁';
+        document.getElementById('popup-ambalaj').textContent = ikon;
+        document.getElementById('popup-acik-emoji').textContent = ikon;
+        document.getElementById('popup-kapali').style.display = 'flex';
+        document.getElementById('popup-acik').style.display = 'none';
+        document.getElementById('popup-foto').style.display = 'none';
+        document.getElementById('popup-mesaj-text').textContent = '';
+        document.getElementById('onizleme-overlay').classList.add('aktif');
+        document.body.style.overflow = 'hidden';
+
+        // Popup butonlarını gizle (linki tekrar alamasın)
+        document.querySelector('.popup-satin-al').style.display = 'none';
+        document.querySelector('.popup-geri').style.display = 'none';
+
+        // Filigran ekle
+        filigranEkle();
+
+        popupAcildi = false;
+      }
+    } catch(e) {}
+  }
 };
+
+function filigranEkle() {
+  var div = document.createElement('div');
+  div.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9998;overflow:hidden;';
+  var canvas = document.createElement('canvas');
+  canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;';
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  div.appendChild(canvas);
+  document.body.appendChild(div);
+
+  var ctx = canvas.getContext('2d');
+  ctx.save();
+  ctx.translate(canvas.width/2, canvas.height/2);
+  ctx.rotate(-30 * Math.PI / 180);
+  ctx.font = '900 16px Arial';
+  ctx.fillStyle = 'rgba(255,255,255,0.08)';
+  var metin = 'SÜRPRİZLİNK.COM  ✦  ';
+  var genislik = ctx.measureText(metin).width;
+  var satirAraligi = 45;
+  var satir = Math.ceil(canvas.height / satirAraligi) + 6;
+  for (var s = -satir; s <= satir; s++) {
+    for (var g = -4; g <= 4; g++) {
+      ctx.fillText(metin, g * genislik - canvas.width/2, s * satirAraligi);
+    }
+  }
+  ctx.restore();
+}
 </script>
 </body>
 </html>
