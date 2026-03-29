@@ -367,6 +367,14 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
       <button class="popup-satin-al" onclick="popupOdemeGit()">Devam Et →</button>
       <button class="popup-geri" onclick="popupKapat()">&#8592; Geri Dön, Düzenle</button>
     </div>
+    <div id="popup-acik-butonlar" style="display:none; padding:0 20px 20px; flex-direction:column; gap:10px;">
+      <button onclick="window.location.href='olustur.html'" style="width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;border-radius:14px;color:white;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;cursor:pointer;">
+        🎁 Sen de Birine Gönder
+      </button>
+      <button onclick="popupPaylash()" style="width:100%;padding:12px;background:transparent;border:1px solid #22222e;border-radius:14px;color:#6b6b80;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">
+        📤 Paylaş
+      </button>
+    </div>
   </div>
 </div>
 
@@ -991,6 +999,12 @@ window.onload = async function() {
         document.querySelector('.popup-satin-al').style.display = 'none';
         document.querySelector('.popup-geri').style.display = 'none';
 
+        // Sürpriz açıldıktan sonra butonları göster
+        setTimeout(function() {
+          var butonlar = document.getElementById('popup-acik-butonlar');
+          if (butonlar) butonlar.style.display = 'flex';
+        }, 4000);
+
         // Filigran ekle
         filigranEkle();
 
@@ -999,6 +1013,17 @@ window.onload = async function() {
     } catch(e) {}
   }
 };
+
+function popupPaylash() {
+  var url = window.location.href;
+  if (navigator.share) {
+    navigator.share({ title: 'Sürprizin Var! 🎁', url: url }).catch(function(){});
+  } else {
+    navigator.clipboard.writeText(url).then(function() {
+      alert('Link kopyalandı!');
+    });
+  }
+}
 
 function filigranEkle() {
   var div = document.createElement('div');
