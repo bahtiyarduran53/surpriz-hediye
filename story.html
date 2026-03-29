@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SürprizLink — Story Şablonu</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #111; font-family: Arial, sans-serif; color: white; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 24px; gap: 20px; }
+h2 { color: #a855f7; font-size: 20px; margin-top: 8px; }
+p { color: #666; font-size: 13px; text-align: center; }
+canvas { border-radius: 16px; max-height: 70vh; width: auto; display: block; }
+.kontroller { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 400px; }
+.satir { display: flex; flex-direction: column; gap: 6px; }
+label { font-size: 12px; color: #888; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+input, select { padding: 12px 14px; background: #1a1a24; border: 1px solid #333; border-radius: 10px; color: white; font-size: 14px; outline: none; width: 100%; }
+input:focus, select:focus { border-color: #7c3aed; }
+.butonlar { display: flex; gap: 10px; }
+.btn { flex: 1; padding: 14px; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; }
+.btn-indir { background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; }
+.btn-indir:hover { opacity: 0.9; }
+.btn-sifirla { background: #1a1a24; border: 1px solid #333; color: #888; }
+</style>
+</head>
+<body>
+
+<h2>📸 Instagram Story Şablonu</h2>
+<p>Linkinizi yazın, indirin ve story'ye yükleyin!</p>
+
+<canvas id="c" width="1080" height="1920"></canvas>
+
+<div class="kontroller">
+  <div class="satir">
+    <label>Sürpriz Linkiniz</label>
+    <input type="text" id="link-input" placeholder="surprizlink.com/olustur.html?ac=XXXXX" oninput="ciz()">
+  </div>
+  <div class="satir">
+    <label>Kategori</label>
+    <select id="kategori-sec" onchange="ciz()">
+      <option value="genel">🎁 Genel</option>
+      <option value="komik">😂 Komik & Şaka</option>
+      <option value="romantik">💕 Romantik</option>
+      <option value="dogum">🎂 Doğum Günü</option>
+      <option value="yilin">🏆 Yılın Enleri</option>
+    </select>
+  </div>
+  <div class="butonlar">
+    <button class="btn btn-indir" onclick="indir()">⬇️ Story İndir (PNG)</button>
+    <button class="btn btn-sifirla" onclick="sifirla()">↺ Sıfırla</button>
+  </div>
+</div>
+
+<script>
+var C = document.getElementById('c');
+var ctx = C.getContext('2d');
+var W = 1080, H = 1920;
+
+var temalar = {
+  genel:    { bg1: '#0a0010', bg2: '#1a0035', emoji: '🎁', renk: '#a855f7', acil: '#ff6b35' },
+  komik:    { bg1: '#1a0800', bg2: '#2d1000', emoji: '💩', renk: '#ff6b35', acil: '#ff3d7f' },
+  romantik: { bg1: '#0f0010', bg2: '#200020', emoji: '💕', renk: '#ff3d7f', acil: '#a855f7' },
+  dogum:    { bg1: '#0a0800', bg2: '#1a1000', emoji: '🎂', renk: '#ffd700', acil: '#ff6b35' },
+  yilin:    { bg1: '#0a0800', bg2: '#1a1200', emoji: '🏆', renk: '#ffd700', acil: '#ff6b35' },
+};
+
+function ciz() {
+  var kat = document.getElementById('kategori-sec').value;
+  var link = document.getElementById('link-input').value || 'surprizlink.com/...';
+  var tema = temalar[kat];
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Arka plan gradient
+  var bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, tema.bg1);
+  bg.addColorStop(1, tema.bg2);
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // Dekoratif daireler
+  ctx.globalAlpha = 0.08;
+  ctx.fillStyle = tema.renk;
+  ctx.beginPath(); ctx.arc(W/2, 600, 500, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = tema.acil;
+  ctx.beginPath(); ctx.arc(100, 1600, 300, 0, Math.PI*2); ctx.fill();
+  ctx.globalAlpha = 1;
+
+  // Üst logo
+  ctx.font = 'bold 72px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillStyle = 'white';
+  ctx.fillText('Sürpriz', W/2 - 130, 160);
+  ctx.fillStyle = tema.renk;
+  ctx.fillText('Link', W/2 + 130, 160);
+
+  // Logo altı çizgi
+  var cizgi = ctx.createLinearGradient(100, 0, W-100, 0);
+  cizgi.addColorStop(0, tema.renk);
+  cizgi.addColorStop(1, tema.acil);
+  ctx.fillStyle = cizgi;
+  ctx.beginPath(); ctx.roundRect(100, 185, W-200, 6, 3); ctx.fill();
+
+  // Ana emoji
+  ctx.font = '340px serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(tema.emoji, W/2, 680);
+
+  // Parlama
+  ctx.globalAlpha = 0.12;
+  ctx.fillStyle = tema.renk;
+  ctx.beginPath(); ctx.arc(W/2, 520, 300, 0, Math.PI*2); ctx.fill();
+  ctx.globalAlpha = 1;
+
+  // Sürpriz mesajı
+  ctx.fillStyle = 'white';
+  ctx.font = 'bold 88px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText('Sana bir', W/2, 860);
+
+  var grad = ctx.createLinearGradient(0, 0, W, 0);
+  grad.addColorStop(0, tema.renk);
+  grad.addColorStop(1, tema.acil);
+  ctx.fillStyle = grad;
+  ctx.font = 'bold 108px Arial';
+  ctx.fillText('SÜRPRİZ', W/2, 990);
+
+  ctx.fillStyle = 'white';
+  ctx.font = 'bold 88px Arial';
+  ctx.fillText('gönderdim! 🎉', W/2, 1100);
+
+  // Ayırıcı
+  ctx.fillStyle = 'rgba(255,255,255,0.15)';
+  ctx.beginPath(); ctx.roundRect(80, 1150, W-160, 2, 1); ctx.fill();
+
+  // Açıklama
+  ctx.fillStyle = 'rgba(255,255,255,0.7)';
+  ctx.font = '48px Arial';
+  ctx.fillText('Linke tıklayarak aç 👇', W/2, 1240);
+
+  // Link kutusu arka plan
+  ctx.fillStyle = 'rgba(255,255,255,0.95)';
+  ctx.beginPath(); ctx.roundRect(60, 1280, W-120, 130, 24); ctx.fill();
+
+  // Link yazısı
+  var linkMetin = link;
+  if (linkMetin.length > 42) linkMetin = linkMetin.substring(0, 42) + '...';
+  ctx.fillStyle = '#0a0010';
+  ctx.font = 'bold 36px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText(linkMetin, W/2, 1358);
+
+  // Emoji dekorasyon
+  ctx.font = '40px serif';
+  ctx.fillText('🔗', 110, 1358);
+  ctx.fillText('👆', W-110, 1358);
+
+  // Alt kısım — teşvik
+  ctx.fillStyle = tema.renk;
+  ctx.beginPath(); ctx.roundRect(80, 1460, W-160, 110, 55); ctx.fill();
+
+  ctx.fillStyle = 'white';
+  ctx.font = 'bold 52px Arial';
+  ctx.fillText('Sen de Gönder — surprizlink.com', W/2, 1527);
+
+  // Ücretsiz
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  ctx.font = '40px Arial';
+  ctx.fillText('Ücretsiz oluştur! 🎁', W/2, 1640);
+
+  // Link sticker talimatı
+  ctx.fillStyle = 'rgba(255,255,255,0.08)';
+  ctx.beginPath(); ctx.roundRect(60, 1620, W-120, 200, 20); ctx.fill();
+  ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.roundRect(60, 1620, W-120, 200, 20); ctx.stroke();
+
+  ctx.fillStyle = 'rgba(255,255,255,0.9)';
+  ctx.font = 'bold 34px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText('📲 Nasıl paylaşılır?', W/2, 1668);
+  ctx.fillStyle = 'rgba(255,255,255,0.65)';
+  ctx.font = '30px Arial';
+  ctx.fillText('1. Bu görseli story\'ye yükle', W/2, 1710);
+  ctx.fillText('2. Instagram Link Sticker ekle', W/2, 1748);
+  ctx.fillText('3. Linki yapıştır → Paylaş! 🚀', W/2, 1786);
+
+  // Alt logo
+  ctx.fillStyle = 'rgba(255,255,255,0.3)';
+  ctx.font = '30px Arial';
+  ctx.fillText('surprizlink.com', W/2, 1870);
+}
+
+function indir() {
+  var a = document.createElement('a');
+  a.download = 'surprizlink-story.png';
+  a.href = C.toDataURL('image/png');
+  a.click();
+}
+
+function sifirla() {
+  document.getElementById('link-input').value = '';
+  document.getElementById('kategori-sec').value = 'genel';
+  ciz();
+}
+
+// URL'den linki otomatik al
+window.onload = function() {
+  var params = new URLSearchParams(window.location.search);
+  var link = params.get('link');
+  var kat = params.get('kat');
+  if (link) document.getElementById('link-input').value = decodeURIComponent(link);
+  if (kat && document.getElementById('kategori-sec').querySelector('option[value="' + kat + '"]')) {
+    document.getElementById('kategori-sec').value = kat;
+  }
+  ciz();
+};
+</script>
+</body>
+</html>
