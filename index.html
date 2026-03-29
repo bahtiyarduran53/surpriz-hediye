@@ -470,7 +470,7 @@ footer {
 .sss-kart.acik .sss-cevap { display: block; }
 
 /* YORUMLAR */
-.yorum-kart { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+.yorum-kart { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px; min-width: 300px; max-width: 300px; scroll-snap-align: start; flex-shrink: 0; }
 .yorum-ust { display: flex; align-items: center; gap: 12px; }
 .yorum-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; color: white; flex-shrink: 0; }
 .yorum-isim { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; }
@@ -593,7 +593,7 @@ footer {
 <div class="section" id="yorumlar">
   <h2 class="section-title">Kullananlar Ne Dedi?</h2>
   <p class="section-sub">Gerçek kullanıcı deneyimleri</p>
-  <div id="yorum-listesi" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; max-width:1000px; margin:0 auto;"></div>
+  <div id="yorum-listesi" style="display:flex; gap:16px; overflow-x:auto; padding-bottom:12px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none;"></div>
   <div style="text-align:center; margin-top:12px;">
     <span id="yorum-yukleniyor" style="color:var(--muted); font-size:14px;">Yorumlar yükleniyor...</span>
   </div>
