@@ -119,6 +119,11 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 </head>
 <body>
 
+<!-- Ses dosyaları -->
+<audio id="ses-bip" src="bip.wav" preload="auto"></audio>
+<audio id="ses-patlama" src="patlama.wav" preload="auto"></audio>
+<audio id="ses-konfeti" src="konfeti.wav" preload="auto"></audio>
+
 <nav>
   <div class="logo" onclick="window.location.href='index.html'">Sürpriz<span>Link</span></div>
   <div class="nav-back" onclick="window.location.href='index.html'">Ana Sayfa</div>
@@ -652,6 +657,16 @@ function popupAc() {
     sayimEl.style.color = renkler[index];
     sayimEl.style.transform = 'scale(1.3)';
     if (navigator.vibrate) navigator.vibrate(index < 3 ? 150 : [300,100,300]);
+    // Ses çal
+    try {
+      if (index < 3) {
+        var bip = document.getElementById('ses-bip');
+        if (bip) { bip.currentTime = 0; bip.play().catch(function(){}); }
+      } else {
+        var pat = document.getElementById('ses-patlama');
+        if (pat) { pat.currentTime = 0; pat.play().catch(function(){}); }
+      }
+    } catch(e) {}
     setTimeout(function() { sayimEl.style.transform = 'scale(1)'; }, 100);
     index++;
     setTimeout(adim, index < 4 ? 900 : 600);
@@ -662,6 +677,11 @@ function popupAc() {
 function gercekPopupAc() {
   if (navigator.vibrate) navigator.vibrate([200, 100, 300]);
   popupKonfeti();
+  // Konfeti sesi
+  try {
+    var kon = document.getElementById('ses-konfeti');
+    if (kon) { kon.currentTime = 0; kon.play().catch(function(){}); }
+  } catch(e) {}
   document.getElementById('popup-kapali').style.display = 'none';
   setTimeout(function() {
     var acik = document.getElementById('popup-acik');
