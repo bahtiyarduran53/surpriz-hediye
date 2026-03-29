@@ -578,14 +578,13 @@ footer {
     <!-- Telefon çerçevesi -->
     <div style="position:relative;background:#1a1a24;border:3px solid #333;border-radius:36px;padding:12px;width:220px;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
       <div style="background:#0a0a0f;border-radius:26px;overflow:hidden;aspect-ratio:9/16;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:20px;position:relative;">
-        <!-- Arka plan gradient -->
-        <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0a0010,#1a0035);"></div>
-        <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(124,58,237,0.3),transparent 70%);"></div>
+        <!-- Canvas arka plan -->
+        <canvas id="telefon-canvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
         <!-- İçerik -->
         <div style="position:relative;z-index:2;text-align:center;">
-          <div style="font-size:56px;animation:sallan 2s ease-in-out infinite;display:block;">🎁</div>
-          <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:white;margin-top:8px;">Sürprizin Var!</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px;">👆 Dokunarak Aç</div>
+          <div style="font-size:56px;animation:sallan 2s ease-in-out infinite;display:block;filter:drop-shadow(0 0 20px rgba(255,107,53,0.8));">🎁</div>
+          <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:white;margin-top:8px;text-shadow:0 2px 8px rgba(0,0,0,0.8);">Sürprizin Var!</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:4px;text-shadow:0 2px 8px rgba(0,0,0,0.8);">👆 Dokunarak Aç</div>
         </div>
       </div>
       <!-- Kamera çentiği -->
@@ -609,9 +608,8 @@ footer {
 
     <!-- Sahne -->
     <div id="demo-sahne" style="position:relative;min-height:380px;border-radius:24px 24px 0 0;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:32px 24px;">
-      <!-- Arka plan -->
-      <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0a0010,#1a0035,#0f0020);"></div>
-      <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(124,58,237,0.25),transparent 70%);"></div>
+      <!-- Canvas arka plan -->
+      <canvas id="demo-bg-canvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
       <!-- Geri sayım -->
       <div id="demo-sayim" style="position:absolute;inset:0;background:rgba(0,0,0,0.85);z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;">
         <div id="demo-rakam" style="font-size:140px;font-weight:900;color:white;font-family:'Syne',sans-serif;line-height:1;">3</div>
@@ -780,6 +778,83 @@ async function sayacYukle() {
   }
 }
 sayacYukle();
+
+// ── Canvas Arka Plan Çiz ──
+function arkaplanCiz(canvas, kucuk) {
+  var ctx = canvas.getContext('2d');
+  var w = canvas.width = canvas.offsetWidth;
+  var h = canvas.height = canvas.offsetHeight;
+
+  // Derin arka plan
+  var bg = ctx.createLinearGradient(0, 0, w, h);
+  bg.addColorStop(0, '#0a0010');
+  bg.addColorStop(0.4, '#12003a');
+  bg.addColorStop(0.7, '#1a0020');
+  bg.addColorStop(1, '#0a000f');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, w, h);
+
+  // Işıltılı daireler
+  var daireler = [
+    { x: w*0.2, y: h*0.25, r: w*0.5, renk: '#7c3aed', opaklık: 0.18 },
+    { x: w*0.8, y: h*0.6,  r: w*0.4, renk: '#ff3d7f', opaklık: 0.14 },
+    { x: w*0.5, y: h*0.8,  r: w*0.35, renk: '#ff6b35', opaklık: 0.12 },
+    { x: w*0.1, y: h*0.75, r: w*0.3, renk: '#06b6d4', opaklık: 0.1 },
+  ];
+  daireler.forEach(function(d) {
+    var g = ctx.createRadialGradient(d.x, d.y, 0, d.x, d.y, d.r);
+    g.addColorStop(0, d.renk + Math.round(d.opaklık * 255).toString(16).padStart(2,'0'));
+    g.addColorStop(1, 'transparent');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+  });
+
+  // Parlak yıldız noktaları
+  var yildizSayisi = kucuk ? 30 : 60;
+  for (var i = 0; i < yildizSayisi; i++) {
+    var x = Math.random() * w;
+    var y = Math.random() * h;
+    var r = Math.random() * (kucuk ? 1.5 : 2);
+    var opaklık = 0.3 + Math.random() * 0.7;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,255,255,' + opaklık + ')';
+    ctx.fill();
+  }
+
+  // Işık şeritleri
+  if (!kucuk) {
+    ctx.save();
+    ctx.globalAlpha = 0.04;
+    for (var j = 0; j < 5; j++) {
+      var seritG = ctx.createLinearGradient(0, 0, w, h);
+      seritG.addColorStop(0, 'transparent');
+      seritG.addColorStop(0.5, 'white');
+      seritG.addColorStop(1, 'transparent');
+      ctx.fillStyle = seritG;
+      ctx.save();
+      ctx.translate(w/2, h/2);
+      ctx.rotate((j * 36) * Math.PI / 180);
+      ctx.fillRect(-w, -2, w*2, 4);
+      ctx.restore();
+    }
+    ctx.restore();
+  }
+}
+
+window.addEventListener('load', function() {
+  // Telefon canvas
+  var tc = document.getElementById('telefon-canvas');
+  if (tc) arkaplanCiz(tc, true);
+
+  // Demo bg canvas
+  var dc = document.getElementById('demo-bg-canvas');
+  if (dc) {
+    dc.width = dc.offsetWidth || 400;
+    dc.height = dc.offsetHeight || 380;
+    arkaplanCiz(dc, false);
+  }
+});
 
 // Demo simülasyon
 function demoAc() {
