@@ -469,6 +469,15 @@ footer {
 .sss-kart.acik .sss-ok { transform: rotate(180deg); }
 .sss-kart.acik .sss-cevap { display: block; }
 
+/* YORUMLAR */
+.yorum-kart { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+.yorum-ust { display: flex; align-items: center; gap: 12px; }
+.yorum-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; color: white; flex-shrink: 0; }
+.yorum-isim { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; }
+.yorum-tarih { font-size: 12px; color: var(--muted); }
+.yorum-yildiz { color: #ffd700; font-size: 14px; letter-spacing: 1px; }
+.yorum-metin { font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.6; }
+
 /* ── MOBİL ── */
 @media (max-width: 768px) {
   nav { padding: 16px 20px; }
@@ -580,6 +589,16 @@ footer {
   </div>
 </div>
 
+<!-- YORUMLAR -->
+<div class="section" id="yorumlar">
+  <h2 class="section-title">Kullananlar Ne Dedi?</h2>
+  <p class="section-sub">Gerçek kullanıcı deneyimleri</p>
+  <div id="yorum-listesi" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; max-width:1000px; margin:0 auto;"></div>
+  <div style="text-align:center; margin-top:12px;">
+    <span id="yorum-yukleniyor" style="color:var(--muted); font-size:14px;">Yorumlar yükleniyor...</span>
+  </div>
+</div>
+
 <!-- FİYAT -->
 <div class="fiyat-section">
   <h2 class="section-title">Fiyat</h2>
@@ -683,6 +702,44 @@ async function sayacYukle() {
   }
 }
 sayacYukle();
+
+// Yorumları yükle
+async function yorumlariYukle() {
+  try {
+    var r = await fetch(SUPABASE_URL + '/rest/v1/yorumlar?onaylandi=eq.true&order=tarih.desc&limit=13', {
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+    });
+    var data = await r.json();
+    var liste = document.getElementById('yorum-listesi');
+    document.getElementById('yorum-yukleniyor').style.display = 'none';
+    if (!data || data.length === 0) return;
+
+    var renkler = ['#7c3aed','#ff6b35','#ff3d7f','#22c55e','#06b6d4','#f59e0b','#a855f7'];
+
+    data.forEach(function(y, i) {
+      var tarihFark = Math.floor((new Date() - new Date(y.tarih)) / (1000*60*60*24));
+      var tarihYazi = tarihFark === 0 ? 'Bugün' : tarihFark === 1 ? 'Dün' : tarihFark + ' gün önce';
+      var yildiz = '★'.repeat(y.yildiz) + '☆'.repeat(5 - y.yildiz);
+      var renk = renkler[i % renkler.length];
+      var basDis = y.isim.charAt(0).toUpperCase();
+
+      var kart = document.createElement('div');
+      kart.className = 'yorum-kart';
+      kart.innerHTML =
+        '<div class="yorum-ust">' +
+          '<div class="yorum-avatar" style="background:' + renk + '">' + basDis + '</div>' +
+          '<div>' +
+            '<div class="yorum-isim">' + y.isim + '</div>' +
+            '<div class="yorum-tarih">' + tarihYazi + '</div>' +
+          '</div>' +
+          '<div class="yorum-yildiz" style="margin-left:auto">' + yildiz + '</div>' +
+        '</div>' +
+        '<div class="yorum-metin">' + y.yorum + '</div>';
+      liste.appendChild(kart);
+    });
+  } catch(e) {}
+}
+yorumlariYukle();
 
 // SSS aç/kapat
 function sssAc(el) {
