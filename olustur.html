@@ -355,9 +355,14 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
         <div class="popup-ac-yazi">&#x1F446; Dokunarak Aç!</div>
       </div>
       <div class="popup-mesaj-alan" id="popup-acik">
-        <img id="popup-foto" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.2);display:none;">
-        <div class="popup-acik-emoji" id="popup-acik-emoji">&#x1F381;</div>
-        <div class="popup-mesaj-kutu">
+        <!-- Premium arka plan fotoğrafı -->
+        <div id="popup-foto-bg" style="display:none;position:absolute;inset:0;z-index:0;border-radius:24px 24px 0 0;overflow:hidden;">
+          <img id="popup-foto-bg-img" style="width:100%;height:100%;object-fit:cover;opacity:0.35;">
+          <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.2),rgba(0,0,0,0.8));"></div>
+        </div>
+        <img id="popup-foto" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,0.4);display:none;position:relative;z-index:2;box-shadow:0 4px 20px rgba(0,0,0,0.5);">
+        <div class="popup-acik-emoji" id="popup-acik-emoji" style="position:relative;z-index:2;">&#x1F381;</div>
+        <div class="popup-mesaj-kutu" style="position:relative;z-index:2;">
           <div class="popup-mesaj-text" id="popup-mesaj-text"></div>
           <div class="popup-gonderen" id="popup-gonderen"></div>
         </div>
@@ -802,6 +807,14 @@ function gercekPopupAc() {
     var acik = document.getElementById('popup-acik');
     acik.style.display = 'flex';
     if (state.foto) {
+      // Premium: fotoğrafı arka plana al
+      var fotoBg = document.getElementById('popup-foto-bg');
+      var fotoBgImg = document.getElementById('popup-foto-bg-img');
+      if (fotoBg && fotoBgImg) {
+        fotoBgImg.src = state.foto;
+        fotoBg.style.display = 'block';
+      }
+      // Küçük profil fotosu da göster
       var fotoEl = document.getElementById('popup-foto');
       fotoEl.src = state.foto;
       fotoEl.style.display = 'block';
@@ -951,6 +964,7 @@ window.onload = async function() {
   var params = new URLSearchParams(window.location.search);
   var k = params.get('kategori');
   var ac = params.get('ac');
+  var goster = params.get('goster'); // Premium link
 
   if (k && kategoriler[k]) {
     var kartlar = document.querySelectorAll('.ana-kategori-kart');
@@ -958,6 +972,45 @@ window.onload = async function() {
     kartlar.forEach(function(kart, i) {
       if (keys[i] === k) anaKategoriSec(k, kart);
     });
+  }
+
+  // Premium link açılışı
+  if (goster) {
+    try {
+      var sonuc = await DB.hediyeOku(goster);
+      if (sonuc.basarili) {
+        var d = sonuc.veri;
+        state.ambalaj = d.ambalaj || 'kutu';
+        state.ambalajEmoji = d.ambalaj_emoji || '🎁';
+        state.mesaj = d.mesaj || '';
+        state.gonderen = d.gonderen || '';
+        state.foto = d.fotograf_url || null;
+        state.premium = true;
+
+        var ikon = state.ambalajEmoji || '🎁';
+        document.getElementById('popup-ambalaj').textContent = ikon;
+        document.getElementById('popup-acik-emoji').textContent = ikon;
+        document.getElementById('popup-kapali').style.display = 'flex';
+        document.getElementById('popup-acik').style.display = 'none';
+        document.getElementById('popup-foto').style.display = 'none';
+        document.getElementById('popup-mesaj-text').textContent = '';
+        document.getElementById('onizleme-overlay').classList.add('aktif');
+        document.body.style.overflow = 'hidden';
+
+        // Premium butonları gizle
+        document.querySelector('.popup-satin-al').style.display = 'none';
+        document.querySelector('.popup-geri').style.display = 'none';
+
+        // Sürpriz açılınca butonları göster
+        setTimeout(function() {
+          var butonlar = document.getElementById('popup-acik-butonlar');
+          if (butonlar) butonlar.style.display = 'flex';
+        }, 4000);
+
+        popupAcildi = false;
+      }
+    } catch(e) {}
+    return;
   }
 
   // Ücretsiz link açılışı — ID'den veri yükle ve popup göster
