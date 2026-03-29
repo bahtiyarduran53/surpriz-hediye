@@ -290,13 +290,20 @@ body {
       <div class="mesaj-text" id="mesaj-text"></div>
       <div class="gonderen-text" id="gonderen-yazi"></div>
     </div>
-    <!-- Ücretsiz damga -->
-    <div id="ucretsiz-damga" style="display:none; margin-top:12px;">
-      <a href="https://surprizlink.com" style="display:flex;align-items:center;gap:8px;background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);border-radius:20px;padding:8px 18px;text-decoration:none;color:rgba(255,255,255,0.7);font-size:13px;font-family:Arial,sans-serif;">
-        <span style="font-size:16px">🎁</span>
-        <span>SürprizLink ile oluşturuldu</span>
-        <span style="color:#a855f7;font-weight:700;font-size:12px">→ Sen de dene</span>
-      </a>
+    <!-- Ücretsiz damga - filigran -->
+    <div id="ucretsiz-damga" style="display:none; position:fixed; inset:0; pointer-events:none; z-index:50; overflow:hidden;">
+      <div style="position:absolute; inset:-50%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:50px; transform:rotate(-30deg);">
+        <div style="color:rgba(255,255,255,0.07); font-family:'Syne',sans-serif; font-weight:900; font-size:38px; letter-spacing:6px; white-space:nowrap;">SÜRPRİZLİNK.COM ✦ SÜRPRİZLİNK.COM ✦ SÜRPRİZLİNK.COM</div>
+        <div style="color:rgba(255,255,255,0.07); font-family:'Syne',sans-serif; font-weight:900; font-size:38px; letter-spacing:6px; white-space:nowrap;">SÜRPRİZLİNK.COM ✦ SÜRPRİZLİNK.COM ✦ SÜRPRİZLİNK.COM</div>
+        <div style="color:rgba(255,255,255,0.07); font-family:'Syne',sans-serif; font-weight:900; font-size:38px; letter-spacing:6px; white-space:nowrap;">SÜRPRİZLİNK.COM ✦ SÜRPRİZLİNK.COM ✦ SÜRPRİZLİNK.COM</div>
+        <div style="color:rgba(255,255,255,0.07); font-family:'Syne',sans-serif; font-weight:900; font-size:38px; letter-spacing:6px; white-space:nowrap;">SÜRPRİZLİNK.COM ✦ SÜRPRİZLİNK.COM ✦ SÜRPRİZLİNK.COM</div>
+        <div style="color:rgba(255,255,255,0.07); font-family:'Syne',sans-serif; font-weight:900; font-size:38px; letter-spacing:6px; white-space:nowrap;">SÜRPRİZLİNK.COM ✦ SÜRPRİZLİNK.COM ✦ SÜRPRİZLİNK.COM</div>
+        <div style="color:rgba(255,255,255,0.07); font-family:'Syne',sans-serif; font-weight:900; font-size:38px; letter-spacing:6px; white-space:nowrap;">SÜRPRİZLİNK.COM ✦ SÜRPRİZLİNK.COM ✦ SÜRPRİZLİNK.COM</div>
+        <div style="color:rgba(255,255,255,0.07); font-family:'Syne',sans-serif; font-weight:900; font-size:38px; letter-spacing:6px; white-space:nowrap;">SÜRPRİZLİNK.COM ✦ SÜRPRİZLİNK.COM ✦ SÜRPRİZLİNK.COM</div>
+        <div style="color:rgba(255,255,255,0.07); font-family:'Syne',sans-serif; font-weight:900; font-size:38px; letter-spacing:6px; white-space:nowrap;">SÜRPRİZLİNK.COM ✦ SÜRPRİZLİNK.COM ✦ SÜRPRİZLİNK.COM</div>
+        <div style="color:rgba(255,255,255,0.07); font-family:'Syne',sans-serif; font-weight:900; font-size:38px; letter-spacing:6px; white-space:nowrap;">SÜRPRİZLİNK.COM ✦ SÜRPRİZLİNK.COM ✦ SÜRPRİZLİNK.COM</div>
+        <div style="color:rgba(255,255,255,0.07); font-family:'Syne',sans-serif; font-weight:900; font-size:38px; letter-spacing:6px; white-space:nowrap;">SÜRPRİZLİNK.COM ✦ SÜRPRİZLİNK.COM ✦ SÜRPRİZLİNK.COM</div>
+      </div>
     </div>
     <div class="alt-butonlar">
       <button class="sen-de-btn" onclick="window.location.href='index.html'">
@@ -493,8 +500,7 @@ function baslat() {
 
   // Ücretsiz damga
   if (!veri.premium) {
-    document.getElementById('ucretsiz-damga').style.display = 'flex';
-    document.getElementById('ucretsiz-damga').style.justifyContent = 'center';
+    document.getElementById('ucretsiz-damga').style.display = 'block';
   }
 }
 
