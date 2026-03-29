@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sürprizin Var! 🎁</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- Ses dosyaları -->
+<audio id="ses-bip" src="bip.wav" preload="auto"></audio>
+<audio id="ses-patlama" src="patlama.wav" preload="auto"></audio>
+<audio id="ses-konfeti" src="konfeti.wav" preload="auto"></audio>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -285,6 +290,14 @@ body {
       <div class="mesaj-text" id="mesaj-text"></div>
       <div class="gonderen-text" id="gonderen-yazi"></div>
     </div>
+    <!-- Ücretsiz damga -->
+    <div id="ucretsiz-damga" style="display:none; margin-top:12px;">
+      <a href="https://surprizlink.com" style="display:flex;align-items:center;gap:8px;background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);border-radius:20px;padding:8px 18px;text-decoration:none;color:rgba(255,255,255,0.7);font-size:13px;font-family:Arial,sans-serif;">
+        <span style="font-size:16px">🎁</span>
+        <span>SürprizLink ile oluşturuldu</span>
+        <span style="color:#a855f7;font-weight:700;font-size:12px">→ Sen de dene</span>
+      </a>
+    </div>
     <div class="alt-butonlar">
       <button class="sen-de-btn" onclick="window.location.href='index.html'">
         🎁 Sen de Birine Gönder
@@ -327,16 +340,37 @@ async function veriYukle() {
       veri.gonderen = d.gonderen || '';
       veri.ses = d.ses || 'sessiz';
       veri.renk = d.renk || 'mor';
-      if (d.fotoğraf_url) veri.foto = d.fotoğraf_url;
+      veri.premium = d.premium || false;
+      veri.olusturma = d.olusturma || null;
+      if (d.fotograf_url) veri.foto = d.fotograf_url;
+
+      // 24 saat kontrolü — sadece ücretsiz için
+      if (!veri.premium && veri.olusturma) {
+        var olusturmaZamani = new Date(veri.olusturma).getTime();
+        var simdi = new Date().getTime();
+        var fark = simdi - olusturmaZamani;
+        var saatMs = 24 * 60 * 60 * 1000;
+        if (fark > saatMs) {
+          // Süre doldu
+          document.body.innerHTML = '';
+          document.body.style.cssText = 'margin:0;background:#0a0a0f;color:white;font-family:Arial,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:24px;';
+          document.body.innerHTML = '<div><div style="font-size:80px;margin-bottom:24px">⌛</div><h2 style="font-size:28px;margin-bottom:12px">Link Süresi Doldu</h2><p style="color:#888;margin-bottom:32px">Bu ücretsiz link 24 saatlik geçerlilik süresini tamamladı.</p><a href="/" style="background:#7c3aed;color:white;padding:14px 32px;border-radius:12px;text-decoration:none;font-weight:700;font-size:16px">🎁 Yeni Sürpriz Oluştur</a></div>';
+          return;
+        }
+      }
+
+      // Ücretsizde fotoğraf gösterme
+      if (!veri.premium) {
+        veri.foto = null;
+      }
+
     } else {
-      // Supabase'de yoksa localStorage'dan dene
-      var yerel = localStorage.getItem('sürpriz_' + id);
+      var yerel = localStorage.getItem('surpriz_' + id);
       if (yerel) {
         try { veri = Object.assign(veri, JSON.parse(yerel)); } catch(e) {}
       }
     }
   } else if (test) {
-    // Test modu: localStorage'dan oku
     var kayitli = localStorage.getItem('hediye_data');
     if (kayitli) {
       try { veri = Object.assign(veri, JSON.parse(kayitli)); } catch(e) {}
@@ -455,94 +489,28 @@ function baslat() {
     img.src = veri.foto;
     img.style.display = 'block';
   }
+
+  // Ücretsiz damga
+  if (!veri.premium) {
+    document.getElementById('ucretsiz-damga').style.display = 'flex';
+    document.getElementById('ucretsiz-damga').style.justifyContent = 'center';
+  }
 }
 
 // ── Ses Motoru ──
-var audioCtx = null;
-
-function sesiBaslat() {
+function sesCal(id, volume) {
   try {
-    if (!audioCtx) {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    }
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
-    return audioCtx;
-  } catch(e) { return null; }
-}
-
-function bipSesi(frekans, sure, guc) {
-  try {
-    var ctx = sesiBaslat();
-    if (!ctx) return;
-    var o = ctx.createOscillator();
-    var g = ctx.createGain();
-    o.connect(g); g.connect(ctx.destination);
-    o.type = 'sine';
-    o.frequency.value = frekans || 440;
-    g.gain.setValueAtTime(guc || 0.4, ctx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (sure || 0.2));
-    o.start(ctx.currentTime);
-    o.stop(ctx.currentTime + (sure || 0.2));
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.currentTime = 0;
+    el.volume = volume || 1.0;
+    el.play().catch(function() {});
   } catch(e) {}
 }
 
-function patlamaSesi() {
-  try {
-    var ctx = sesiBaslat();
-    if (!ctx) return;
-    // Gürültü
-    var bufSize = Math.floor(ctx.sampleRate * 0.5);
-    var buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
-    var data = buf.getChannelData(0);
-    for (var i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i/bufSize, 1.5);
-    var src = ctx.createBufferSource();
-    var g = ctx.createGain();
-    src.buffer = buf;
-    src.connect(g); g.connect(ctx.destination);
-    g.gain.setValueAtTime(1.0, ctx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
-    src.start(ctx.currentTime);
-    // Yükselen melodili notalar
-    [523, 659, 784, 1047, 1319].forEach(function(f, i) {
-      var o = ctx.createOscillator();
-      var gn = ctx.createGain();
-      o.connect(gn); gn.connect(ctx.destination);
-      o.type = 'sine'; o.frequency.value = f;
-      gn.gain.setValueAtTime(0.25, ctx.currentTime + i * 0.07);
-      gn.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.07 + 0.3);
-      o.start(ctx.currentTime + i * 0.07);
-      o.stop(ctx.currentTime + i * 0.07 + 0.3);
-    });
-  } catch(e) {}
-}
-
-function konfetitSesi() {
-  try {
-    var ctx = sesiBaslat();
-    if (!ctx) return;
-    for (var i = 0; i < 8; i++) {
-      (function(idx) {
-        setTimeout(function() {
-          try {
-            var bufSize = Math.floor(ctx.sampleRate * 0.05);
-            var buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
-            var data = buf.getChannelData(0);
-            for (var j = 0; j < bufSize; j++) data[j] = (Math.random() * 2 - 1) * 0.6;
-            var src = ctx.createBufferSource();
-            var g = ctx.createGain();
-            src.buffer = buf;
-            src.connect(g); g.connect(ctx.destination);
-            g.gain.setValueAtTime(0.2, ctx.currentTime);
-            g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
-            src.start(ctx.currentTime);
-          } catch(e) {}
-        }, idx * 180);
-      })(i);
-    }
-  } catch(e) {}
-}
+function bipSesi() { sesCal('ses-bip', 0.8); }
+function patlamaSesi() { sesCal('ses-patlama', 1.0); }
+function konfetitSesi() { sesCal('ses-konfeti', 0.9); }
 
 // baslat() artık veriYukle() tarafından çağrılıyor
 
@@ -596,7 +564,7 @@ function ambalajAc() {
     
     // Ses: 3-2-1 bip, 🎉 patlama
     if (index < 3) {
-      bipSesi(bipFrekanslari[index], 0.2, 0.35);
+      bipSesi();
     } else {
       patlamaSesi();
     }
