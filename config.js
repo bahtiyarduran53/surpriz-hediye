@@ -22,6 +22,8 @@ var DB = {
         ana_kategori: veri.anaKategori || '',
         alt_kategori: veri.altKategori || '',
         odeme_durumu: 'odendi',
+        premium: veri.premium || false,
+        olusturma: new Date().toISOString(),
         acildi_mi: false
       };
 
