@@ -380,6 +380,32 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
         📤 Paylaş
       </button>
     </div>
+
+    <!-- YORUM FORMU -->
+    <div id="yorum-formu" style="display:none; padding:0 20px 20px; flex-direction:column; gap:10px; border-top:1px solid #22222e; padding-top:16px;">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:rgba(255,255,255,0.7);text-align:center;">
+        Sürprizi nasıl buldun? ⭐
+      </div>
+      <!-- Yıldız seçimi -->
+      <div id="yildiz-sec" style="display:flex;justify-content:center;gap:8px;font-size:32px;cursor:pointer;">
+        <span onclick="yildizSec(1)" id="y1">☆</span>
+        <span onclick="yildizSec(2)" id="y2">☆</span>
+        <span onclick="yildizSec(3)" id="y3">☆</span>
+        <span onclick="yildizSec(4)" id="y4">☆</span>
+        <span onclick="yildizSec(5)" id="y5">☆</span>
+      </div>
+      <input id="yorum-isim" type="text" placeholder="Adınız" maxlength="30"
+        style="padding:10px 14px;background:#0a0a0f;border:1px solid #22222e;border-radius:10px;color:white;font-size:14px;outline:none;font-family:'DM Sans',sans-serif;">
+      <textarea id="yorum-metin" rows="3" placeholder="Yorumunuzu yazın..." maxlength="200"
+        style="padding:10px 14px;background:#0a0a0f;border:1px solid #22222e;border-radius:10px;color:white;font-size:14px;outline:none;resize:none;font-family:'DM Sans',sans-serif;"></textarea>
+      <button onclick="yorumGonder()" 
+        style="width:100%;padding:12px;background:#22c55e;border:none;border-radius:10px;color:white;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">
+        ✓ Yorum Gönder
+      </button>
+      <div id="yorum-basari" style="display:none;text-align:center;color:#22c55e;font-size:13px;font-family:'Syne',sans-serif;font-weight:700;">
+        ✅ Yorumun alındı, incelendikten sonra yayınlanacak!
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1005,6 +1031,8 @@ window.onload = async function() {
         setTimeout(function() {
           var butonlar = document.getElementById('popup-acik-butonlar');
           if (butonlar) butonlar.style.display = 'flex';
+          var form = document.getElementById('yorum-formu');
+          if (form) form.style.display = 'flex';
         }, 4000);
 
         popupAcildi = false;
@@ -1056,6 +1084,8 @@ window.onload = async function() {
         setTimeout(function() {
           var butonlar = document.getElementById('popup-acik-butonlar');
           if (butonlar) butonlar.style.display = 'flex';
+          var form = document.getElementById('yorum-formu');
+          if (form) form.style.display = 'flex';
         }, 4000);
 
         // Filigran ekle
@@ -1076,6 +1106,50 @@ function popupPaylash() {
       alert('Link kopyalandı!');
     });
   }
+}
+
+// Yıldız seçimi
+var seciliYildiz = 5;
+function yildizSec(sayi) {
+  seciliYildiz = sayi;
+  for (var i = 1; i <= 5; i++) {
+    document.getElementById('y' + i).textContent = i <= sayi ? '★' : '☆';
+    document.getElementById('y' + i).style.color = i <= sayi ? '#ffd700' : 'rgba(255,255,255,0.3)';
+  }
+}
+yildizSec(5);
+
+// Yorum gönder
+async function yorumGonder() {
+  var isim = document.getElementById('yorum-isim').value.trim();
+  var metin = document.getElementById('yorum-metin').value.trim();
+  if (!isim) { alert('Lütfen adınızı yazın!'); return; }
+  if (!metin) { alert('Lütfen yorumunuzu yazın!'); return; }
+
+  try {
+    await fetch(SUPABASE_URL + '/rest/v1/yorumlar', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({
+        isim: isim,
+        yorum: metin,
+        yildiz: seciliYildiz,
+        onaylandi: false
+      })
+    });
+  } catch(e) {}
+
+  // Formu gizle, başarı mesajı göster
+  document.getElementById('yorum-isim').style.display = 'none';
+  document.getElementById('yorum-metin').style.display = 'none';
+  document.getElementById('yildiz-sec').style.display = 'none';
+  document.querySelector('[onclick="yorumGonder()"]').style.display = 'none';
+  document.getElementById('yorum-basari').style.display = 'block';
 }
 
 function filigranEkle() {
