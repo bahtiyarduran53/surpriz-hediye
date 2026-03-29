@@ -178,7 +178,12 @@ window.onload = async function() {
       }
 
       // Link oluştur
-      surprizLink = window.location.origin + '/surpriz.html?id=' + id;
+      var premium = veri.premium || false;
+      if (premium) {
+        surprizLink = window.location.origin + '/surpriz.html?id=' + id;
+      } else {
+        surprizLink = window.location.origin + '/olustur.html?ac=' + id;
+      }
       document.getElementById('link-url').textContent = surprizLink;
       // Temizle
       localStorage.removeItem('odeme_bekliyor');
