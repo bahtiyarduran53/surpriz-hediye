@@ -368,6 +368,20 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
         </div>
       </div>
     </div>
+    <!-- Premium teşvik kartı -->
+    <div id="premium-tesvik" style="display:none; padding:0 20px 16px; flex-direction:column; gap:0;">
+      <div style="background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(168,85,247,0.1));border:1px solid rgba(124,58,237,0.4);border-radius:16px;padding:16px;display:flex;align-items:center;gap:12px;">
+        <div style="font-size:36px;">📸</div>
+        <div style="flex:1;">
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:white;margin-bottom:4px;">Fotoğraflı versiyonu görmek ister misin?</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.55);">Arka plan fotoğrafı + süresiz link + damgasız</div>
+        </div>
+        <button onclick="premiumSatinAl()" style="background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;border-radius:10px;color:white;font-family:'Syne',sans-serif;font-weight:800;font-size:13px;padding:8px 14px;cursor:pointer;white-space:nowrap;">
+          💎 9 TL
+        </button>
+      </div>
+    </div>
+
     <div class="popup-altlar">
       <button class="popup-satin-al" onclick="popupOdemeGit()">Devam Et →</button>
       <button class="popup-geri" onclick="popupKapat()">&#8592; Geri Dön, Düzenle</button>
@@ -1088,6 +1102,12 @@ window.onload = async function() {
           if (form) form.style.display = 'flex';
         }, 4000);
 
+        // Premium teşvik — 2 sn sonra göster (sadece ücretsiz)
+        setTimeout(function() {
+          var tesvik = document.getElementById('premium-tesvik');
+          if (tesvik) tesvik.style.display = 'flex';
+        }, 2000);
+
         // Filigran ekle
         filigranEkle();
 
@@ -1106,6 +1126,21 @@ function popupPaylash() {
       alert('Link kopyalandı!');
     });
   }
+}
+
+function premiumSatinAl() {
+  // Mevcut hediye verisini kaydet
+  var veriStr = JSON.stringify({
+    ambalaj: state.ambalaj,
+    ambalajEmoji: state.ambalajEmoji,
+    mesaj: state.mesaj,
+    gonderen: state.gonderen,
+    anaKategori: state.anaKategori,
+    altKategori: state.altKategori,
+    premium: true
+  });
+  localStorage.setItem('hediye_data', veriStr);
+  window.location.href = 'https://www.shopier.com/SurprizLink/45665210';
 }
 
 // Yıldız seçimi
