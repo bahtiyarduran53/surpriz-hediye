@@ -875,22 +875,23 @@ function gercekPopupAc() {
     }, 35);
     document.getElementById('popup-gonderen').textContent = state.gonderen ? '— ' + state.gonderen : '';
 
-    // Ücretsiz açılışta butonları göster
+    // Ücretsiz açılışta
     if (window._ucretsizAcilis) {
+      // Teşvik kartı hemen göster
       setTimeout(function() {
-        var butonlar = document.getElementById('popup-acik-butonlar');
-        if (butonlar) butonlar.style.display = 'flex';
-        var form = document.getElementById('yorum-formu');
-        if (form) form.style.display = 'flex';
-      }, 4000);
+        var tesvik = document.getElementById('premium-tesvik');
+        if (tesvik) tesvik.style.display = 'flex';
+      }, 2000);
 
-      // Teşvik kartı — popup scroll edilince göster
+      // Butonlar ve yorum — scroll edilince göster
       var popup = document.querySelector('.onizleme-popup');
       if (popup) {
         popup.addEventListener('scroll', function onScroll() {
           if (popup.scrollTop > 30) {
-            var tesvik = document.getElementById('premium-tesvik');
-            if (tesvik) tesvik.style.display = 'flex';
+            var butonlar = document.getElementById('popup-acik-butonlar');
+            if (butonlar) butonlar.style.display = 'flex';
+            var form = document.getElementById('yorum-formu');
+            if (form) form.style.display = 'flex';
             popup.removeEventListener('scroll', onScroll);
           }
         });
