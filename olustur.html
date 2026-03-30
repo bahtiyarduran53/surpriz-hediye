@@ -362,7 +362,7 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
           <img id="popup-foto-bg-img" style="width:100%;height:100%;object-fit:cover;opacity:0.5;">
           <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.05) 40%,rgba(0,0,0,0.7) 75%,rgba(0,0,0,0.95) 100%);"></div>
         </div>
-        <img id="popup-foto" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,0.4);display:none;position:relative;z-index:2;box-shadow:0 4px 20px rgba(0,0,0,0.5);">
+        <img id="popup-foto" style="display:none;">
         <div class="popup-acik-emoji" id="popup-acik-emoji" style="position:relative;z-index:2;">&#x1F381;</div>
         <div class="popup-mesaj-kutu" style="position:relative;z-index:2;">
           <div class="popup-mesaj-text" id="popup-mesaj-text"></div>
@@ -856,10 +856,6 @@ function gercekPopupAc() {
         fotoBgImg.src = state.foto;
         fotoBg.style.display = 'block';
       }
-      // Küçük profil fotosu da göster
-      var fotoEl = document.getElementById('popup-foto');
-      fotoEl.src = state.foto;
-      fotoEl.style.display = 'block';
     }
     var mesajEl = document.getElementById('popup-mesaj-text');
     var mesaj = state.mesaj || 'Sana özel bir sürprizim var!';
