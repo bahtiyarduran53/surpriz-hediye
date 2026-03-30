@@ -86,11 +86,11 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 /* POPUP */
 .onizleme-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(8px); }
 .onizleme-overlay.aktif { display: flex; }
-.onizleme-popup { background: #0a0a0f; border: 1px solid var(--border); border-radius: 24px; width: 100%; max-width: 420px; max-height: 90vh; overflow-y: auto; overflow-x: hidden; animation: popupGel 0.4s cubic-bezier(0.34,1.56,0.64,1) both; scrollbar-width: none; }
+.onizleme-popup { background: #0a0a0f; border: 1px solid var(--border); border-radius: 24px; width: 100%; max-width: 420px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; animation: popupGel 0.4s cubic-bezier(0.34,1.56,0.64,1) both; }
 .onizleme-overlay.tam-ekran { padding: 0; background: #0a0a0f; }
 .onizleme-overlay.tam-ekran .onizleme-popup { max-width: 100%; max-height: 100vh; height: 100vh; border-radius: 0; border: none; }
 @keyframes popupGel { from{opacity:0;transform:scale(0.8) translateY(30px)} to{opacity:1;transform:scale(1) translateY(0)} }
-.onizleme-sahne { min-height: 60vh; height: 60vh; max-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 24px; position: relative; text-align: center; gap: 10px; overflow: hidden; }
+.onizleme-sahne { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 24px; position: relative; text-align: center; gap: 10px; overflow: hidden; }
 #popup-canvas { position: absolute; inset: 0; pointer-events: none; }
 .popup-ambalaj { font-size: 90px; cursor: pointer; animation: sallanPopup 2s ease-in-out infinite; position: relative; z-index: 2; user-select: none; }
 @keyframes sallanPopup { 0%,100%{transform:rotate(-5deg) scale(1)} 50%{transform:rotate(5deg) scale(1.05)} }
@@ -332,8 +332,8 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
         <div class="ozet-satir"><span class="ozet-satir-label">Alt Kategori</span><span id="ozet-alt">-</span></div>
         <div class="ozet-satir"><span class="ozet-satir-label">Ambalaj</span><span id="ozet-ambalaj">-</span></div>
         <div class="fiyat-ozet">
-          <div class="fiyat-satir"><span>Sürpriz Link</span><span>19 TL</span></div>
-          <div class="fiyat-toplam"><span>Toplam</span><span>19 TL</span></div>
+          <div class="fiyat-satir"><span>Sürpriz Link</span><span>9 TL</span></div>
+          <div class="fiyat-toplam"><span>Toplam</span><span>9 TL</span></div>
         </div>
         <button class="onizle-btn" onclick="onizleGit()">&#x1F441; Sürprizi Önizle</button>
         <button class="cta-btn" onclick="secimAc()" style="margin-top:10px">Devam Et →</button>
@@ -370,6 +370,7 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
         </div>
       </div>
     </div>
+    <div style="overflow-y:auto;scrollbar-width:none;flex-shrink:0;">
     <div class="popup-altlar">
       <button class="popup-satin-al" onclick="popupOdemeGit()">Devam Et →</button>
       <button class="popup-geri" onclick="popupKapat()">&#8592; Geri Dön, Düzenle</button>
@@ -421,6 +422,7 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
         ✅ Yorumun alındı, incelendikten sonra yayınlanacak!
       </div>
     </div>
+    </div><!-- scroll wrapper kapanış -->
   </div>
 </div>
 
