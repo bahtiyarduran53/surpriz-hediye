@@ -90,7 +90,7 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 .onizleme-overlay.tam-ekran { padding: 0; background: #0a0a0f; }
 .onizleme-overlay.tam-ekran .onizleme-popup { max-width: 100%; max-height: 100vh; height: 100vh; border-radius: 0; border: none; }
 @keyframes popupGel { from{opacity:0;transform:scale(0.8) translateY(30px)} to{opacity:1;transform:scale(1) translateY(0)} }
-.onizleme-sahne { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 24px; position: relative; text-align: center; gap: 10px; overflow: hidden; overflow: visible; }
+.onizleme-sahne { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; position: relative; text-align: center; gap: 16px; overflow: hidden; }
 #popup-canvas { position: absolute; inset: 0; pointer-events: none; }
 .popup-ambalaj { font-size: 90px; cursor: pointer; animation: sallanPopup 2s ease-in-out infinite; position: relative; z-index: 2; user-select: none; }
 @keyframes sallanPopup { 0%,100%{transform:rotate(-5deg) scale(1)} 50%{transform:rotate(5deg) scale(1.05)} }
@@ -858,6 +858,11 @@ function gercekPopupAc() {
         fotoBgDiv.style.backgroundImage = 'url(' + state.foto + ')';
         fotoBg.style.display = 'block';
       }
+      // Foto varsa içeriği alta al
+      document.getElementById('popup-sahne').style.justifyContent = 'flex-end';
+    } else {
+      // Foto yoksa içeriği ortala
+      document.getElementById('popup-sahne').style.justifyContent = 'center';
     }
     var mesajEl = document.getElementById('popup-mesaj-text');
     var mesaj = state.mesaj || 'Sana özel bir sürprizim var!';
@@ -1035,6 +1040,8 @@ window.onload = async function() {
         document.getElementById('popup-mesaj-text').textContent = '';
         document.getElementById('onizleme-overlay').classList.add('aktif');
         document.getElementById('onizleme-overlay').classList.add('tam-ekran');
+        // Premium: foto var, içeriği alta al
+        document.getElementById('popup-sahne').style.justifyContent = 'flex-end';
         document.body.style.overflow = 'hidden';
 
         // Premium butonları gizle
