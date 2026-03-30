@@ -780,8 +780,8 @@ function onizleGit() {
   document.getElementById('popup-acik-emoji').textContent = ikon;
   document.getElementById('popup-kapali').style.display = 'flex';
   document.getElementById('popup-acik').style.display = 'none';
-  document.getElementById('popup-foto').style.display = 'none';
   document.getElementById('popup-mesaj-text').textContent = '';
+  document.getElementById('onizleme-overlay').classList.remove('tam-ekran');
   document.getElementById('onizleme-overlay').classList.add('aktif');
   document.body.style.overflow = 'hidden';
   popupAcildi = false;
@@ -1032,7 +1032,6 @@ window.onload = async function() {
         document.getElementById('popup-acik-emoji').textContent = ikon;
         document.getElementById('popup-kapali').style.display = 'flex';
         document.getElementById('popup-acik').style.display = 'none';
-        document.getElementById('popup-foto').style.display = 'none';
         document.getElementById('popup-mesaj-text').textContent = '';
         document.getElementById('onizleme-overlay').classList.add('aktif');
         document.getElementById('onizleme-overlay').classList.add('tam-ekran');
@@ -1086,8 +1085,8 @@ window.onload = async function() {
         document.getElementById('popup-acik-emoji').textContent = ikon;
         document.getElementById('popup-kapali').style.display = 'flex';
         document.getElementById('popup-acik').style.display = 'none';
-        document.getElementById('popup-foto').style.display = 'none';
         document.getElementById('popup-mesaj-text').textContent = '';
+        document.getElementById('onizleme-overlay').classList.remove('tam-ekran');
         document.getElementById('onizleme-overlay').classList.add('aktif');
         document.body.style.overflow = 'hidden';
 
