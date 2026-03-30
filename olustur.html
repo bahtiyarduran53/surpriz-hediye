@@ -373,27 +373,10 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
     <!-- Alt bölüm — scroll edilince görünür -->
     <div style="position:relative;z-index:2;background:#0a0a0f;">
 
-      <!-- Scroll ipucu -->
-      <div id="scroll-ipucu" style="text-align:center;padding:10px 0 4px;color:rgba(255,255,255,0.3);font-size:13px;animation:nabizPopup 1.5s ease-in-out infinite;">
-        ↓ aşağı kaydır
-      </div>
-      <!-- Scroll için alan — butonlar açılınca kaybolur -->
-      <div id="scroll-spacer" style="height:200px;"></div>
-
       <!-- Devam et / Geri butonları (oluştururken) -->
       <div class="popup-altlar">
         <button class="popup-satin-al" onclick="popupOdemeGit()">Devam Et →</button>
         <button class="popup-geri" onclick="popupKapat()">&#8592; Geri Dön, Düzenle</button>
-      </div>
-
-      <!-- Sürpriz açılınca çıkan butonlar -->
-      <div id="popup-acik-butonlar" style="display:none;flex-direction:column;gap:10px;padding:16px 20px;">
-        <button onclick="window.location.href='olustur.html'" style="width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;border-radius:14px;color:white;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;cursor:pointer;">
-          🎁 Sen de Birine Gönder
-        </button>
-        <button onclick="popupPaylash()" style="width:100%;padding:12px;background:transparent;border:1px solid #333;border-radius:14px;color:#888;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">
-          📤 Paylaş
-        </button>
       </div>
 
       <!-- Premium teşvik (sadece ücretsizde) -->
@@ -884,29 +867,11 @@ function gercekPopupAc() {
 
     // Ücretsiz açılışta
     if (window._ucretsizAcilis) {
-      // Teşvik kartı hemen göster
+      // Teşvik kartı 2 sn sonra göster
       setTimeout(function() {
         var tesvik = document.getElementById('premium-tesvik');
         if (tesvik) tesvik.style.display = 'flex';
       }, 2000);
-
-      // Butonlar ve yorum — scroll edilince göster
-      var popup = document.querySelector('.onizleme-popup');
-      if (popup) {
-        popup.addEventListener('scroll', function onScroll() {
-          if (popup.scrollTop > 10) {
-            var butonlar = document.getElementById('popup-acik-butonlar');
-            if (butonlar) butonlar.style.display = 'flex';
-            var form = document.getElementById('yorum-formu');
-            if (form) form.style.display = 'flex';
-            var ipucu = document.getElementById('scroll-ipucu');
-            if (ipucu) ipucu.style.display = 'none';
-            var spacer = document.getElementById('scroll-spacer');
-            if (spacer) spacer.style.display = 'none';
-            popup.removeEventListener('scroll', onScroll);
-          }
-        });
-      }
     }
   }, 300);
 }
@@ -1082,10 +1047,8 @@ window.onload = async function() {
         document.querySelector('.popup-satin-al').style.display = 'none';
         document.querySelector('.popup-geri').style.display = 'none';
 
-        // Sürpriz açılınca butonları göster
+        // Sürpriz açılınca yorum formunu göster
         setTimeout(function() {
-          var butonlar = document.getElementById('popup-acik-butonlar');
-          if (butonlar) butonlar.style.display = 'flex';
           var form = document.getElementById('yorum-formu');
           if (form) form.style.display = 'flex';
         }, 4000);
