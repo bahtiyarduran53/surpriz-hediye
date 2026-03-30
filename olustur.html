@@ -883,10 +883,18 @@ function gercekPopupAc() {
         var form = document.getElementById('yorum-formu');
         if (form) form.style.display = 'flex';
       }, 4000);
-      setTimeout(function() {
-        var tesvik = document.getElementById('premium-tesvik');
-        if (tesvik) tesvik.style.display = 'flex';
-      }, 2000);
+
+      // Teşvik kartı — popup scroll edilince göster
+      var popup = document.querySelector('.onizleme-popup');
+      if (popup) {
+        popup.addEventListener('scroll', function onScroll() {
+          if (popup.scrollTop > 30) {
+            var tesvik = document.getElementById('premium-tesvik');
+            if (tesvik) tesvik.style.display = 'flex';
+            popup.removeEventListener('scroll', onScroll);
+          }
+        });
+      }
     }
   }, 300);
 }
