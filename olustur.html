@@ -86,7 +86,7 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 /* POPUP */
 .onizleme-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(8px); }
 .onizleme-overlay.aktif { display: flex; }
-.onizleme-popup { background: #0a0a0f; border: 1px solid var(--border); border-radius: 24px; width: 100%; max-width: 420px; height: 88vh; max-height: 88vh; display: flex; flex-direction: column; overflow: hidden; animation: popupGel 0.4s cubic-bezier(0.34,1.56,0.64,1) both; }
+.onizleme-popup { background: #0a0a0f; border: 1px solid var(--border); border-radius: 24px; width: 100%; max-width: 420px; height: 88vh; max-height: 88vh; display: flex; flex-direction: column; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; animation: popupGel 0.4s cubic-bezier(0.34,1.56,0.64,1) both; }
 .onizleme-overlay.tam-ekran { padding: 0; background: #0a0a0f; }
 .onizleme-overlay.tam-ekran .onizleme-popup { max-width: 100%; max-height: 100vh; height: 100vh; border-radius: 0; border: none; }
 @keyframes popupGel { from{opacity:0;transform:scale(0.8) translateY(30px)} to{opacity:1;transform:scale(1) translateY(0)} }
@@ -98,7 +98,7 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 @keyframes tikPopup { 0%{transform:scale(0.8);opacity:0.8} 100%{transform:scale(1.6);opacity:0} }
 .popup-ac-yazi { color: rgba(255,255,255,0.6); font-size: 13px; font-family: 'Syne', sans-serif; font-weight: 700; position: relative; z-index: 2; animation: nabizPopup 1s ease-in-out infinite; }
 @keyframes nabizPopup { 0%,100%{opacity:1} 50%{opacity:0.5} }
-.popup-mesaj-alan { display: none; flex-direction: column; align-items: center; gap: 10px; padding: 0 20px 20px; position: relative; z-index: 2; width: 100%; overflow-y: auto; scrollbar-width: none; }
+.popup-mesaj-alan { display: none; flex-direction: column; align-items: center; gap: 10px; padding: 20px; position: relative; z-index: 2; width: 100%; }
 .popup-acik-emoji { font-size: 64px; }
 .popup-mesaj-kutu { background: rgba(0,0,0,0.5); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; padding: 16px 20px; width: 100%; text-align: center; }
 .popup-mesaj-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; color: white; line-height: 1.4; }
@@ -362,62 +362,68 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
         <div class="popup-ac-yazi">&#x1F446; Dokunarak Aç!</div>
       </div>
       <div class="popup-mesaj-alan" id="popup-acik">
-        <img id="popup-foto" style="display:none;">
         <div class="popup-acik-emoji" id="popup-acik-emoji" style="position:relative;z-index:2;">&#x1F381;</div>
         <div class="popup-mesaj-kutu" style="position:relative;z-index:2;">
           <div class="popup-mesaj-text" id="popup-mesaj-text"></div>
           <div class="popup-gonderen" id="popup-gonderen"></div>
         </div>
-        <!-- Butonlar sahne içinde -->
-        <div id="popup-acik-butonlar" style="display:none;flex-direction:column;gap:8px;width:100%;position:relative;z-index:2;">
-          <button onclick="window.location.href='olustur.html'" style="width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;border-radius:14px;color:white;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;cursor:pointer;">
-            🎁 Sen de Birine Gönder
-          </button>
-          <button onclick="popupPaylash()" style="width:100%;padding:12px;background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);border-radius:14px;color:rgba(255,255,255,0.8);font-family:'Syne',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">
-            📤 Paylaş
-          </button>
-        </div>
-        <!-- Premium teşvik -->
-        <div id="premium-tesvik" style="display:none;width:100%;position:relative;z-index:2;">
-          <div style="background:rgba(124,58,237,0.3);backdrop-filter:blur(8px);border:1px solid rgba(124,58,237,0.5);border-radius:16px;padding:12px;display:flex;align-items:center;gap:10px;">
-            <div style="font-size:28px;">📸</div>
-            <div style="flex:1;">
-              <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:white;margin-bottom:2px;">Fotoğraflı versiyonu görmek ister misin?</div>
-              <div style="font-size:11px;color:rgba(255,255,255,0.6);">Arka plan fotoğrafı + süresiz link</div>
-            </div>
-            <button onclick="premiumSatinAl()" style="background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;border-radius:10px;color:white;font-family:'Syne',sans-serif;font-weight:800;font-size:12px;padding:8px 12px;cursor:pointer;white-space:nowrap;">
-              💎 9 TL
-            </button>
-          </div>
-        </div>
-        <!-- Yorum formu -->
-        <div id="yorum-formu" style="display:none;flex-direction:column;gap:8px;width:100%;position:relative;z-index:2;background:rgba(0,0,0,0.6);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:14px;">
-          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:rgba(255,255,255,0.7);text-align:center;">Sürprizi nasıl buldun? ⭐</div>
-          <div id="yildiz-sec" style="display:flex;justify-content:center;gap:8px;font-size:28px;cursor:pointer;">
-            <span onclick="yildizSec(1)" id="y1">☆</span>
-            <span onclick="yildizSec(2)" id="y2">☆</span>
-            <span onclick="yildizSec(3)" id="y3">☆</span>
-            <span onclick="yildizSec(4)" id="y4">☆</span>
-            <span onclick="yildizSec(5)" id="y5">☆</span>
-          </div>
-          <input id="yorum-isim" type="text" placeholder="Adınız" maxlength="30"
-            style="padding:8px 12px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:10px;color:white;font-size:13px;outline:none;font-family:'DM Sans',sans-serif;">
-          <textarea id="yorum-metin" rows="2" placeholder="Yorumunuzu yazın..." maxlength="200"
-            style="padding:8px 12px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:10px;color:white;font-size:13px;outline:none;resize:none;font-family:'DM Sans',sans-serif;"></textarea>
-          <button onclick="yorumGonder()" style="width:100%;padding:10px;background:#22c55e;border:none;border-radius:10px;color:white;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">
-            ✓ Yorum Gönder
-          </button>
-          <div id="yorum-basari" style="display:none;text-align:center;color:#22c55e;font-size:12px;font-family:'Syne',sans-serif;font-weight:700;">
-            ✅ Yorumun alındı, incelendikten sonra yayınlanacak!
-          </div>
-        </div>
       </div>
     </div>
-    <div style="position:relative;z-index:2;">
-    <div class="popup-altlar">
-      <button class="popup-satin-al" onclick="popupOdemeGit()">Devam Et →</button>
-      <button class="popup-geri" onclick="popupKapat()">&#8592; Geri Dön, Düzenle</button>
-    </div>
+
+    <!-- Alt bölüm — scroll edilince görünür -->
+    <div style="position:relative;z-index:2;background:#0a0a0f;">
+
+      <!-- Devam et / Geri butonları (oluştururken) -->
+      <div class="popup-altlar">
+        <button class="popup-satin-al" onclick="popupOdemeGit()">Devam Et →</button>
+        <button class="popup-geri" onclick="popupKapat()">&#8592; Geri Dön, Düzenle</button>
+      </div>
+
+      <!-- Sürpriz açılınca çıkan butonlar -->
+      <div id="popup-acik-butonlar" style="display:none;flex-direction:column;gap:10px;padding:16px 20px;">
+        <button onclick="window.location.href='olustur.html'" style="width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;border-radius:14px;color:white;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;cursor:pointer;">
+          🎁 Sen de Birine Gönder
+        </button>
+        <button onclick="popupPaylash()" style="width:100%;padding:12px;background:transparent;border:1px solid #333;border-radius:14px;color:#888;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">
+          📤 Paylaş
+        </button>
+      </div>
+
+      <!-- Premium teşvik (sadece ücretsizde) -->
+      <div id="premium-tesvik" style="display:none;padding:0 20px 16px;">
+        <div style="background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(168,85,247,0.1));border:1px solid rgba(124,58,237,0.4);border-radius:16px;padding:14px;display:flex;align-items:center;gap:10px;">
+          <div style="font-size:28px;">📸</div>
+          <div style="flex:1;">
+            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:white;margin-bottom:2px;">Fotoğraflı versiyonu görmek ister misin?</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.55);">Arka plan fotoğrafı + süresiz link</div>
+          </div>
+          <button onclick="premiumSatinAl()" style="background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;border-radius:10px;color:white;font-family:'Syne',sans-serif;font-weight:800;font-size:12px;padding:8px 12px;cursor:pointer;white-space:nowrap;">
+            💎 9 TL
+          </button>
+        </div>
+      </div>
+
+      <!-- Yorum formu -->
+      <div id="yorum-formu" style="display:none;flex-direction:column;gap:10px;padding:0 20px 20px;border-top:1px solid #22222e;padding-top:16px;">
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:rgba(255,255,255,0.7);text-align:center;">Sürprizi nasıl buldun? ⭐</div>
+        <div id="yildiz-sec" style="display:flex;justify-content:center;gap:8px;font-size:32px;cursor:pointer;">
+          <span onclick="yildizSec(1)" id="y1">☆</span>
+          <span onclick="yildizSec(2)" id="y2">☆</span>
+          <span onclick="yildizSec(3)" id="y3">☆</span>
+          <span onclick="yildizSec(4)" id="y4">☆</span>
+          <span onclick="yildizSec(5)" id="y5">☆</span>
+        </div>
+        <input id="yorum-isim" type="text" placeholder="Adınız" maxlength="30"
+          style="padding:10px 14px;background:#0a0a0f;border:1px solid #22222e;border-radius:10px;color:white;font-size:14px;outline:none;font-family:'DM Sans',sans-serif;">
+        <textarea id="yorum-metin" rows="3" placeholder="Yorumunuzu yazın..." maxlength="200"
+          style="padding:10px 14px;background:#0a0a0f;border:1px solid #22222e;border-radius:10px;color:white;font-size:14px;outline:none;resize:none;font-family:'DM Sans',sans-serif;"></textarea>
+        <button onclick="yorumGonder()" style="width:100%;padding:12px;background:#22c55e;border:none;border-radius:10px;color:white;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">
+          ✓ Yorum Gönder
+        </button>
+        <div id="yorum-basari" style="display:none;text-align:center;color:#22c55e;font-size:13px;font-family:'Syne',sans-serif;font-weight:700;">
+          ✅ Yorumun alındı, incelendikten sonra yayınlanacak!
+        </div>
+      </div>
     </div>
   </div>
 </div>
