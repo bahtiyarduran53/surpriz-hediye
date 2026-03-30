@@ -874,6 +874,20 @@ function gercekPopupAc() {
       if (i >= mesaj.length) clearInterval(interval);
     }, 35);
     document.getElementById('popup-gonderen').textContent = state.gonderen ? '— ' + state.gonderen : '';
+
+    // Ücretsiz açılışta butonları göster
+    if (window._ucretsizAcilis) {
+      setTimeout(function() {
+        var butonlar = document.getElementById('popup-acik-butonlar');
+        if (butonlar) butonlar.style.display = 'flex';
+        var form = document.getElementById('yorum-formu');
+        if (form) form.style.display = 'flex';
+      }, 4000);
+      setTimeout(function() {
+        var tesvik = document.getElementById('premium-tesvik');
+        if (tesvik) tesvik.style.display = 'flex';
+      }, 2000);
+    }
   }, 300);
 }
 
@@ -1086,7 +1100,7 @@ window.onload = async function() {
         state.foto = null; // Ücretsizde fotoğraf yok
         state.premium = false;
 
-        // Popup aç
+        // Popup aç — ambalaj ekranı göster
         var ikon = state.ambalajEmoji || '🎁';
         document.getElementById('popup-ambalaj').textContent = ikon;
         document.getElementById('popup-acik-emoji').textContent = ikon;
@@ -1097,26 +1111,16 @@ window.onload = async function() {
         document.getElementById('onizleme-overlay').classList.add('aktif');
         document.body.style.overflow = 'hidden';
 
-        // Popup butonlarını gizle (linki tekrar alamasın)
+        // Devam et / Geri butonlarını gizle
         document.querySelector('.popup-satin-al').style.display = 'none';
         document.querySelector('.popup-geri').style.display = 'none';
 
-        // Sürpriz açıldıktan sonra butonları göster
-        setTimeout(function() {
-          var butonlar = document.getElementById('popup-acik-butonlar');
-          if (butonlar) butonlar.style.display = 'flex';
-          var form = document.getElementById('yorum-formu');
-          if (form) form.style.display = 'flex';
-        }, 4000);
-
-        // Premium teşvik — 2 sn sonra göster (sadece ücretsiz)
-        setTimeout(function() {
-          var tesvik = document.getElementById('premium-tesvik');
-          if (tesvik) tesvik.style.display = 'flex';
-        }, 2000);
-
         // Filigran ekle
         filigranEkle();
+
+        // Sürpriz açılınca (gercekPopupAc içinde) buton/yorum gösterilecek
+        // ucretizAcilis flag'i set et
+        window._ucretsizAcilis = true;
 
         popupAcildi = false;
       }
