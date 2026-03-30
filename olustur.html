@@ -90,7 +90,7 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 .onizleme-overlay.tam-ekran { padding: 0; background: #0a0a0f; }
 .onizleme-overlay.tam-ekran .onizleme-popup { max-width: 100%; max-height: 100vh; height: 100vh; border-radius: 0; border: none; }
 @keyframes popupGel { from{opacity:0;transform:scale(0.8) translateY(30px)} to{opacity:1;transform:scale(1) translateY(0)} }
-.onizleme-sahne { min-height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 24px; position: relative; text-align: center; gap: 10px; overflow: hidden; }
+.onizleme-sahne { min-height: 420px; height: 55vw; max-height: 480px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 24px; position: relative; text-align: center; gap: 10px; overflow: hidden; }
 #popup-canvas { position: absolute; inset: 0; pointer-events: none; }
 .popup-ambalaj { font-size: 90px; cursor: pointer; animation: sallanPopup 2s ease-in-out infinite; position: relative; z-index: 2; user-select: none; }
 @keyframes sallanPopup { 0%,100%{transform:rotate(-5deg) scale(1)} 50%{transform:rotate(5deg) scale(1.05)} }
@@ -359,7 +359,7 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
       <div class="popup-mesaj-alan" id="popup-acik">
         <!-- Premium arka plan fotoğrafı — tam ekran -->
         <div id="popup-foto-bg" style="display:none;position:absolute;inset:0;z-index:0;overflow:hidden;">
-          <img id="popup-foto-bg-img" style="width:100%;height:100%;object-fit:cover;opacity:0.5;">
+          <img id="popup-foto-bg-img" style="width:100%;height:100%;object-fit:cover;opacity:0.7;">
           <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.05) 40%,rgba(0,0,0,0.7) 75%,rgba(0,0,0,0.95) 100%);"></div>
         </div>
         <img id="popup-foto" style="display:none;">
@@ -370,7 +370,19 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
         </div>
       </div>
     </div>
-    <!-- Premium teşvik kartı -->
+    <div class="popup-altlar">
+      <button class="popup-satin-al" onclick="popupOdemeGit()">Devam Et →</button>
+      <button class="popup-geri" onclick="popupKapat()">&#8592; Geri Dön, Düzenle</button>
+    </div>
+    <div id="popup-acik-butonlar" style="display:none; padding:0 20px 12px; flex-direction:column; gap:10px;">
+      <button onclick="window.location.href='olustur.html'" style="width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;border-radius:14px;color:white;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;cursor:pointer;">
+        🎁 Sen de Birine Gönder
+      </button>
+      <button onclick="popupPaylash()" style="width:100%;padding:12px;background:transparent;border:1px solid #22222e;border-radius:14px;color:#6b6b80;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">
+        📤 Paylaş
+      </button>
+    </div>
+    <!-- Premium teşvik kartı — en altta -->
     <div id="premium-tesvik" style="display:none; padding:0 20px 16px; flex-direction:column; gap:0;">
       <div style="background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(168,85,247,0.1));border:1px solid rgba(124,58,237,0.4);border-radius:16px;padding:16px;display:flex;align-items:center;gap:12px;">
         <div style="font-size:36px;">📸</div>
@@ -382,19 +394,6 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
           💎 9 TL
         </button>
       </div>
-    </div>
-
-    <div class="popup-altlar">
-      <button class="popup-satin-al" onclick="popupOdemeGit()">Devam Et →</button>
-      <button class="popup-geri" onclick="popupKapat()">&#8592; Geri Dön, Düzenle</button>
-    </div>
-    <div id="popup-acik-butonlar" style="display:none; padding:0 20px 20px; flex-direction:column; gap:10px;">
-      <button onclick="window.location.href='olustur.html'" style="width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;border-radius:14px;color:white;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;cursor:pointer;">
-        🎁 Sen de Birine Gönder
-      </button>
-      <button onclick="popupPaylash()" style="width:100%;padding:12px;background:transparent;border:1px solid #22222e;border-radius:14px;color:#6b6b80;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">
-        📤 Paylaş
-      </button>
     </div>
 
     <!-- YORUM FORMU -->
