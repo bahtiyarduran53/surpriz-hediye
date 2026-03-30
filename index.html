@@ -512,18 +512,18 @@ footer {
     <button class="btn-primary" onclick="window.location.href='olustur.html'">🎁 Hemen Oluştur</button>
     <button class="btn-secondary" onclick="document.getElementById('nasil').scrollIntoView({behavior:'smooth'})">Nasıl Çalışır?</button>
   </div>
-  <div style="margin-top:24px; display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap;">
-    <div style="display:flex; align-items:center; gap:8px; background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.3); border-radius:30px; padding:8px 20px;">
-      <span style="font-size:20px">🎁</span>
-      <span style="font-family:'Syne',sans-serif; font-weight:700; font-size:15px; color:#22c55e"><span id="satis-sayac">...</span> sürpriz gönderildi</span>
+  <div style="margin-top:24px; display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:nowrap;">
+    <div style="display:flex; align-items:center; gap:6px; background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.3); border-radius:30px; padding:7px 14px;">
+      <span style="font-size:16px">🎁</span>
+      <span style="font-family:'Syne',sans-serif; font-weight:700; font-size:13px; color:#22c55e"><span id="satis-sayac">...</span> gönderildi</span>
     </div>
-    <div style="display:flex; align-items:center; gap:8px; background:rgba(124,58,237,0.1); border:1px solid rgba(124,58,237,0.3); border-radius:30px; padding:8px 20px;">
-      <span style="font-size:20px">⭐</span>
-      <span style="font-family:'Syne',sans-serif; font-weight:700; font-size:15px; color:#a855f7">Anında teslim</span>
+    <div style="display:flex; align-items:center; gap:6px; background:rgba(124,58,237,0.1); border:1px solid rgba(124,58,237,0.3); border-radius:30px; padding:7px 14px;">
+      <span style="font-size:16px">⭐</span>
+      <span style="font-family:'Syne',sans-serif; font-weight:700; font-size:13px; color:#a855f7">Anında teslim</span>
     </div>
-    <div style="display:flex; align-items:center; gap:8px; background:rgba(255,107,53,0.1); border:1px solid rgba(255,107,53,0.3); border-radius:30px; padding:8px 20px;">
-      <span style="font-size:20px">🔒</span>
-      <span style="font-family:'Syne',sans-serif; font-weight:700; font-size:15px; color:#ff6b35">Güvenli ödeme</span>
+    <div style="display:flex; align-items:center; gap:6px; background:rgba(255,107,53,0.1); border:1px solid rgba(255,107,53,0.3); border-radius:30px; padding:7px 14px;">
+      <span style="font-size:16px">🔒</span>
+      <span style="font-family:'Syne',sans-serif; font-weight:700; font-size:13px; color:#ff6b35">Güvenli ödeme</span>
     </div>
   </div>
 </div>
@@ -654,13 +654,13 @@ footer {
       </div>
       <div class="adim">
         <div class="adim-num">2</div>
-        <h3>Öde & Al</h3>
-        <p>19 TL ödeme yap, benzersiz sürpriz linkin anında hazır.</p>
+        <h3>Seç & Al</h3>
+        <p>Ücretsiz gönder ya da 9 TL Premium'a geç — sürpriz linkin anında hazır!</p>
       </div>
       <div class="adim">
         <div class="adim-num">3</div>
         <h3>At & Bekle</h3>
-        <p>Linki WhatsApp'tan at. Açtığı an animasyon başlar, sürpriz patlar!</p>
+        <p>WhatsApp, SMS veya Instagram'dan at. Açtığı an animasyon başlar, sürpriz patlar! 🎉</p>
       </div>
     </div>
   </div>
@@ -679,18 +679,35 @@ footer {
 <!-- FİYAT -->
 <div class="fiyat-section">
   <h2 class="section-title">Fiyat</h2>
-  <p class="section-sub">Bir kahveden ucuz, bin kat daha etkili</p>
-  <div class="fiyat-grid" style="max-width:380px">
+  <p class="section-sub">Ücretsiz başla, istersen premium'a geç</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;max-width:680px;margin:0 auto;">
 
-    <div class="fiyat-kart populer">
-      <div class="populer-badge">⭐ Tek Fiyat</div>
-      <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:16px">Sürpriz Link</div>
-      <div class="fiyat">19<span> TL</span></div>
-      <div class="fiyat-aciklama">Tek seferlik sürpriz link</div>
-      <div class="fiyat-ozellik">Tüm kategori ve ambalajlar</div>
-      <div class="fiyat-ozellik">Fotoğraf yükleme</div>
-      <div class="fiyat-ozellik">Kişisel mesaj</div>
-      <div class="fiyat-ozellik">Anında teslim</div>
+    <!-- ÜCRETSİZ -->
+    <div class="fiyat-kart" style="flex:1;min-width:260px;max-width:320px;">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:4px;">🆓 Ücretsiz</div>
+      <div class="fiyat">0<span> TL</span></div>
+      <div class="fiyat-aciklama">Hemen dene, kayıt yok</div>
+      <div class="fiyat-ozellik">✅ Tüm kategori ve ambalajlar</div>
+      <div class="fiyat-ozellik">✅ Kişisel mesaj</div>
+      <div class="fiyat-ozellik">✅ Animasyonlu açılış</div>
+      <div class="fiyat-ozellik" style="color:var(--muted)">❌ Fotoğraf yok</div>
+      <div class="fiyat-ozellik" style="color:var(--muted)">❌ SürprizLink damgası</div>
+      <div class="fiyat-ozellik" style="color:var(--muted)">❌ 24 saat geçerli</div>
+      <button class="fiyat-btn" onclick="window.location.href='olustur.html'">Ücretsiz Dene</button>
+    </div>
+
+    <!-- PREMİUM -->
+    <div class="fiyat-kart populer" style="flex:1;min-width:260px;max-width:320px;">
+      <div class="populer-badge">⭐ Önerilen</div>
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:4px;">💎 Premium</div>
+      <div class="fiyat">9<span> TL</span></div>
+      <div class="fiyat-aciklama">Tek seferlik ödeme</div>
+      <div class="fiyat-ozellik">✅ Tüm kategori ve ambalajlar</div>
+      <div class="fiyat-ozellik">✅ Fotoğraf arka plan</div>
+      <div class="fiyat-ozellik">✅ Damgasız, tamamen kişisel</div>
+      <div class="fiyat-ozellik">✅ Süresiz link</div>
+      <div class="fiyat-ozellik">✅ Özel animasyon efektleri</div>
+      <div class="fiyat-ozellik">✅ Anında teslim</div>
       <button class="fiyat-btn" onclick="window.location.href='olustur.html'">Hemen Oluştur</button>
     </div>
 
@@ -748,7 +765,7 @@ footer {
         <span>🔗 Linki kaç kişiye gönderebilirim?</span>
         <span class="sss-ok">▼</span>
       </div>
-      <div class="sss-cevap">Linki istediğiniz kadar kişiye gönderebilirsiniz. Her açıldığında aynı sürpriz animasyonu çalışır!</div>
+      <div class="sss-cevap">İstediğin kadar kişiye gönderebilirsin! Ücretsiz linkte 24 saat içinde kaç kez açılırsa açılsın çalışır, 24 saat sonra sona erer. Premium'da link süresizdir, istediğin zaman açılabilir.</div>
     </div>
 
   </div>
