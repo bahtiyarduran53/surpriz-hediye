@@ -377,6 +377,8 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
       <div id="scroll-ipucu" style="text-align:center;padding:10px 0 4px;color:rgba(255,255,255,0.3);font-size:13px;animation:nabizPopup 1.5s ease-in-out infinite;">
         ↓ aşağı kaydır
       </div>
+      <!-- Scroll için alan — butonlar açılınca kaybolur -->
+      <div id="scroll-spacer" style="height:200px;"></div>
 
       <!-- Devam et / Geri butonları (oluştururken) -->
       <div class="popup-altlar">
@@ -899,6 +901,8 @@ function gercekPopupAc() {
             if (form) form.style.display = 'flex';
             var ipucu = document.getElementById('scroll-ipucu');
             if (ipucu) ipucu.style.display = 'none';
+            var spacer = document.getElementById('scroll-spacer');
+            if (spacer) spacer.style.display = 'none';
             popup.removeEventListener('scroll', onScroll);
           }
         });
