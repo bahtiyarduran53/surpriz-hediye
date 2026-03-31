@@ -7,13 +7,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0a0a0f; --surface: #13131a; --surface2: #1a1a24;
-  --border: #22222e; --text: #f0f0f8; --muted: #6b6b80;
-  --accent: #7c3aed; --accent2: #a855f7;
+  --bg: #EDF2F4; --surface: #ffffff; --surface2: #f0f4f6;
+  --border: #d0d8de; --text: #2B2D42; --muted: #8D99AE;
+  --accent: #2B2D42; --accent2: #8D99AE;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; border-bottom: 1px solid var(--border); background: rgba(10,10,15,0.9); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
+nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; border-bottom: 1px solid var(--border); background: rgba(237,242,244,0.95); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
 .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 22px; cursor: pointer; }
 .logo span { color: var(--accent); }
 .nav-back { color: var(--muted); font-size: 14px; cursor: pointer; }
@@ -21,8 +21,8 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 .adim-bar { display: flex; align-items: center; padding: 24px 48px; border-bottom: 1px solid var(--border); gap: 8px; }
 .adim-item { display: flex; align-items: center; gap: 8px; }
 .adim-daire { width: 28px; height: 28px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 12px; color: var(--muted); flex-shrink: 0; transition: all 0.3s; }
-.adim-daire.aktif { background: var(--accent); color: white; }
-.adim-daire.tamam { background: #22c55e; color: white; }
+.adim-daire.aktif { background: var(--accent); color: #2B2D42; }
+.adim-daire.tamam { background: #22c55e; color: #2B2D42; }
 .adim-label { font-size: 13px; color: var(--muted); font-family: 'Syne', sans-serif; font-weight: 700; }
 .adim-label.aktif { color: var(--text); }
 .adim-cizgi { flex: 1; height: 2px; background: var(--border); max-width: 60px; }
@@ -77,7 +77,7 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 .fiyat-satir { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; color: var(--muted); }
 .fiyat-toplam { display: flex; justify-content: space-between; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px; padding-top: 8px; border-top: 1px solid var(--border); margin-top: 8px; }
 .fiyat-toplam span { color: var(--accent); }
-.cta-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--accent), var(--accent2)); border: none; border-radius: 14px; color: white; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; cursor: pointer; transition: all 0.2s; }
+.cta-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--accent), var(--accent2)); border: none; border-radius: 14px; color: #2B2D42; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; cursor: pointer; transition: all 0.2s; }
 .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,0.4); }
 .onizle-btn { width: 100%; padding: 14px; background: transparent; border: 2px solid var(--accent); border-radius: 14px; color: var(--accent2); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; cursor: pointer; transition: all 0.2s; margin-top: 14px; }
 .onizle-btn:hover { background: rgba(124,58,237,0.08); }
@@ -86,8 +86,8 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 /* POPUP */
 .onizleme-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(8px); }
 .onizleme-overlay.aktif { display: flex; }
-.onizleme-popup { background: #0a0a0f; border: 1px solid var(--border); border-radius: 24px; width: 100%; max-width: 420px; height: 88vh; max-height: 88vh; display: flex; flex-direction: column; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; animation: popupGel 0.4s cubic-bezier(0.34,1.56,0.64,1) both; }
-.onizleme-overlay.tam-ekran { padding: 0; background: #0a0a0f; }
+.onizleme-popup { background: #EDF2F4; border: 1px solid var(--border); border-radius: 24px; width: 100%; max-width: 420px; height: 88vh; max-height: 88vh; display: flex; flex-direction: column; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; animation: popupGel 0.4s cubic-bezier(0.34,1.56,0.64,1) both; }
+.onizleme-overlay.tam-ekran { padding: 0; background: #EDF2F4; }
 .onizleme-overlay.tam-ekran .onizleme-popup { max-width: 100%; max-height: 100vh; height: 100vh; border-radius: 0; border: none; }
 @keyframes popupGel { from{opacity:0;transform:scale(0.8) translateY(30px)} to{opacity:1;transform:scale(1) translateY(0)} }
 .onizleme-sahne { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; position: relative; text-align: center; gap: 16px; overflow: hidden; }
@@ -100,11 +100,11 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 @keyframes nabizPopup { 0%,100%{opacity:1} 50%{opacity:0.5} }
 .popup-mesaj-alan { display: none; flex-direction: column; align-items: center; gap: 10px; padding: 20px; position: relative; z-index: 2; width: 100%; }
 .popup-acik-emoji { font-size: 64px; }
-.popup-mesaj-kutu { background: rgba(0,0,0,0.5); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; padding: 16px 20px; width: 100%; text-align: center; }
-.popup-mesaj-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; color: white; line-height: 1.4; }
+.popup-mesaj-kutu { background: rgba(0,0,0,0.5); backdrop-filter: blur(12px); border: 1px solid rgba(43,45,66,0.1); border-radius: 16px; padding: 16px 20px; width: 100%; text-align: center; }
+.popup-mesaj-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; color: #2B2D42; line-height: 1.4; }
 .popup-gonderen { font-size: 13px; color: var(--accent2); margin-top: 6px; }
 .popup-altlar { padding: 16px 20px 20px; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid var(--border); }
-.popup-satin-al { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--accent), var(--accent2)); border: none; border-radius: 14px; color: white; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; cursor: pointer; transition: all 0.2s; }
+.popup-satin-al { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--accent), var(--accent2)); border: none; border-radius: 14px; color: #2B2D42; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; cursor: pointer; transition: all 0.2s; }
 .popup-satin-al:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,0.4); }
 .popup-geri { width: 100%; padding: 12px; background: transparent; border: 1px solid var(--border); border-radius: 14px; color: var(--muted); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.2s; }
 .popup-geri:hover { border-color: var(--muted); color: var(--text); }
@@ -118,7 +118,7 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 }
 .secim-overlay.aktif { display: flex; }
 .secim-popup {
-  background: #0a0a0f; border: 1px solid var(--border);
+  background: #EDF2F4; border: 1px solid var(--border);
   border-radius: 28px; width: 100%; max-width: 480px;
   overflow: hidden; animation: popupGel 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
 }
@@ -140,7 +140,7 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 .secim-etiket {
   position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
   background: linear-gradient(135deg, #7c3aed, #a855f7);
-  color: white; font-family: 'Syne', sans-serif; font-weight: 800;
+  color: #2B2D42; font-family: 'Syne', sans-serif; font-weight: 800;
   font-size: 12px; letter-spacing: 1px; padding: 4px 16px; border-radius: 20px;
   white-space: nowrap;
 }
@@ -161,7 +161,7 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 }
 .secim-btn.ucretsiz-btn:hover { color: var(--text); border-color: var(--muted); }
 .secim-btn.premium-btn {
-  background: linear-gradient(135deg, #7c3aed, #a855f7); color: white;
+  background: linear-gradient(135deg, #7c3aed, #a855f7); color: #2B2D42;
 }
 .secim-btn.premium-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,0.4); }
 .secim-geri {
@@ -188,40 +188,6 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
 <audio id="ses-konfeti" src="konfeti.wav" preload="auto"></audio>
 
 <!-- SEÇİM EKRANI -->
-<div class="secim-overlay" id="secim-overlay">
-  <div class="secim-popup">
-    <div class="secim-baslik">
-      <span>🎉</span>
-      Harika! Sürprizin hazır!
-    </div>
-    <div class="secim-kartlar">
-
-      <!-- ÜCRETSİZ -->
-      <div class="secim-kart ucretsiz">
-        <div class="secim-kart-baslik">🆓 Ücretsiz</div>
-        <div class="secim-ozellik var">✅ Sürpriz linki oluşturulur</div>
-        <div class="secim-ozellik var">✅ Tüm kategoriler</div>
-        <div class="secim-ozellik yok">❌ Fotoğraf gösterilmez</div>
-        <div class="secim-ozellik yok">❌ "SürprizLink ile" damgası</div>
-        <div class="secim-ozellik yok">❌ 48 saat geçerli</div>
-        <button class="secim-btn ucretsiz-btn" onclick="ucretsizDevam()">Ücretsiz Devam Et</button>
-      </div>
-
-      <!-- PREMİUM -->
-      <div class="secim-kart premium">
-        <div class="secim-etiket">⭐ ÖNERİLEN</div>
-        <div class="secim-kart-baslik">💎 Premium — 9 TL</div>
-        <div class="secim-ozellik var">✅ Fotoğrafın da gönderilir</div>
-        <div class="secim-ozellik var">✅ Damga yok, tamamen kişisel</div>
-        <div class="secim-ozellik var">✅ Süresiz link</div>
-        <div class="secim-ozellik var">✅ Özel animasyon efektleri</div>
-        <button class="secim-btn premium-btn" onclick="premiumDevam()">💳 9 TL ile Devam Et</button>
-      </div>
-
-    </div>
-    <div class="secim-geri" onclick="secimKapat()">← Geri dön, düzenle</div>
-  </div>
-</div>
 
 <nav>
   <div class="logo" onclick="window.location.href='index.html'">Sürpriz<span>Link</span></div>
@@ -371,7 +337,7 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
     </div>
 
     <!-- Alt bölüm — scroll edilince görünür -->
-    <div style="position:relative;z-index:2;background:#0a0a0f;">
+    <div style="position:relative;z-index:2;background:#EDF2F4;">
 
       <!-- Devam et / Geri butonları (oluştururken) -->
       <div class="popup-altlar">
@@ -380,21 +346,8 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
       </div>
 
       <!-- Premium teşvik (sadece ücretsizde) -->
-      <div id="premium-tesvik" style="display:none;padding:0 20px 16px;">
-        <div style="background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(168,85,247,0.1));border:1px solid rgba(124,58,237,0.4);border-radius:16px;padding:14px;display:flex;align-items:center;gap:10px;">
-          <div style="font-size:28px;">📸</div>
-          <div style="flex:1;">
-            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:white;margin-bottom:2px;">Fotoğraflı versiyonu görmek ister misin?</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.55);">Arka plan fotoğrafı + süresiz link</div>
-          </div>
-          <button onclick="premiumSatinAl()" style="background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;border-radius:10px;color:white;font-family:'Syne',sans-serif;font-weight:800;font-size:12px;padding:8px 12px;cursor:pointer;white-space:nowrap;">
-            💎 9 TL
-          </button>
-        </div>
-      </div>
-
       <!-- Yorum formu -->
-      <div id="yorum-formu" style="display:none;flex-direction:column;gap:10px;padding:0 20px 20px;border-top:1px solid #22222e;padding-top:16px;">
+      <div id="yorum-formu" style="display:none;flex-direction:column;gap:10px;padding:0 20px 20px;border-top:1px solid #d0d8de;padding-top:16px;">
         <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:rgba(255,255,255,0.7);text-align:center;">Sürprizi nasıl buldun? ⭐</div>
         <div id="yildiz-sec" style="display:flex;justify-content:center;gap:8px;font-size:32px;cursor:pointer;">
           <span onclick="yildizSec(1)" id="y1">☆</span>
@@ -404,10 +357,10 @@ nav { display: flex; align-items: center; justify-content: space-between; paddin
           <span onclick="yildizSec(5)" id="y5">☆</span>
         </div>
         <input id="yorum-isim" type="text" placeholder="Adınız" maxlength="30"
-          style="padding:10px 14px;background:#0a0a0f;border:1px solid #22222e;border-radius:10px;color:white;font-size:14px;outline:none;font-family:'DM Sans',sans-serif;">
+          style="padding:10px 14px;background:#EDF2F4;border:1px solid #d0d8de;border-radius:10px;color:#2B2D42;font-size:14px;outline:none;font-family:'DM Sans',sans-serif;">
         <textarea id="yorum-metin" rows="3" placeholder="Yorumunuzu yazın..." maxlength="200"
-          style="padding:10px 14px;background:#0a0a0f;border:1px solid #22222e;border-radius:10px;color:white;font-size:14px;outline:none;resize:none;font-family:'DM Sans',sans-serif;"></textarea>
-        <button onclick="yorumGonder()" style="width:100%;padding:12px;background:#22c55e;border:none;border-radius:10px;color:white;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">
+          style="padding:10px 14px;background:#EDF2F4;border:1px solid #d0d8de;border-radius:10px;color:#2B2D42;font-size:14px;outline:none;resize:none;font-family:'DM Sans',sans-serif;"></textarea>
+        <button onclick="yorumGonder()" style="width:100%;padding:12px;background:#22c55e;border:none;border-radius:10px;color:#2B2D42;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">
           ✓ Yorum Gönder
         </button>
         <div id="yorum-basari" style="display:none;text-align:center;color:#22c55e;font-size:13px;font-family:'Syne',sans-serif;font-weight:700;">
@@ -788,7 +741,7 @@ function popupAc() {
   overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;';
 
   var sayimEl = document.createElement('div');
-  sayimEl.style.cssText = 'font-size:140px;font-weight:900;color:white;font-family:Syne,sans-serif;line-height:1;transition:transform 0.1s;';
+  sayimEl.style.cssText = 'font-size:140px;font-weight:900;color:#2B2D42;font-family:Syne,sans-serif;line-height:1;transition:transform 0.1s;';
 
   var altyazi = document.createElement('div');
   altyazi.style.cssText = 'font-size:18px;color:rgba(255,255,255,0.6);font-family:Syne,sans-serif;font-weight:700;letter-spacing:3px;';
@@ -964,8 +917,9 @@ function secimAc() {
   state.mesaj = document.getElementById('mesaj').value;
   if (!state.mesaj.trim()) { alert('Lütfen mesaj yazın!'); return; }
   state.gonderen = document.getElementById('gonderen').value;
-  document.getElementById('secim-overlay').classList.add('aktif');
-  document.body.style.overflow = 'hidden';
+  state.premium = true; // Artık hepsi premium
+  localStorage.setItem('hediye_data', JSON.stringify(state));
+  window.location.href = 'hazir.html';
 }
 
 function secimKapat() {
@@ -974,18 +928,11 @@ function secimKapat() {
 }
 
 function ucretsizDevam() {
-  secimKapat();
-  state.premium = false;
-  state.foto = null; // Ücretsizde fotoğraf yok
-  localStorage.setItem('hediye_data', JSON.stringify(state));
-  window.location.href = 'hazir.html';
+  secimAc();
 }
 
 function premiumDevam() {
-  secimKapat();
-  state.premium = true;
-  localStorage.setItem('hediye_data', JSON.stringify(state));
-  window.location.href = 'https://www.shopier.com/SurprizLink/45665210';
+  secimAc();
 }
 
 function odemeGit() {
@@ -1070,7 +1017,7 @@ window.onload = async function() {
         if (d.olusturma) {
           var fark = new Date().getTime() - new Date(d.olusturma).getTime();
           if (fark > 24 * 60 * 60 * 1000) {
-            document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#0a0a0f;color:white;font-family:Arial,sans-serif;text-align:center;padding:24px;flex-direction:column;gap:16px;"><div style="font-size:64px">⌛</div><h2>Link Süresi Doldu</h2><p style="color:#888">Bu ücretsiz link 24 saatlik süresini tamamladı.</p><a href="/" style="background:#7c3aed;color:white;padding:14px 32px;border-radius:12px;text-decoration:none;font-weight:700;">🎁 Yeni Sürpriz Oluştur</a></div>';
+            document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#EDF2F4;color:#2B2D42;font-family:Arial,sans-serif;text-align:center;padding:24px;flex-direction:column;gap:16px;"><div style="font-size:64px">⌛</div><h2>Link Süresi Doldu</h2><p style="color:#888">Bu ücretsiz link 24 saatlik süresini tamamladı.</p><a href="/" style="background:#7c3aed;color:#2B2D42;padding:14px 32px;border-radius:12px;text-decoration:none;font-weight:700;">🎁 Yeni Sürpriz Oluştur</a></div>';
             return;
           }
         }
@@ -1196,7 +1143,7 @@ function filigranEkle() {
   ctx.translate(canvas.width/2, canvas.height/2);
   ctx.rotate(-30 * Math.PI / 180);
   ctx.font = '900 16px Arial';
-  ctx.fillStyle = 'rgba(255,255,255,0.08)';
+  ctx.fillStyle = 'rgba(43,45,66,0.07)';
   var metin = 'SÜRPRİZLİNK.COM  ✦  ';
   var genislik = ctx.measureText(metin).width;
   var satirAraligi = 45;
