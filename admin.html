@@ -7,9 +7,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0a0a0f; --surface: #13131a; --surface2: #1a1a24;
-  --border: #22222e; --text: #f0f0f8; --muted: #6b6b80;
-  --accent: #7c3aed; --accent2: #a855f7;
+  --bg: #EDF2F4; --surface: #ffffff; --surface2: #f0f4f6;
+  --border: #d0d8de; --text: #2B2D42; --muted: #8D99AE;
+  --accent: #2B2D42; --accent2: #8D99AE;
   --green: #22c55e; --red: #ef4444; --yellow: #f59e0b;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -38,7 +38,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 .giris-input:focus { border-color: var(--accent); }
 .giris-btn {
   width: 100%; padding: 14px; background: linear-gradient(135deg, var(--accent), var(--accent2));
-  border: none; border-radius: 12px; color: white;
+  border: none; border-radius: 12px; color: #2B2D42;
   font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px;
   cursor: pointer; transition: all 0.2s;
 }
@@ -78,7 +78,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
   font-weight: 700; font-size: 13px; cursor: pointer; transition: all 0.2s;
   text-align: center;
 }
-.tab-btn.aktif { background: var(--accent); color: white; }
+.tab-btn.aktif { background: var(--accent); color: #2B2D42; }
 .tab-btn:hover:not(.aktif) { color: var(--text); }
 
 .tab-icerik { display: none; }
@@ -151,7 +151,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 .form-input:focus { border-color: var(--accent); }
 .ekle-btn {
   padding: 10px 20px; background: var(--accent); border: none;
-  border-radius: 10px; color: white; font-family: 'Syne', sans-serif;
+  border-radius: 10px; color: #2B2D42; font-family: 'Syne', sans-serif;
   font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.2s;
   white-space: nowrap;
 }
@@ -302,9 +302,9 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
     <!-- YORUMLAR -->
     <div class="tab-icerik" id="tab-yorumlar">
       <div style="display:flex; gap:10px; margin-bottom:16px;">
-        <button onclick="yorumFiltre('bekleyen')" id="filtre-bekleyen" style="padding:8px 16px;border-radius:8px;border:none;background:#f59e0b;color:white;font-weight:700;cursor:pointer;font-size:13px;">⏳ Bekleyen</button>
-        <button onclick="yorumFiltre('onaylanan')" id="filtre-onaylanan" style="padding:8px 16px;border-radius:8px;border:1px solid #22222e;background:transparent;color:#6b6b80;font-weight:700;cursor:pointer;font-size:13px;">✅ Onaylanan</button>
-        <button onclick="yorumFiltre('hepsi')" id="filtre-hepsi" style="padding:8px 16px;border-radius:8px;border:1px solid #22222e;background:transparent;color:#6b6b80;font-weight:700;cursor:pointer;font-size:13px;">📋 Hepsi</button>
+        <button onclick="yorumFiltre('bekleyen')" id="filtre-bekleyen" style="padding:8px 16px;border-radius:8px;border:none;background:#f59e0b;color:#2B2D42;font-weight:700;cursor:pointer;font-size:13px;">⏳ Bekleyen</button>
+        <button onclick="yorumFiltre('onaylanan')" id="filtre-onaylanan" style="padding:8px 16px;border-radius:8px;border:1px solid #d0d8de;background:transparent;color:#6b6b80;font-weight:700;cursor:pointer;font-size:13px;">✅ Onaylanan</button>
+        <button onclick="yorumFiltre('hepsi')" id="filtre-hepsi" style="padding:8px 16px;border-radius:8px;border:1px solid #d0d8de;background:transparent;color:#6b6b80;font-weight:700;cursor:pointer;font-size:13px;">📋 Hepsi</button>
       </div>
       <div id="yorum-admin-liste" style="display:flex;flex-direction:column;gap:12px;">
         <div style="text-align:center;padding:32px;color:var(--muted)">Yükleniyor...</div>
