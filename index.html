@@ -141,10 +141,10 @@ nav {
 
 .btn-primary {
   padding: 16px 32px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  background: #2B2D42;
   border: none;
   border-radius: 14px;
-  color: #2B2D42;
+  color: #ffffff;
   font-family: 'Syne', sans-serif;
   font-weight: 700;
   font-size: 16px;
@@ -154,15 +154,16 @@ nav {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(124,58,237,0.4);
+  box-shadow: 0 8px 24px rgba(43,45,66,0.3);
+  background: #3d3f5a;
 }
 
 .btn-secondary {
   padding: 16px 32px;
   background: transparent;
-  border: 2px solid var(--border);
+  border: 2px solid #2B2D42;
   border-radius: 14px;
-  color: var(--text);
+  color: #2B2D42;
   font-family: 'Syne', sans-serif;
   font-weight: 700;
   font-size: 16px;
@@ -430,9 +431,9 @@ nav {
   margin-top: 24px;
   padding: 14px;
   border-radius: 12px;
-  border: 2px solid var(--accent);
-  background: transparent;
-  color: var(--text);
+  border: none;
+  background: #2B2D42;
+  color: #ffffff;
   font-family: 'Syne', sans-serif;
   font-weight: 700;
   font-size: 15px;
@@ -441,12 +442,14 @@ nav {
 }
 
 .fiyat-kart.populer .fiyat-btn {
-  background: var(--accent);
+  background: #2B2D42;
+  color: #ffffff;
 }
 
 .fiyat-btn:hover {
-  background: var(--accent);
-  color: #2B2D42;
+  background: #3d3f5a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(43,45,66,0.25);
 }
 
 /* ── FOOTER ── */
@@ -513,6 +516,19 @@ footer {
     <button class="btn-secondary" onclick="document.getElementById('nasil').scrollIntoView({behavior:'smooth'})">Nasıl Çalışır?</button>
   </div>
   <div style="margin-top:24px; display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:nowrap;">
+    <div style="display:flex; align-items:center; gap:6px; background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.3); border-radius:30px; padding:7px 14px;">
+      <span style="font-size:16px">🎁</span>
+      <span style="font-family:'Syne',sans-serif; font-weight:700; font-size:13px; color:#22c55e"><span id="satis-sayac">...</span> gönderildi</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:6px; background:rgba(43,45,66,0.08); border:1px solid rgba(43,45,66,0.2); border-radius:30px; padding:7px 14px;">
+      <span style="font-size:16px">⚡</span>
+      <span style="font-family:'Syne',sans-serif; font-weight:700; font-size:13px; color:#2B2D42">Anında teslim</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:6px; background:rgba(43,45,66,0.08); border:1px solid rgba(43,45,66,0.2); border-radius:30px; padding:7px 14px;">
+      <span style="font-size:16px">🎉</span>
+      <span style="font-family:'Syne',sans-serif; font-weight:700; font-size:13px; color:#2B2D42">Tamamen ücretsiz</span>
+    </div>
+  </div>
     <div style="display:flex; align-items:center; gap:6px; background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.3); border-radius:30px; padding:7px 14px;">
       <span style="font-size:16px">🎁</span>
       <span style="font-family:'Syne',sans-serif; font-weight:700; font-size:13px; color:#22c55e"><span id="satis-sayac">...</span> gönderildi</span>
@@ -654,8 +670,8 @@ footer {
       </div>
       <div class="adim">
         <div class="adim-num">2</div>
-        <h3>Seç & Al</h3>
-        <p>Ücretsiz gönder ya da 9 TL Premium'a geç — sürpriz linkin anında hazır!</p>
+        <h3>Linki Al</h3>
+        <p>Sürpriz linkin anında hazır — kayıt yok, ödeme yok!</p>
       </div>
       <div class="adim">
         <div class="adim-num">3</div>
@@ -705,10 +721,10 @@ footer {
 
     <div class="sss-kart">
       <div class="sss-soru" onclick="sssAc(this)">
-        <span>💳 Ödeme yaptım, link ne zaman gelir?</span>
+        <span>🎁 Nasıl sürpriz oluşturabilirim?</span>
         <span class="sss-ok">▼</span>
       </div>
-      <div class="sss-cevap">Ödemeniz onaylandıktan hemen sonra Shopier sipariş sayfasındaki linke tıklayarak sürpriz linkinizi alabilirsiniz. Anında teslim!</div>
+      <div class="sss-cevap">Kategori seç, ambalaj belirle, mesajını yaz, istersen fotoğraf ekle. Tek tıkla linkin hazır — tamamen ücretsiz!</div>
     </div>
 
     <div class="sss-kart">
@@ -716,7 +732,7 @@ footer {
         <span>🎁 Karşı taraf linki açmazsa ne olur?</span>
         <span class="sss-ok">▼</span>
       </div>
-      <div class="sss-cevap">Link kalıcıdır, istediğiniz zaman tekrar gönderebilirsiniz. Linki WhatsApp, Instagram, SMS ile paylaşabilirsiniz.</div>
+      <div class="sss-cevap">Link süresizdir, istediğin zaman tekrar gönderebilirsin. WhatsApp, Instagram veya SMS ile paylaşabilirsin.</div>
     </div>
 
     <div class="sss-kart">
@@ -724,15 +740,7 @@ footer {
         <span>📸 Yüklediğim fotoğraf güvende mi?</span>
         <span class="sss-ok">▼</span>
       </div>
-      <div class="sss-cevap">Fotoğrafınız yalnızca sürpriz linkinizde görüntülenir, başka hiç kimseyle paylaşılmaz. Güvenli sunucuda saklanır.</div>
-    </div>
-
-    <div class="sss-kart">
-      <div class="sss-soru" onclick="sssAc(this)">
-        <span>↩️ İade politikası nedir?</span>
-        <span class="sss-ok">▼</span>
-      </div>
-      <div class="sss-cevap">Link oluşturulduktan sonra dijital ürün niteliği taşıdığından iade yapılamamaktadır. Satın almadan önce ücretsiz önizleme özelliğini kullanabilirsiniz.</div>
+      <div class="sss-cevap">Fotoğrafın yalnızca sürpriz linkinde görüntülenir, başka kimseyle paylaşılmaz. Güvenli sunucuda saklanır.</div>
     </div>
 
     <div class="sss-kart">
@@ -740,7 +748,7 @@ footer {
         <span>📱 Mobilde çalışıyor mu?</span>
         <span class="sss-ok">▼</span>
       </div>
-      <div class="sss-cevap">Evet! SürprizLink tüm cihazlarda çalışır. Telefon, tablet ve bilgisayardan sorunsuz kullanabilirsiniz.</div>
+      <div class="sss-cevap">Evet! SürprizLink tüm cihazlarda çalışır. Telefon, tablet ve bilgisayardan sorunsuz kullanabilirsin.</div>
     </div>
 
     <div class="sss-kart">
@@ -748,7 +756,7 @@ footer {
         <span>🔗 Linki kaç kişiye gönderebilirim?</span>
         <span class="sss-ok">▼</span>
       </div>
-      <div class="sss-cevap">İstediğin kadar kişiye gönderebilirsin! Ücretsiz linkte 24 saat içinde kaç kez açılırsa açılsın çalışır, 24 saat sonra sona erer. Premium'da link süresizdir, istediğin zaman açılabilir.</div>
+      <div class="sss-cevap">İstediğin kadar kişiye gönderebilirsin! Link süresizdir, kaç kez açılırsa açılsın çalışır.</div>
     </div>
 
   </div>
