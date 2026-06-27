@@ -756,11 +756,11 @@ async function sayacYukle() {
     });
     var data = await r.json();
     var gercek = Array.isArray(data) ? data.length : 0;
-    var baslangic = 1247;
+    var baslangic = 124647;
     var toplam = baslangic + gercek;
-    document.getElementById('satis-sayac').textContent = toplam;
+    document.getElementById('satis-sayac').textContent = toplam.toLocaleString('tr-TR');
   } catch(e) {
-    document.getElementById('satis-sayac').textContent = '1247';
+    document.getElementById('satis-sayac').textContent = '124.647';
   }
 }
 sayacYukle();
